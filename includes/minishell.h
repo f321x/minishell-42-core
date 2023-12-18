@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 17:31:36 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:04:48 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,3 +58,4 @@ bool	pwd(void);
 
 // export.c
 bool	export(char *env_pair);
+void	free_old_env(char **old_env);
