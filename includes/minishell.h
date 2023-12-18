@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 13:57:09 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 14:00:02 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <termios.h>
+
+#define SHELL_PROMPT "minishell$"
 
 typedef struct s_process {
 	char *name;
