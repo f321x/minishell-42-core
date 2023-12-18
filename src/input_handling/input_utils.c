@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 13:39:10 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 13:40:29 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ char *read_a_line(char *prompt)
 	while (1)
 	{
 		entered_line = readline(prompt);
-		if (!entered_line)
+		if (!entered_line)  // some kind of error
 			continue ;
-		if (!(*entered_line))
+		if (!(*entered_line))  // empty line, will not be used
 		{
 			free(entered_line);
 			continue ;
