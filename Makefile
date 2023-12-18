@@ -6,14 +6,14 @@
 #    By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/18 09:05:01 by ***REMOVED***            ###   ########.fr        #
+#    Updated: 2023/12/18 13:54:59 by ***REMOVED***            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= minishell
 
 CC 		:= cc
-CFLAGS 	:= -Wall -Wextra -Werror
+# CFLAGS 	:= -Wall -Wextra -Werror
 DFLAGS 	:= -g3
 DNAME 	:= minishell_debug
 HEADERS = -I./includes
@@ -22,11 +22,12 @@ SRCDIR	:= src
 OBJDIR	:= objs
 LIBDIR	:= libs
 
-SRCS 	:= builtins/***.c
+SRCS 	:= $(SRCDIR)/minishell.c \
+$(SRCDIR)/input_handling/input_utils.c
 
-OBJS	:= $(addprefix $(OBJDIR)/, $(notdir ${SRCS:.c=.o}))
-DOBJS   := $(addprefix $(OBJDIR)/, $(notdir ${SRCS:.c=.d.o}))
-$(shell mkdir -p $(OBJDIR))
+OBJS	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+DOBJS   := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.d.o,$(SRCS))
+$(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling)
 
 all: $(NAME)
 
