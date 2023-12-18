@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   echo.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 14:58:11 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 15:34:43 by ***REMOVED***            ###   ########.fr       */
+/*   Created: 2023/12/18 15:31:48 by ***REMOVED***             #+#    #+#             */
+/*   Updated: 2023/12/18 15:42:42 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// takes the string to print after the echo command, or after -n if existing
-// if -n exists, newline is false. ENV variables have to be placed in the
-// string beforehand.
-bool	echo(const char *after_echo, bool n_flag)
+bool	pwd(void)
 {
-	int error;
+	char	buffer[CWD_BUFFER_SIZE];
+	char	*getcwd_retv;
+	int		error;
 
-	if (!n_flag)
-		error = printf("%s\n", after_echo);
-	else
-		error = printf("%s", after_echo);
+	getcwd_retv = getcwd(buffer, CWD_BUFFER_SIZE);
+	if (getcwd_retv == NULL)
+	{
+		perror("Error getting path.");
+		return (false);
+	}
+	error = printf("%s\n", buffer);
 	if (error < 0)
 	{
-		perror("Error printing echo.")
+		perror("Error printing path.");
 		return (false);
 	}
 	return (true);
