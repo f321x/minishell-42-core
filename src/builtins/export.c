@@ -6,13 +6,13 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:11:27 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:35:00 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static	size_t	get_env_length(void)
+size_t	get_env_length(void)
 {
 	extern char	**environ;
 	size_t		env_size;
