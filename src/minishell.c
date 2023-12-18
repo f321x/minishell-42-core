@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 13:26:14 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 13:32:35 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int	main(char **envp)
 	while (1)
 	{
 		entered_line = readline("minishell$ ");
+		if (!entered_line || !(*entered_line))
+			continue ;
+
+		add_history(entered_line);
 		pipe_struct = parse_line(entered_line);
 		execute_line(pipe_struct);
 	}
