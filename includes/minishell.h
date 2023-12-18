@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:35:07 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:56:19 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,3 +63,6 @@ size_t	get_env_length(void);
 
 // unset.c
 bool	unset(char *variable_name);
+
+// env.c
+bool	env(void);
