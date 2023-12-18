@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 17:31:29 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:06:30 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,25 @@ static bool set_new_environ(char* new_pair, char **new_environ,
 	return (true);
 }
 
-static void	free_old_env(char **old_env)
+void	free_old_env(char **old_env)
 {
-	size_t	index;
+	size_t			index;
+	extern char 	**environ;
+	static	size_t	called = 0;
 
 	index = 0;
-	while (old_env && old_env[index])
+	called++;
+	if (!old_env)
+		old_env = environ;
+	if (called > 1)  // first time is system memory and can't be freed, 2nd+ is self allocated.
 	{
-		free(old_env[index]);
-		index++;
+		while (old_env && old_env[index])
+		{
+			free(old_env[index]);
+			index++;
+		}
+		free(old_env);
 	}
-	free(old_env);
 }
 
 // call for each pair of variable=value to export it to the env
