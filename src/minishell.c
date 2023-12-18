@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 14:00:50 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 14:54:46 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_pipe 	pipe_struct;
+	t_pipe 	parsed_command;
 	char	*entered_line;
-	// handlers
+
+	// signal handlers
 
 	while (1)
 	{
@@ -28,8 +29,9 @@ int	main(int argc, char **argv, char **envp)
 		free(entered_line);
 		continue ;
 
-		// pipe_struct = parse_line(entered_line);
-		// execute_line(pipe_struct);
+		if (!parse_line(entered_line, &parsed_command))
+			continue ;
+		// execute_line(parsed_command);
 	}
 
 	return (0);
