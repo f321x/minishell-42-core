@@ -6,7 +6,7 @@
 #    By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/18 16:21:58 by ***REMOVED***            ###   ########.fr        #
+#    Updated: 2023/12/18 17:32:04 by ***REMOVED***            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,13 @@ CC 		:= cc
 # CFLAGS 	:= -Wall -Wextra -Werror
 DFLAGS 	:= -g3
 DNAME 	:= minishell_debug
-HEADERS = -I./includes
+HEADERS = -I./includes -I ./libs/libft/includes
 
-SRCDIR	:= src
-OBJDIR	:= objs
-LIBDIR	:= libs
+
+SRCDIR		:= src
+OBJDIR		:= objs
+LIBFT 		:= libs/libft/libft.a
+LIBFT_DEBUG := libs/libft/libft_debug.a
 
 SRCS 	:= $(SRCDIR)/minishell.c \
 $(SRCDIR)/input_handling/input_utils.c \
@@ -29,7 +31,7 @@ $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/export.c $(
 
 OBJS	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 DOBJS   := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.d.o,$(SRCS))
-$(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling)
+$(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling $(OBJDIR)/parsing $(OBJDIR)/builtins)
 
 all: $(NAME)
 
@@ -40,19 +42,19 @@ $(OBJDIR)/%.d.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) $(DFLAGS) $(HEADERS) -c $< -o $@
 
 $(NAME): $(OBJS)
-	make -C $(LIBDIR)/libft
-	$(CC) $(CFLAGS) $(HEADERS) $(OBJS) -o $(NAME)
+	make -C libs/libft
+	$(CC) $(CFLAGS) $(LIBFT) $(HEADERS) $(OBJS) -o $(NAME)
 
 debug: $(DOBJS)
-	make -C $(LIBDIR)/libft debug
-	$(CC) $(CFLAGS) $(DFLAGS) $(HEADERS) $(DOBJS) -o $(DNAME)
+	make -C libs/libft debug
+	$(CC) $(CFLAGS) $(DFLAGS) $(LIBFT_DEBUG) $(HEADERS) $(DOBJS) -o $(DNAME)
 
 clean:
-	make -C $(LIBDIR)/libft clean
+	make -C libs/libft clean
 	rm -rf $(OBJDIR)
 
 fclean: clean
-	make -C $(LIBDIR)/libft fclean
+	make -C libs/libft fclean
 	rm -rf $(NAME) $(DNAME)
 
 re: fclean all

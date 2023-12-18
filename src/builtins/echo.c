@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:58:11 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 15:34:43 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 17:30:36 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	echo(const char *after_echo, bool n_flag)
 		error = printf("%s", after_echo);
 	if (error < 0)
 	{
-		perror("Error printing echo.")
+		perror("Error printing echo.");
 		return (false);
 	}
 	return (true);
