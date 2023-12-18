@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 09:33:01 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 13:02:16 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,3 +26,16 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <termios.h>
+
+typedef struct s_process {
+	char *name;
+	char **argv;
+	char **env;
+}	t_process;
+
+typedef struct s_pipe {
+	t_process	*processes;
+	size_t		p_amount;
+	char 		*input_file;
+	char		*output_file;
+}	t_pipe;
