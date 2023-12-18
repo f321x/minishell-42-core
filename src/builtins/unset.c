@@ -6,25 +6,13 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:45:21 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:45:54 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// static bool	init_new_environ(char *remove_var, char **new_environ,
-// 								char **old_environ, size_t size)
-// {
-// 	if (!copy_old_env(old_environ, new_environ, size))
-// 	{
-// 		free(new_env_var_heap);
-// 		return (false);
-// 	}
-// 	new_environ[size] = NULL;
-// 	return (true);
-// }
-
-bool	init_new_environ(char *remove_var, char **old_env,
+static bool	init_new_environ(char *remove_var, char **old_env,
 							char **new_env, size_t env_size)
 {
 	long	new_index;
