@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:09:25 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:11:27 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	free_old_env(char **old_env)
 }
 
 // call for each pair of variable=value to export it to the env
-bool	export(char *env_pair)
+bool	export_one_pair(char *env_pair)
 {
 	extern char	**environ;
 	char		**old_env_buffer;
