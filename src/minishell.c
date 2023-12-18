@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 13:58:47 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 14:00:50 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		entered_line = read_a_line("minishell$ ");
+		entered_line = read_a_line(SHELL_PROMPT);
 
 		// testing of readline
 		printf("%s\n", entered_line);

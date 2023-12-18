@@ -6,13 +6,14 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 13:18:10 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 14:01:15 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	parse_line(void)
+void	parse_line(char *entered_line)
 {
+
 
 }
