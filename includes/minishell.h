@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 14:00:02 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 15:16:47 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@
 #define SHELL_PROMPT "minishell$"
 
 typedef struct s_process {
-	char *name;
-	char **argv;
-	char **env;
+	char 	*name;
+	char	*path;
+	char 	**argv;
+	char 	**env;
 }	t_process;
 
 typedef struct s_pipe {
@@ -44,3 +45,6 @@ typedef struct s_pipe {
 
 // input_utils.c
 char	*read_a_line(char *prompt);
+
+// echo.c
+void	echo(const char *after_echo, bool n_flag);
