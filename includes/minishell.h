@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:04:48 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:11:33 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,5 @@ bool	cd(const char *entered_path_arg);
 bool	pwd(void);
 
 // export.c
-bool	export(char *env_pair);
+bool	export_one_pair(char *env_pair);
 void	free_old_env(char **old_env);
