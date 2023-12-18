@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:06:30 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/18 19:09:25 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static	size_t	get_env_length(void)
 {
 	extern char	**environ;
-	size_t	env_size;
+	size_t		env_size;
 
 	env_size = 0;
 	while (environ && environ[env_size] != NULL)
@@ -46,7 +46,7 @@ static bool	copy_old_env(char **old_env, char **new_env, size_t env_size)
 	return (true);
 }
 
-static bool set_new_environ(char* new_pair, char **new_environ,
+static bool	set_new_environ(char *new_pair, char **new_environ,
 								char **old_environ, size_t size)
 {
 	char	*new_env_var_heap;
@@ -55,7 +55,7 @@ static bool set_new_environ(char* new_pair, char **new_environ,
 	if (!new_env_var_heap)
 	{
 		free(new_environ);
-		return(false);
+		return (false);
 	}
 	if (!copy_old_env(old_environ, new_environ, size))
 	{
@@ -67,17 +67,18 @@ static bool set_new_environ(char* new_pair, char **new_environ,
 	return (true);
 }
 
+// first time is system memory and can't be freed, 2nd+ is self allocated.
 void	free_old_env(char **old_env)
 {
 	size_t			index;
-	extern char 	**environ;
-	static	size_t	called = 0;
+	extern char		**environ;
+	static size_t	called = 0;
 
 	index = 0;
 	called++;
 	if (!old_env)
 		old_env = environ;
-	if (called > 1)  // first time is system memory and can't be freed, 2nd+ is self allocated.
+	if (called > 1)
 	{
 		while (old_env && old_env[index])
 		{
@@ -91,9 +92,9 @@ void	free_old_env(char **old_env)
 // call for each pair of variable=value to export it to the env
 bool	export(char *env_pair)
 {
-	extern char **environ;
+	extern char	**environ;
 	char		**old_env_buffer;
-	char 		**new_environ;
+	char		**new_environ;
 	size_t		env_size;
 	char		*new_env_var_heap;
 
