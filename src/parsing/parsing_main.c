@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 10:11:31 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 10:35:24 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,9 @@ bool	parse_line(char *entered_line, t_pipe parsed_command)
 	tokens = ft_split(entered_line, ' ');
 	if (!tokens)
 		return (false);
-
 	while (*tokens)  // check if token is builtin before creating processes...
 	{
-		check_builtin(&input);
+
 
 		input.tokens++;
 	}
