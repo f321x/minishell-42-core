@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 10:56:39 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 12:08:41 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,26 @@
 #define SHELL_PROMPT "minishell$ "
 #define	CWD_BUFFER_SIZE 1000
 
-typedef struct s_tokens {
-	char 	*token;
-	bool	in_s_quotes;
-	bool	in_d_quotes;
-	bool	pipe;
-	bool	red_left;
-	bool	red_right;
-
-}	t_tokens;
+// typedef struct s_tokens {
+// 	char 	*token;
+// 	bool	in_s_quotes;
+// 	bool	in_d_quotes;
+// 	bool	pipe;
+// 	bool	red_left;
+// 	bool	red_right;
+// }	t_tokens;
 
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
-	char 	**env;
+	bool	pipe;
+	bool	red_left;
+	bool	red_right;
+	// char 	**env;
 }	t_process;
 
 typedef struct s_pipe {
-	t_process	*processes;
+	t_process	processes[1000];
 	size_t		p_amount;
 	char 		*input_file;
 	char		*output_file;
