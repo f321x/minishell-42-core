@@ -3,10 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+<<<<<<< HEAD
 /*   Created: 2023/12/19 17:48:00 by marschul          #+#    #+#             */
 /*   Updated: 2023/12/19 18:30:50 by marschul         ###   ########.fr       */
+=======
+/*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
+/*   Updated: 2023/12/19 17:54:39 by ***REMOVED***            ###   ########.fr       */
+>>>>>>> 7ea1d10ceac01b1993234cfa5dc9c80dce56f69e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +48,10 @@
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
-	bool	(*inbuilt) (char **argv);
 	bool	pipe;
 	bool	red_left;
 	bool	red_right;
+	// char 	**env;
 }	t_process;
 
 typedef struct s_pipe {
@@ -58,7 +63,7 @@ typedef struct s_pipe {
 	char		*output_file_append;
 }	t_pipe;
 
-typedef bool (*t_function_pointer)(char **argv); 
+typedef bool (*t_function_pointer)(char **argv);
 
 // input_utils.c
 char	*read_a_line(char *prompt);
