@@ -6,7 +6,11 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/12/19 16:58:59 by marschul         ###   ########.fr       */
+=======
+/*   Updated: 2023/12/19 12:08:41 by ***REMOVED***            ###   ########.fr       */
+>>>>>>> 489dd893f6ac246d776c9ff9d1b5cf374200766b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +35,30 @@
 #define SHELL_PROMPT "minishell$ "
 #define	CWD_BUFFER_SIZE 1000
 
-typedef struct s_tokens {
-	char 	*token;
-	bool	in_s_quotes;
-	bool	in_d_quotes;
-	bool	pipe;
-	bool	red_left;
-	bool	red_right;
-
-}	t_tokens;
+// typedef struct s_tokens {
+// 	char 	*token;
+// 	bool	in_s_quotes;
+// 	bool	in_d_quotes;
+// 	bool	pipe;
+// 	bool	red_left;
+// 	bool	red_right;
+// }	t_tokens;
 
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
+<<<<<<< HEAD
 	bool	(*inbuilt) (char **argv);
+=======
+	bool	pipe;
+	bool	red_left;
+	bool	red_right;
+	// char 	**env;
+>>>>>>> 489dd893f6ac246d776c9ff9d1b5cf374200766b
 }	t_process;
 
 typedef struct s_pipe {
-	t_process	*processes;
+	t_process	processes[1000];
 	size_t		p_amount;
 	char 		*input_file;
 	char		*here_file;
