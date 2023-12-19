@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 10:07:13 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 10:56:39 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,15 @@
 #define SHELL_PROMPT "minishell$ "
 #define	CWD_BUFFER_SIZE 1000
 
-typedef struct s_parsing {
-	char **tokens;
-}	t_parsing;
+typedef struct s_tokens {
+	char 	*token;
+	bool	in_s_quotes;
+	bool	in_d_quotes;
+	bool	pipe;
+	bool	red_left;
+	bool	red_right;
+
+}	t_tokens;
 
 typedef struct s_process {
 	char 	*name;
