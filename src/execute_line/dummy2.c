@@ -4,9 +4,10 @@
 
 int main()
 {
-	char buf[4];
+	char buf[10];
 
-	read(0, buf, 4);
-	printf("%s", buf);
+	int r = read(0, buf, 7);
+	printf("|%s|", buf);
+	printf("%d\n", r);
 	return(33);
 }

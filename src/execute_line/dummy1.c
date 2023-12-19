@@ -3,7 +3,8 @@
 
 int main()
 {
-	write(1, "test\n", 5);
+	// write(1, "test\n", 5);
+	printf("strange");
 	close(1);
 	close(0);
 	close(2);
