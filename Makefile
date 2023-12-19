@@ -6,7 +6,7 @@
 #    By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/19 09:15:15 by ***REMOVED***            ###   ########.fr        #
+#    Updated: 2023/12/19 10:05:56 by ***REMOVED***            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,11 +18,10 @@ DFLAGS 	:= -g3
 DNAME 	:= minishell_debug
 HEADERS = -I./includes -I ./libs/libft/includes
 
-
 SRCDIR		:= src
 OBJDIR		:= objs
-LIBFT 		:= libs/libft/libft.a
-LIBFT_DEBUG := libs/libft/libft_debug.a
+LIB 		:= libs/libft/libft.a -lreadline
+LIB_DEBUG := libs/libft/libft_debug.a -lreadline
 
 SRCS 	:= $(SRCDIR)/minishell.c \
 $(SRCDIR)/input_handling/input_utils.c \
@@ -32,7 +31,7 @@ $(SRCDIR)/execute_line/execute_line.c
 
 OBJS	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 DOBJS   := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.d.o,$(SRCS))
-$(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling $(OBJDIR)/parsing $(OBJDIR)/builtins)
+$(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling $(OBJDIR)/parsing $(OBJDIR)/builtins $(OBJDIR)/execute_line)
 
 all: $(NAME)
 
@@ -44,11 +43,11 @@ $(OBJDIR)/%.d.o: $(SRCDIR)/%.c
 
 $(NAME): $(OBJS)
 	make -C libs/libft
-	$(CC) $(CFLAGS) $(LIBFT) $(HEADERS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(LIB) $(HEADERS) $(OBJS) -o $(NAME)
 
 debug: $(DOBJS)
 	make -C libs/libft debug
-	$(CC) $(CFLAGS) $(DFLAGS) $(LIBFT_DEBUG) $(HEADERS) $(DOBJS) -o $(DNAME)
+	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(DOBJS) -o $(DNAME)
 
 clean:
 	make -C libs/libft clean

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/18 20:01:21 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/19 10:06:08 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	create_pid_array(pid_t **pid_array, size_t p_amount)
 {
@@ -64,8 +64,8 @@ void	execute_processes(pid_t *pid_array, t_pipe *pipe_struct, int (*fd_array)[2]
 		process = pipe_struct->processes[i];
 		program = process.name;
 		argv = process.argv;
-		pid = fork();	
-		if (pid == 0) 
+		pid = fork();
+		if (pid == 0)
 		{
 			if (i != 0)
 				dup2(fd_array[i][0], 0);
@@ -105,29 +105,29 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-int main()
-{
-	t_pipe pipe_struct;
-	char *env[2];
-	char *argv[4];
+// int main()
+// {
+// 	t_pipe pipe_struct;
+// 	char *env[2];
+// 	char *argv[4];
 
-	pipe_struct.p_amount = 2;
-	env[0] = "PWD=/Users/marschul/minishell_github/src/execute_line";
-	env[1] = NULL;
+// 	pipe_struct.p_amount = 2;
+// 	env[0] = "PWD=/Users/marschul/minishell_github/src/execute_line";
+// 	env[1] = NULL;
 
-	argv[0] = "/usr/bin/ls";
-	argv[1] = "-l";
-	argv[2] = "/Users/marschul/minishell_github/src/execute_line/";
-	argv[3] = NULL;
-	
-	pipe_struct.processes = malloc(pipe_struct.p_amount * sizeof(t_process));
-	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/src/execute_line/dummy1";
-	pipe_struct.processes[0].name = "/bin/ls";
-	pipe_struct.processes[0].argv = argv;
-	pipe_struct.processes[0].env = env;
-	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
-	pipe_struct.processes[1].name = "/usr/bin/wc";
-	pipe_struct.processes[1].argv = argv;
-	pipe_struct.processes[1].env = env;
-	execute_line(&pipe_struct);
-}
+// 	argv[0] = "/usr/bin/ls";
+// 	argv[1] = "-l";
+// 	argv[2] = "/Users/marschul/minishell_github/src/execute_line/";
+// 	argv[3] = NULL;
+
+// 	pipe_struct.processes = malloc(pipe_struct.p_amount * sizeof(t_process));
+// 	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/src/execute_line/dummy1";
+// 	pipe_struct.processes[0].name = "/bin/ls";
+// 	pipe_struct.processes[0].argv = argv;
+// 	pipe_struct.processes[0].env = env;
+// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
+// 	pipe_struct.processes[1].name = "/usr/bin/wc";
+// 	pipe_struct.processes[1].argv = argv;
+// 	pipe_struct.processes[1].env = env;
+// 	execute_line(&pipe_struct);
+// }
