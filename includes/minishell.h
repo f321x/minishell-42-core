@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 10:56:39 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 16:58:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <termios.h>
-#include "libft.h"
+#include "../libs/libft/includes/libft.h"
 
 #define SHELL_PROMPT "minishell$ "
 #define	CWD_BUFFER_SIZE 1000
@@ -44,15 +44,19 @@ typedef struct s_tokens {
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
-	char 	**env;
+	bool	(*inbuilt) (char **argv);
 }	t_process;
 
 typedef struct s_pipe {
 	t_process	*processes;
 	size_t		p_amount;
 	char 		*input_file;
+	char		*here_file;
 	char		*output_file;
+	char		*output_file_append;
 }	t_pipe;
+
+typedef bool (*t_function_pointer)(char **argv); 
 
 // input_utils.c
 char	*read_a_line(char *prompt);
@@ -61,7 +65,7 @@ char	*read_a_line(char *prompt);
 bool	echo(const char *after_echo, bool n_flag);
 
 // cd.c
-bool	cd(char *entered_path_arg);
+bool	cd(char **argv);
 
 // pwd.c
 bool	pwd(void);

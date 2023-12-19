@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:16:14 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 09:49:16 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 16:54:58 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // returns absolute path
-bool	cd(char *entered_path_arg)
+bool	cd(char **argv)
 {
 	int	error;
+	char	*entered_path_arg;
 
+	entered_path_arg = argv[1];
 	if (entered_path_arg == NULL)
 		entered_path_arg = getenv("HOME");
 	if (entered_path_arg == NULL)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+         #
+#    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/19 10:05:56 by ***REMOVED***            ###   ########.fr        #
+#    Updated: 2023/12/19 17:16:38 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,10 @@ $(NAME): $(OBJS)
 debug: $(DOBJS)
 	make -C libs/libft debug
 	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(DOBJS) -o $(DNAME)
+
+testexecute:
+	make -C libs/libft
+	gcc -Wall -Werror -g -fsanitize=address -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/cd.c  
 
 clean:
 	make -C libs/libft clean

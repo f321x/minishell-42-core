@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/19 14:48:12 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/19 17:22:03 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,24 +49,48 @@ int	create_pipes(int (*fd_array)[2], size_t n)
 
 void	handle_infile(t_pipe *pipe_struct)
 {
+	int	fd;
+	char	*input_file;
 
+	input_file = pipe_struct->input_file;
+	fd = open(input_file, O_RDONLY);
+	dup2(fd, 0);
 }
 
 void	handle_outfile(t_pipe *pipe_struct)
 {
+	int	fd;
+	char	*output_file;
 
+	output_file = pipe_struct->output_file;
+	fd = open(output_file, O_RDONLY);
+	dup2(fd, 1);
 }
 
 
 void	close_all_fds(int (*fd_array)[2], size_t p_amount)
 {
+	size_t	i;
 
+	i = 0;
+	while (i < p_amount - 1)
+	{
+		close(fd_array[i][0]);
+		close(fd_array[i][1]);
+		i++;
+	}
 }
 
 
 void	close_last_fds(int (*fd_array)[2], size_t i)
 {
-
+	if (i == 0)
+		return ;
+	else
+	{
+		close(fd_array[i - 1][0]);
+		close(fd_array[i - 1][1]);
+	}
 }
 
 void	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t i)
@@ -105,15 +129,31 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	}
 	else
 	{
-		close(fd_array[i - 1][0]);
-		close(fd_array[i - 1][1]);
+		close_last_fds(fd_array, i);
 		return (pid);
 	}
+	return (1);
 }
 
 bool	is_inbuilt(t_process *process)
 {
-	// looks up function pointers, returns bool
+	const char	*function_names[6] = {"cd", "echo", "env", "export", "pwd", "unset"};
+	const t_function_pointer	function_pointers[6] = {cd};
+	char		*name;
+	int			i;
+
+	name = process->name;
+	i = 0;
+	while (i < 6)
+	{
+		if (ft_strncmp(name, function_names[i], 7) == 0)
+		{
+			process->inbuilt = function_pointers[i];
+			return (true);
+		}
+		i++;
+	}
+	return (false);
 }
 
 void	execute_programs(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
@@ -163,29 +203,25 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// int main()
-// {
-// 	t_pipe pipe_struct;
-// 	char *env[2];
-// 	char *argv[4];
+int main()
+{
+	t_pipe pipe_struct;
+	char *argv[4];
 
-// 	pipe_struct.p_amount = 2;
-// 	env[0] = "PWD=/Users/marschul/minishell_github/src/execute_line";
-// 	env[1] = NULL;
+	pipe_struct.p_amount = 1;
+	
+	argv[0] = "/bin/cat";
+	argv[1] = "src/execute_line/testfile";
+	argv[2] = "/Users/marschul/minishell_github/src/execute_line/test.c";
+	argv[3] = NULL;
 
-// 	argv[0] = "/usr/bin/ls";
-// 	argv[1] = "-l";
-// 	argv[2] = "/Users/marschul/minishell_github/src/execute_line/";
-// 	argv[3] = NULL;
-
-// 	pipe_struct.processes = malloc(pipe_struct.p_amount * sizeof(t_process));
-// 	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/src/execute_line/dummy1";
-// 	pipe_struct.processes[0].name = "/bin/ls";
-// 	pipe_struct.processes[0].argv = argv;
-// 	pipe_struct.processes[0].env = env;
-// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
-// 	pipe_struct.processes[1].name = "/usr/bin/wc";
-// 	pipe_struct.processes[1].argv = argv;
-// 	pipe_struct.processes[1].env = env;
-// 	execute_line(&pipe_struct);
-// }
+	pipe_struct.processes = malloc(pipe_struct.p_amount * sizeof(t_process));
+	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/src/execute_line/dummy1";
+	pipe_struct.processes[0].name = "/bin/cat";
+	pipe_struct.processes[0].argv = argv;
+	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
+	// pipe_struct.processes[1].name = "/usr/bin/wc";
+	// pipe_struct.processes[1].argv = argv;
+	// pipe_struct.processes[1].env = env;
+	execute_line(&pipe_struct);
+}
