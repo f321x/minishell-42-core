@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/19 10:06:08 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 14:48:12 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int	create_pid_array(pid_t **pid_array, size_t p_amount)
 {
@@ -47,40 +47,98 @@ int	create_pipes(int (*fd_array)[2], size_t n)
 	return (1);
 }
 
-void	execute_processes(pid_t *pid_array, t_pipe *pipe_struct, int (*fd_array)[2])
+void	handle_infile(t_pipe *pipe_struct)
+{
+
+}
+
+void	handle_outfile(t_pipe *pipe_struct)
+{
+
+}
+
+
+void	close_all_fds(int (*fd_array)[2], size_t p_amount)
+{
+
+}
+
+
+void	close_last_fds(int (*fd_array)[2], size_t i)
+{
+
+}
+
+void	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t i)
+{
+	bool	(*inbuilt) (char** argv);
+	int		temp;
+
+	close_last_fds(fd_array, i);
+	temp = dup(1);
+	dup2(fd_array[i][1], 1);
+	inbuilt = process->inbuilt;
+	if (inbuilt(process->argv) == false)
+		return ;
+	dup2(temp, 1);
+	return ;
+}
+
+int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
+{
+	char *program;
+	char **argv;
+	int	pid;
+	extern char		**environ;
+
+	program = process->name;
+	argv = process->argv;
+	pid = fork();
+	if (pid == 0)
+	{
+		if (i != 0)
+			dup2(fd_array[i - 1][0], 0);
+		if (i != p_amount - 1)
+			dup2(fd_array[i][1], 1);
+		close_all_fds(fd_array, p_amount);
+		execve(program, argv, environ);
+	}
+	else
+	{
+		close(fd_array[i - 1][0]);
+		close(fd_array[i - 1][1]);
+		return (pid);
+	}
+}
+
+bool	is_inbuilt(t_process *process)
+{
+	// looks up function pointers, returns bool
+}
+
+void	execute_programs(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 {
 	size_t			n;
 	int				pid;
 	t_process		process;
-	char			*program;
 	size_t			i;
-	char			**argv;
-	extern char		**environ;
 
 	n = pipe_struct->p_amount;
+
+	handle_infile(pipe_struct);
+	handle_outfile(pipe_struct);
+
 	i = 0;
-	while (n > 1 && i < n - 1)
+	while (i < n)
 	{
 		process = pipe_struct->processes[i];
-		program = process.name;
-		argv = process.argv;
-		pid = fork();
-		if (pid == 0)
+		if (is_inbuilt(&process) == 0)
 		{
-			if (i != 0)
-				dup2(fd_array[i][0], 0);
-			if (i != n - 2)
-				dup2(fd_array[i + 1][1], 1);
-			close(fd_array[i][0]);
-			close(fd_array[i][1]);
-			execve(program, argv, environ);
+			pid = launch_process(&process, fd_array, pipe_struct->p_amount, i);
+			pid_array[i] = pid;
 		}
 		else
-		{
-			pid_array[i] = pid;
-			close(fd_array[i][0]);
-			close(fd_array[i][1]);
-		}
+			launch_inbuilt(&process, fd_array, i);
 		i++;
 	}
 }
@@ -97,7 +155,7 @@ int	execute_line(t_pipe *pipe_struct)
 	create_pid_array(&pid_array, p_amount);
 	create_fd_array(&fd_array, p_amount - 1);
 	create_pipes(fd_array, p_amount - 1);
-	execute_processes(pid_array, pipe_struct, fd_array);
+	execute_programs(pipe_struct, fd_array, pid_array);
 	last_pid = waitpid(pid_array[p_amount - 1], &status_pointer, 0);
 	printf("status %d %d", last_pid, WEXITSTATUS(status_pointer));
 	return (1);
