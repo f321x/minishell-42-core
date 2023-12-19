@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/06 14:21:15 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/12 10:43:37 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 09:32:19 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ size_t		ft_strlcpy(char *destination, const char *source, size_t size);
 size_t		ft_strlen(const char *string);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 int			ft_strncmp(const char *str1, const char *str2, size_t num);
+int			ft_strcmp(const char *str1, const char *str2);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strrchr(const char *str, int character);
 char		*ft_strtrim(char const *s1, char const *set);

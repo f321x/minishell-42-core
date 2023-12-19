@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:35:00 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 09:50:26 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,12 @@ void	free_old_env(char **old_env)
 {
 	size_t			index;
 	extern char		**environ;
-	static size_t	called = 0;
+	static bool		called_before = false;
 
 	index = 0;
-	called++;
 	if (!old_env)
 		old_env = environ;
-	if (called > 1)
+	if (called_before)
 	{
 		while (old_env && old_env[index])
 		{
@@ -87,6 +86,7 @@ void	free_old_env(char **old_env)
 		}
 		free(old_env);
 	}
+	called_before = true;
 }
 
 // call for each pair of variable=value to export it to the env

@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:46:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:55:53 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/19 10:00:03 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	env(void)
 		error = printf("%s\n", *environ);
 		if (error < 0)
 		{
-			perror("Printing env variable failed.")
+			perror("Printing env variable failed.");
 			return (false);
 		}
 		environ++;
