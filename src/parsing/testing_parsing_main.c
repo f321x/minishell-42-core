@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 16:02:49 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 17:27:07 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ bool	parse_line(char *entered_line, t_pipe *task)
 	// new_proc = true;
 	while (entered_line && entered_line[line_i])
 	{
+
 		new_proc = false;
 		while (entered_line[line_i] && !ft_isdelimiter(entered_line[line_i]) && buf_i < PROC_FIELD_BUFFER)
 		{
