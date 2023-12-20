@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2023/12/19 17:48:00 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/19 18:30:50 by marschul         ###   ########.fr       */
-=======
-/*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 17:54:39 by ***REMOVED***            ###   ########.fr       */
->>>>>>> 7ea1d10ceac01b1993234cfa5dc9c80dce56f69e
+/*   Updated: 2023/12/20 10:20:43 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +30,7 @@
 
 #define SHELL_PROMPT "minishell$ "
 #define	CWD_BUFFER_SIZE 1000
+#define	PROC_FIELD_BUFFER 1000
 
 // typedef struct s_tokens {
 // 	char 	*token;
@@ -48,9 +44,9 @@
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
-	bool	pipe;
-	bool	red_left;
-	bool	red_right;
+	// bool	pipe;
+	// bool	red_left;
+	// bool	red_right;
 	// char 	**env;
 }	t_process;
 

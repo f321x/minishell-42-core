@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 15:55:45 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 10:20:29 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,21 @@ void	parse_delimiter(char **rem_tokens, t_pipe *task)
 
 }
 
+
+
 // non functional prototype
 bool	parse_line(char *entered_line, t_pipe *task)
 {
-	char		**tokens;
-	size_t		argv_index;
-	t_process	*process;
-	// bool		delimiter;
+	char		name_buf[PROC_FIELD_BUFFER];
+	char		argv_buf[PROC_FIELD_BUFFER];
+	size_t		proc_i;
 
-	tokens = ft_split(entered_line, ' ');
-	if (!tokens)
-		return (false);
-	task->p_amount = 0;
-	// task = alloc_task();
-	while (*tokens)
+	proc_i = 0;
+	while (entered_line && *entered_line)
 	{
-		process->name = *tokens;
-		tokens++;
-		argv_index = 0;
-		while (*tokens && !contains_delimiter(*tokens))
-		{
-			process->argv[argv_index] = *tokens;
-			tokens++;
-		}
-		if (*tokens && contains_delimiter(*tokens))
-			parse_delimiter(tokens, task);
 
 	}
+
 	return (true);
 }
 
