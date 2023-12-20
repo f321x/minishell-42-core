@@ -6,8 +6,9 @@ int main()
 {
 	char buf[10];
 
-	int r = read(0, buf, 7);
-	printf("|%s|", buf);
-	printf("%d\n", r);
+	int r = read(0, buf, 10);
+	write(1, "|", 1);
+	write(1, buf, r);
+	write(1, "|", 1);
 	return(33);
 }

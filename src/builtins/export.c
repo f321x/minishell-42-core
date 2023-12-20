@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 09:50:26 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 14:32:00 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ bool	export_one_pair(char *env_pair)
 	char		**old_env_buffer;
 	char		**new_environ;
 	size_t		env_size;
-	char		*new_env_var_heap;
+	//char		*new_env_var_heap;
 
 	env_size = get_env_length();
 	if (env_size < 1)
@@ -112,5 +112,21 @@ bool	export_one_pair(char *env_pair)
 	old_env_buffer = environ;
 	environ = new_environ;
 	free_old_env(old_env_buffer);
+	return (true);
+}
+
+bool	export(char **argv)
+{
+	int	i;
+	bool	error;
+
+	i = 1;
+	while (argv[i] != NULL)
+	{
+		error = export_one_pair(argv[i]);
+		if (!error)
+			return (false);
+		i++;
+	}
 	return (true);
 }
