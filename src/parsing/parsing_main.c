@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 10:23:58 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 11:17:10 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_process	*alloc_proc(char *name, char **argv)
 
 bool	ft_isdelimiter(char c)
 {
-	if (c == '|' || c == '<' || c == '>' || c == 39 || c == '"')
+	if (c == '|' || c == '<' || c == '>' || c == 39 || c == '"' || c == ' ')
 		return (true);
 	return (false);
 }
@@ -58,14 +58,38 @@ bool	parse_line(char *entered_line, t_pipe *task)
 {
 	char		name_buf[PROC_FIELD_BUFFER];
 	char		argv_buf[PROC_FIELD_BUFFER];
-	size_t		proc_i;
+	// size_t		proc_i;
+	size_t		buf_i;
+	size_t		line_i;
 
-	proc_i = 0;
-	while (entered_line && *entered_line)
+	// proc_i = 0;
+	buf_i = 0;
+	line_i = 0;
+	while (entered_line && entered_line[line_i])
 	{
+		while (!ft_isdelimiter(entered_line[line_i]) && buf_i < PROC_FIELD_BUFFER)
+		{
+			name_buf[buf_i] = entered_line[line_i];
+			buf_i++;
+			line_i++;
+		}
+		name_buf[buf_i] = '\0';
+		task->processes[task->p_amount].name = ft_strdup(name_buf);
 
+		if (entered_line[line_i] == ' ')
+		{
+			line_i++;
+			buf_i = 0;
+			while (!ft_isdelimiter(entered_line[line_i]))
+			{
+				argv_buf[buf_i] = entered_line[line_i];
+				buf_i++;
+				line_i++;
+			}
+
+		}
+		else if (entered_line[line_i] == '')
 	}
-
 	return (true);
 }
 
