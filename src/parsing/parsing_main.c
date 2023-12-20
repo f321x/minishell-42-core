@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 11:17:10 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 12:21:35 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,39 @@ bool	ft_isdelimiter(char c)
 
 // }
 
+static char **append_string(char **orig, char *str)
+{
+	size_t	amount;
+	long	index;
+	char	**new_str_arr;
+
+	amount = 0;
+	index = 0;
+	while (orig && orig[amount] != NULL)
+		amount++;
+	new_str_arr = malloc(((sizeof(char *) + 1) * amount) + sizeof(void *));
+	if (!new_str_arr)
+		return (NULL);
+	while (index < amount)
+	{
+		new_str_arr[index] = orig[index];
+		index++;
+	}
+	new_str_arr[index] = ft_strdup(str);
+	if (!new_str_arr[index])
+	{
+		while (index > 0)
+		{
+			free(new_str_arr[index]);
+			index--;
+		}
+		free(new_str_arr);
+		return (NULL);
+	}
+	new_str_arr[index + 1] = NULL;
+	free(orig);
+	return (new_str_arr);
+}
 
 
 // non functional prototype
@@ -61,10 +94,12 @@ bool	parse_line(char *entered_line, t_pipe *task)
 	// size_t		proc_i;
 	size_t		buf_i;
 	size_t		line_i;
+	size_t		argv_i;
 
 	// proc_i = 0;
 	buf_i = 0;
 	line_i = 0;
+	argv_i = 0;
 	while (entered_line && entered_line[line_i])
 	{
 		while (!ft_isdelimiter(entered_line[line_i]) && buf_i < PROC_FIELD_BUFFER)
@@ -86,9 +121,11 @@ bool	parse_line(char *entered_line, t_pipe *task)
 				buf_i++;
 				line_i++;
 			}
+			argv_buf[buf_i] = '\0';
+			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, argv_buf);
 
 		}
-		else if (entered_line[line_i] == '')
+		else if (entered_line[line_i] == '|')
 	}
 	return (true);
 }
