@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:38:28 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 16:39:55 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 17:53:24 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,18 @@ static void	isolate_name(char *entered_line, int *line_i, char *buffer)
 	buffer[buffer_i] = '\0';
 }
 
+void	parse_quote(char *entered_line, int *line_i, t_pipe *task, char *buffer)
+{
+
+}
+
 static void	check_rest(char *entered_line, int *line_i, t_pipe *task, char *buffer)
 {
 	size_t	buffer_i;
 
 	buffer_i = 0;
-	if (entered_line[line_i] == ' ')
+	buffer[0] = '\0';
+	if (entered_line[*line_i] == ' ')
 	{
 		(*line_i)++;
 		while (!ft_isdelimiter(entered_line[*line_i]))
@@ -43,10 +49,37 @@ static void	check_rest(char *entered_line, int *line_i, t_pipe *task, char *buff
 		if (ft_strlen(buffer) > 0)
 			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, buffer);
 	}
-	else if (entered_line[line_i] == 39)
-
-	else if (entered_line[line_i] == '"')
-
+	else if (entered_line[*line_i] == 39)
+	{
+		(*line_i)++;
+		while (entered_line[*line_i] && entered_line[*line_i] != 39)
+		{
+			buffer[buffer_i++] = entered_line[*line_i];
+			(*line_i)++;
+		}
+		buffer[buffer_i] = '\0';
+		if (ft_strlen(buffer) > 0)
+			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, buffer);
+	}
+	else if (entered_line[*line_i] == '"')
+	{
+		(*line_i)++;
+		while (entered_line[*line_i] && entered_line[*line_i] != '"')
+		{
+			if (entered_line[*line_i] == '$')
+				parse_placeholder(entered_line, line_i, &buffer_i, buffer);
+			else
+			{
+				buffer[buffer_i++] = entered_line[*line_i];
+				(*line_i)++;
+			}
+		}
+		buffer[buffer_i] = '\0';
+		if (ft_strlen(buffer) > 0)
+			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, buffer);
+	}
+	else if (entered_line[*line_i] == '$')
+		parse_placeholder(entered_line, line_i, &buffer_i, buffer);
 	return (false);
 }
 

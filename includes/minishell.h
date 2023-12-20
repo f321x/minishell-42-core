@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 16:37:31 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 17:52:49 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,3 +91,4 @@ bool	parse_line(char *entered_line, t_pipe *task);
 // parsing_utils.c
 char 	**append_string(char **orig, char *str);
 bool	ft_isdelimiter(char c);
+void	parse_placeholder(char *entered_line, size_t *line_i, size_t *buf_i, char *argv_buf);
