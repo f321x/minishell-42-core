@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 13:59:50 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 14:24:34 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ bool	parse_line(char *entered_line, t_pipe *task)
 		{
 			line_i++;
 			buf_i = 0;
-			while (!ft_isdelimiter(entered_line[line_i]))
+			while (!ft_isdelimiter(entered_line[line_i]) && entered_line[line_i])
 			{
 				argv_buf[buf_i] = entered_line[line_i];
 				buf_i++;
@@ -159,7 +159,6 @@ bool	parse_line(char *entered_line, t_pipe *task)
 			}
 			argv_buf[buf_i] = '\0';
 			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, argv_buf);
-
 		}
 		else if (entered_line[line_i] == 39)
 		{
@@ -200,7 +199,6 @@ bool	parse_line(char *entered_line, t_pipe *task)
 			line_i++;
 			buf_i = 0;
 			task->p_amount++;
-
 		}
 	}
 	return (true);
