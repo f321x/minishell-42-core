@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 14:24:34 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 14:57:19 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ bool	parse_line(char *entered_line, t_pipe *task)
 	argv_i = 0;
 	while (entered_line && entered_line[line_i])
 	{
-		while (!ft_isdelimiter(entered_line[line_i]) && buf_i < PROC_FIELD_BUFFER)
+		while (entered_line[line_i] && !ft_isdelimiter(entered_line[line_i]) && buf_i < PROC_FIELD_BUFFER)
 		{
 			name_buf[buf_i] = entered_line[line_i];
 			buf_i++;
@@ -200,6 +200,7 @@ bool	parse_line(char *entered_line, t_pipe *task)
 			buf_i = 0;
 			task->p_amount++;
 		}
+		printf("parsed once\n");
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/19 17:48:00 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/20 10:20:43 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 14:26:12 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,3 +83,6 @@ bool	unset(char *variable_name);
 
 // env.c
 bool	env(void);
+
+// parsing_main.c
+bool	parse_line(char *entered_line, t_pipe *task);
