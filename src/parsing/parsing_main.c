@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 12:21:35 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 13:59:50 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,42 @@ static char **append_string(char **orig, char *str)
 	return (new_str_arr);
 }
 
+void	parse_placeholder(char *entered_line, size_t *line_i, size_t *buf_i, char *argv_buf)
+{
+	char	*env_var;
+	char	*env_value;
+	char	*env_var_name;
+	size_t	env_var_name_len;
+
+	(*line_i)++;
+	(*buf_i)++;
+	env_var_name_len = 0;
+	while (ft_isalnum(entered_line[*line_i + env_var_name_len]))
+		env_var_name_len++;
+	env_var_name = malloc(env_var_name_len + 1);
+	if (!env_var_name)
+		return ;
+	env_var_name[env_var_name_len] = '\0';
+	env_var_name_len = 0;
+	while (ft_isalnum(entered_line[*line_i]))
+	{
+		env_var_name[env_var_name_len] = entered_line[*line_i];
+		env_var_name_len++;
+		(*line_i)++;
+	}
+	env_var = getenv(env_var_name);
+	if (!env_var)
+		env_value = "";
+	else
+		env_value = env_var;
+	while (*env_value)
+	{
+		argv_buf[*buf_i] = *env_value;
+		(*buf_i)++;
+		env_value++;
+	}
+	free(env_var_name);
+}
 
 // non functional prototype
 bool	parse_line(char *entered_line, t_pipe *task)
@@ -125,7 +161,47 @@ bool	parse_line(char *entered_line, t_pipe *task)
 			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, argv_buf);
 
 		}
+		else if (entered_line[line_i] == 39)
+		{
+			line_i++;
+			buf_i = 0;
+			while (entered_line[line_i] != 39 && entered_line[line_i])
+			{
+				argv_buf[buf_i] = entered_line[line_i];
+				buf_i++;
+				line_i++;
+			}
+			argv_buf[buf_i] = '\0';
+			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, argv_buf);
+		}
+
+		else if (entered_line[line_i] == '"')
+		{
+			line_i++;
+			buf_i = 0;
+			while (entered_line[line_i] != '"' && entered_line[line_i])
+			{
+				if (entered_line[line_i] == '$')
+				{
+					parse_placeholder(entered_line, &line_i, &buf_i, argv_buf);
+				}
+				else
+				{
+					argv_buf[buf_i] = entered_line[line_i];
+					buf_i++;
+					line_i++;
+				}
+			}
+			argv_buf[buf_i] = '\0';
+			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, argv_buf);
+		}
 		else if (entered_line[line_i] == '|')
+		{
+			line_i++;
+			buf_i = 0;
+			task->p_amount++;
+
+		}
 	}
 	return (true);
 }
