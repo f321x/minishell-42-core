@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:38:28 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 16:16:29 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 16:39:55 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,23 @@ static void	isolate_name(char *entered_line, int *line_i, char *buffer)
 	buffer[buffer_i] = '\0';
 }
 
-static void	check_rest(char *entered_line, int *line_i, t_pipe *task)
+static void	check_rest(char *entered_line, int *line_i, t_pipe *task, char *buffer)
 {
-	if (entered_line[line_i] == ' ')
+	size_t	buffer_i;
 
+	buffer_i = 0;
+	if (entered_line[line_i] == ' ')
+	{
+		(*line_i)++;
+		while (!ft_isdelimiter(entered_line[*line_i]))
+		{
+			buffer[buffer_i++] = entered_line[*line_i];
+			(*line_i)++;
+		}
+		buffer[buffer_i] = '\0';
+		if (ft_strlen(buffer) > 0)
+			task->processes[task->p_amount].argv = append_string(task->processes[task->p_amount].argv, buffer);
+	}
 	else if (entered_line[line_i] == 39)
 
 	else if (entered_line[line_i] == '"')
@@ -61,7 +74,7 @@ bool	parse_line(char *entered_line, t_pipe *task)
 		}
 		else
 		{
-			check_rest(entered_line, line_i, task);
+			check_rest(entered_line, line_i, task, buffer);
 		}
 	}
 

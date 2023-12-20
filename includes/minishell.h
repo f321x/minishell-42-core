@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 14:31:05 by marschul         ###   ########.fr       */
-=======
-/*   Created: 2023/12/19 17:48:00 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/20 14:26:12 by ***REMOVED***            ###   ########.fr       */
->>>>>>> e7273bf1fb412e69dc70f8c0f0ed082c367756ef
+/*   Updated: 2023/12/20 16:37:31 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +83,11 @@ bool	export(char **argv);
 bool	unset(char **argv);
 
 // env.c
-<<<<<<< HEAD
 bool	env(char **argv);
-=======
-bool	env(void);
 
-// parsing_main.c
+// parsing.c
 bool	parse_line(char *entered_line, t_pipe *task);
->>>>>>> e7273bf1fb412e69dc70f8c0f0ed082c367756ef
+
+// parsing_utils.c
+char 	**append_string(char **orig, char *str);
+bool	ft_isdelimiter(char c);
