@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:16:14 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 16:54:58 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:58:24 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // returns absolute path
 bool	cd(char **argv)
 {
-	int	error;
+	int		error;
 	char	*entered_path_arg;
 
 	entered_path_arg = argv[1];

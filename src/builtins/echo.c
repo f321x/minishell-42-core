@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:58:11 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 20:46:56 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:10:17 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,14 @@ bool	echo(char **argv)
 	while (argv[i] != NULL)
 	{
 
-		// error = printf("+%s+", argv[i]);
-		error = write(1, argv[i], ft_strlen(argv[i]));
+		error = ft_printf("%s", argv[i]);
+		if (error < 0)
+		{
+			perror("Error printing echo.");
+			return (false);
+		}
+		if (argv[i + 1] != NULL)
+			error = ft_printf(" ");
 		if (error < 0)
 		{
 			perror("Error printing echo.");
@@ -41,7 +47,7 @@ bool	echo(char **argv)
 		i++;
 	}
 	if (!n_flag)
-		error = printf("\n");
+		error = ft_printf("\n");
 	if (error < 0)
 	{
 		perror("Error printing echo.");

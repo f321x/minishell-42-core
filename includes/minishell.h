@@ -3,15 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
-/*   Created: 2023/12/19 17:48:00 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/19 18:30:50 by marschul         ###   ########.fr       */
-=======
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/19 17:54:39 by ***REMOVED***            ###   ########.fr       */
->>>>>>> 7ea1d10ceac01b1993234cfa5dc9c80dce56f69e
+/*   Updated: 2023/12/20 14:31:05 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +40,12 @@
 // 	bool	red_right;
 // }	t_tokens;
 
+typedef bool (*t_function_pointer)(char **argv);
+
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
+	t_function_pointer	inbuilt;
 	bool	pipe;
 	bool	red_left;
 	bool	red_right;
@@ -63,8 +61,6 @@ typedef struct s_pipe {
 	char		*output_file_append;
 }	t_pipe;
 
-typedef bool (*t_function_pointer)(char **argv);
-
 // input_utils.c
 char	*read_a_line(char *prompt);
 
@@ -75,15 +71,16 @@ bool	echo(char **argv);
 bool	cd(char **argv);
 
 // pwd.c
-bool	pwd(void);
+bool	pwd(char **argv);
 
 // export.c
 bool	export_one_pair(char *env_pair);
 void	free_old_env(char **old_env);
 size_t	get_env_length(void);
+bool	export(char **argv);
 
 // unset.c
-bool	unset(char *variable_name);
+bool	unset(char **argv);
 
 // env.c
-bool	env(void);
+bool	env(char **argv);

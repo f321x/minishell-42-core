@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/19 21:37:35 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/20 15:58:06 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,11 @@ void	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, siz
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
-	char *program;
-	char **argv;
-	int	pid;
-	extern char		**environ;
+	char 		*program;
+	char 		**argv;
+	int			pid;
+	extern char	**environ;
+	int			result;
 
 	program = process->name;
 	argv = process->argv;
@@ -145,20 +146,20 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		if (i != p_amount - 1)
 			dup2(fd_array[i][1], 1);
 		close_all_fds(fd_array, p_amount);
-		execve(program, argv, environ);
+		result = execve(program, argv, environ);
+		exit(0);
 	}
 	else
 	{
 		close_last_fds(fd_array, i);
 		return (pid);
 	}
-	exit (0);
 }
 
 bool	is_inbuilt(t_process *process)
 {
 	const char	*function_names[6] = {"cd", "echo", "env", "export", "pwd", "unset"};
-	const t_function_pointer	function_pointers[6] = {NULL, echo};
+	const t_function_pointer	function_pointers[6] = {cd, echo, env, export, pwd, unset};
 	char		*name;
 	int			i;
 
@@ -228,31 +229,31 @@ int main()
 	char *argv2[4];
 	char *argv3[4];
 
-	pipe_struct.p_amount = 3;
+	pipe_struct.p_amount = 2;
 	
 	argv1[0] = "echo";
-	argv1[1] = NULL;
-	argv1[2] = "testie";
+	argv1[1] = "eins";
+	argv1[2] = "zwei";
 	argv1[3] = NULL;
 
-	argv2[0] = "echo";
+	argv2[0] = "dummy2";
 	argv2[1] = NULL;
-	argv2[2] = "bestie";
+	argv2[2] = NULL;
 	argv2[3] = NULL;
 
-	argv3[0] = "echo";
+	argv3[0] = "env";
 	argv3[1] = NULL;
 	argv3[2] = "bestie";
 	argv3[3] = NULL;
 
-	pipe_struct.processes[0].name = "/bin/ls";
+	pipe_struct.processes[0].name = "echo";
 	// pipe_struct.processes[0].name = "echo";
 	pipe_struct.processes[0].argv = argv1;
-	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
-	pipe_struct.processes[1].name = "/bin/cat";
+	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
+	// pipe_struct.processes[1].name = "env";
 	pipe_struct.processes[1].argv = argv2;
 
-	pipe_struct.processes[2].name = "/usr/bin/wc";
+	pipe_struct.processes[2].name = "env";
 	pipe_struct.processes[2].argv = argv3;
 	execute_line(&pipe_struct);
 }

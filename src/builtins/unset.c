@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/18 19:45:54 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 14:19:16 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ static bool	init_new_environ(char *remove_var, char **old_env,
 	return (true);
 }
 
-bool	unset(char *variable_name)
+bool	unset(char **argv)
 {
 	size_t		env_size;
 	extern char	**environ;
 	char		**new_environ;
 	char		**env_buffer;
+	char		*variable_name;
 
+	if (argv[1] != NULL)
+		variable_name = argv[1];
 	env_size = get_env_length();
 	if (env_size < 1)
 		return (false);

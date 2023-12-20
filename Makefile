@@ -6,7 +6,7 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/19 18:37:58 by marschul         ###   ########.fr        #
+#    Updated: 2023/12/20 14:24:28 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ debug: $(DOBJS)
 
 testexecute:
 	make -C libs/libft
-	gcc -Wall -Werror -g -fsanitize=address -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/echo.c  
+	gcc -Wall -Werror -g -fsanitize=address -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c
 
 clean:
 	make -C libs/libft clean
