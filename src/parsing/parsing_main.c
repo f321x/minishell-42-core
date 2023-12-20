@@ -6,37 +6,28 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:17:21 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 10:20:29 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/20 10:23:58 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_process	*alloc_task(char *name, char **argv)
+t_process	*alloc_proc(char *name, char **argv)
 {
-	t_process	*task;
+	t_process	*proc;
 
-	task = malloc(sizeof(t_process));
-	if (!task)
+	proc = malloc(sizeof(t_process));
+	if (!proc)
 		return (NULL);
-	task->name = malloc(ft_strlen(name) * sizeof(char));
-	if (!task->name)
+	proc->name = malloc((ft_strlen(name) + 1) * sizeof(char));
+	if (!proc->name)
 	{
-		free(task);
+		free(proc);
 		return (NULL);
 	}
-	// task->argv = malloc();
-}
-
-bool	contains_delimiter(char *string)
-{
-	while (string && *string)
-	{
-		if (ft_isdelimiter(*string))
-			return (true);
-		string++;
-	}
-	return (false);
+	proc->name = name;
+	return (proc);
+	// argv tbd
 }
 
 bool	ft_isdelimiter(char c)
@@ -46,19 +37,19 @@ bool	ft_isdelimiter(char c)
 	return (false);
 }
 
-void	parse_delimiter(char **rem_tokens, t_pipe *task)
-{
-	char	before_buffer[1000];
-	char	after_buffer[1000];
-	size_t	index = 0;
+// void	parse_delimiter(char **rem_tokens, t_pipe *task)
+// {
+// 	char	before_buffer[1000];
+// 	char	after_buffer[1000];
+// 	size_t	index = 0;
 
-	while (**rem_tokens && !ft_isdelimiter(**rem_tokens))
-	{
-		before_buffer[index] = **rem_tokens;
-		(*rem_tokens)++;
-	}
+// 	while (**rem_tokens && !ft_isdelimiter(**rem_tokens))
+// 	{
+// 		before_buffer[index] = **rem_tokens;
+// 		(*rem_tokens)++;
+// 	}
 
-}
+// }
 
 
 
