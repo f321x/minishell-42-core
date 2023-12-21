@@ -6,11 +6,20 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 18:20:32 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/21 19:23:00 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void init_task(t_pipe *task)
+{
+	task->p_amount = 0;
+	task->input_file = NULL;
+	task->here_file = NULL;
+	task->output_file = NULL;
+	task->output_file_append = NULL;
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,6 +30,7 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
+		init_task(&task);
 		task.p_amount = 0;
 		entered_line = read_a_line(SHELL_PROMPT);
 		add_history(entered_line);
