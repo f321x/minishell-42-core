@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/20 17:47:47 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 15:46:45 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,13 +159,45 @@ int	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		dup2(fd_array[i][1], 1);
 	}
 	if (inbuilt(process->argv) == false)
-		return ;
+		return (0);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
 		dup2(temp, 1);
 		close(temp);
 	}
-	return ;
+	return (1);
+}
+
+int	find_full_path(t_process *process)
+{
+	char		**split;
+	char		*path;
+	char		*name1;
+	char		*name2;
+
+	path = getenv("PATH");
+	if (path == NULL)
+		return (error_wrapper());
+	split = ft_split(path, ':');
+	if (split == NULL)
+		return (error_wrapper());
+	while (*split != NULL)
+	{
+		name1 = ft_strjoin(process->name, "/");
+		if (name1 == NULL)
+			return (-1);
+		name2 = ft_strjoin(name1, process->name);
+		if (name2 == NULL)
+			return (-1);
+		free(name1);
+		if (access(name2, F_OK) == 0)
+		{
+			free(process->name);
+			process->name = name2;
+			return (1);
+		}
+	}
+	return (-1);
 }
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
@@ -185,7 +217,9 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		if (i != p_amount - 1)
 			dup2(fd_array[i][1], 1);
 		close_all_fds(fd_array, p_amount);
-		if (execve(program, argv, environ) == -1)
+		if (find_full_path(process) == -1)
+			return (0);
+		if (execve(process->name, argv, environ) == -1)
 			perror("Minishell: launch_process");
 		return (0);
 	}
