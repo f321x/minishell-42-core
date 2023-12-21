@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/20 15:58:06 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/20 17:47:47 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ int	create_pid_array(pid_t **pid_array, size_t p_amount)
 {
 	*pid_array = malloc(p_amount * sizeof(p_amount));
 	if (*pid_array == NULL)
+	{
+		perror("Minishell: create_pid_array");
 		return (0);
+	}
 	else
 		return (1);
 }
@@ -28,7 +31,10 @@ int	create_fd_array(int (*(*fd_array))[2], size_t n)
 	res = malloc(sizeof(int[n][2]));
 	*fd_array = res;
 	if (*fd_array == NULL)
+	{
+		perror("Minishell: create_fd_array");
 		return (0);
+	}
 	else
 		return (1);
 }
@@ -40,32 +46,42 @@ int	create_pipes(int (*fd_array)[2], size_t n)
 	i = 0;
 	while (i < n)
 	{
-		if (pipe(fd_array[i]) < 0)
+		if (pipe(fd_array[i]) == -1)
+		{
+			perror("Minishell: create_pipes");
 			return (0);
+		}
 		i++;
 	}
 	return (1);
 }
 
-void	handle_infile(t_pipe *pipe_struct)
+int	handle_infile(t_pipe *pipe_struct)
 {
-	int	fd;
+	int		fd;
 	char	*input_file;
 
-	if (pipe_struct->input_file)
+	if (pipe_struct->input_file != NULL)
 	{
 		input_file = pipe_struct->input_file;
 		fd = open(input_file, O_RDONLY);
+		if (fd == -1)
+		{
+			perror("Minishell: handle_infile");
+			return (0);
+		}
 		dup2(fd, 0);
 		close(fd);
 	}
+	return (1);
 }
 
-void	handle_outfile(t_pipe *pipe_struct)
+int	handle_outfile(t_pipe *pipe_struct)
 {
-	int	fd;
+	int		fd;
 	char	*output_file;
 
+	assert (pipe_struct->output_file == NULL || pipe_struct->output_file_append == NULL);
 	if (pipe_struct->output_file != NULL)
 	{
 		output_file = pipe_struct->output_file;
@@ -76,37 +92,61 @@ void	handle_outfile(t_pipe *pipe_struct)
 		output_file = pipe_struct->output_file;	
 		fd = open(output_file, O_RDONLY | O_APPEND);
 	}
+	if (fd == -1)
+	{
+		perror("Minishell: handle_outfile");
+		return (0);
+	}
 	dup2(fd, 1);
 	close(fd);
+	return (1);
 }
 
 
-void	close_all_fds(int (*fd_array)[2], size_t p_amount)
+int	close_all_fds(int (*fd_array)[2], size_t p_amount)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < p_amount - 1)
 	{
-		close(fd_array[i][0]);
-		close(fd_array[i][1]);
+		if (close(fd_array[i][0]) == -1)
+		{
+			perror("Minishell: close_all_fds");
+			return (0);
+		}
+		if (close(fd_array[i][1]) == -1)
+		{
+			perror("Minishell: close_all_fds");
+			return (0);			
+		}
 		i++;
 	}
+	return (1);
 }
 
 
-void	close_last_fds(int (*fd_array)[2], size_t i)
+int	close_last_fds(int (*fd_array)[2], size_t i)
 {
 	if (i == 0)
-		return ;
+		return (1);
 	else
 	{
-		close(fd_array[i - 1][0]);
-		close(fd_array[i - 1][1]);
+		if (close(fd_array[i - 1][0]) == -1)
+		{
+			perror("Minishell: close_last_fds");
+			return (0);			
+		}
+		if (close(fd_array[i - 1][1]) == -1)
+		{
+			perror("Minishell: close_last_fds");
+			return (0);			
+		}
 	}
+	return (1);
 }
 
-void	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
+int	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
 	bool	(*inbuilt) (char** argv);
 	int		temp;
@@ -134,7 +174,6 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	char 		**argv;
 	int			pid;
 	extern char	**environ;
-	int			result;
 
 	program = process->name;
 	argv = process->argv;
@@ -146,8 +185,9 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		if (i != p_amount - 1)
 			dup2(fd_array[i][1], 1);
 		close_all_fds(fd_array, p_amount);
-		result = execve(program, argv, environ);
-		exit(0);
+		if (execve(program, argv, environ) == -1)
+			perror("Minishell: launch_process");
+		return (0);
 	}
 	else
 	{
@@ -177,29 +217,38 @@ bool	is_inbuilt(t_process *process)
 	return (false);
 }
 
-void	execute_programs(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
+int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 {
-	size_t			n;
-	int				pid;
-	t_process		process;
-	size_t			i;
+	int			pid;
+	int			return_value;
+	t_process	process;
+	size_t		i;
 
-	n = pipe_struct->p_amount;
-	handle_infile(pipe_struct);
-	handle_outfile(pipe_struct);
+	if (handle_infile(pipe_struct) == 0)
+		return (0);
+	if (handle_outfile(pipe_struct) == 0)
+		return (0);
 	i = 0;
-	while (i < n)
+	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
 		if (is_inbuilt(&process) == 0)
 		{
 			pid = launch_process(&process, fd_array, pipe_struct->p_amount, i);
+			if (pid == 0)
+				return (0);
 			pid_array[i] = pid;
 		}
 		else
-			launch_inbuilt(&process, fd_array, pipe_struct->p_amount, i);
+		{
+			return_value = launch_inbuilt(&process, fd_array, pipe_struct->p_amount, i);
+			if (return_value == 0)
+				return (0);
+			pid_array[i] = return_value;
+		}
 		i++;
 	}
+	return (1);
 }
 
 int	execute_line(t_pipe *pipe_struct)
@@ -211,12 +260,18 @@ int	execute_line(t_pipe *pipe_struct)
 	int		status_pointer;
 
 	p_amount = pipe_struct->p_amount;
-	create_pid_array(&pid_array, p_amount);
-	create_fd_array(&fd_array, p_amount - 1);
-	create_pipes(fd_array, p_amount - 1);
-	execute_programs(pipe_struct, fd_array, pid_array);
+	if (create_pid_array(&pid_array, p_amount) == 0)
+		return (0);
+	if (create_fd_array(&fd_array, p_amount - 1) == 0)
+		return (0);
+	if (create_pipes(fd_array, p_amount - 1) == 0)
+		return (0);
+	if (execute_commands(pipe_struct, fd_array, pid_array) == 0)
+		return (0);
 	last_pid = waitpid(pid_array[p_amount - 1], &status_pointer, 0);
-	printf("status %d %d", last_pid, WEXITSTATUS(status_pointer));
+	if (last_pid == -1)
+		return (0);
+	printf("status %d %d", last_pid, WEXITSTATUS(status_pointer)); //debug
 	return (1);
 }
 

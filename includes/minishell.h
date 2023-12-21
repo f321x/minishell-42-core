@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 12:29:22 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/21 14:54:12 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 #include <sys/stat.h>
 #include <string.h>
 #include <termios.h>
+#include <assert.h>
 #include "../libs/libft/includes/libft.h"
 
 #define SHELL_PROMPT "minishell$ "
@@ -37,6 +38,7 @@ typedef bool (*t_function_pointer)(char **argv);
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
+	t_function_pointer	inbuilt;
 	// bool	pipe;
 	// bool	red_left;
 	// bool	red_right;
@@ -87,6 +89,9 @@ bool	env(char **argv);
 
 // parsing.c
 bool	parse_line(char *entered_line, t_pipe *task);
+
+// execute line
+int	execute_line(t_pipe *pipe_struct);
 
 // parsing_utils.c
 char 	**append_string(char **orig, char *str);
