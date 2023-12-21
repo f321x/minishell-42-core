@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/21 15:46:45 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:32:06 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,23 @@ int	handle_outfile(t_pipe *pipe_struct)
 	return (1);
 }
 
+bool	set_exit_value(int exit_value)
+{
+	char	*environment_var;
+	char	*argv[3];
+
+	argv[1] = "?";
+	argv[2] = NULL;
+	if (! unset(argv))
+		return (false);
+	environment_var = ft_strjoin("?=", ft_itoa(exit_value));
+	if (environment_var == NULL)
+		return (false);
+	argv[1] = environment_var;
+	if (! export(argv))
+		return (false);
+	return (true);
+}
 
 int	close_all_fds(int (*fd_array)[2], size_t p_amount)
 {
@@ -171,9 +188,14 @@ int	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, size
 int	find_full_path(t_process *process)
 {
 	char		**split;
+	char		**split2;
 	char		*path;
 	char		*name1;
 	char		*name2;
+	int			found = 0;
+
+	if (process->name[0] == '/')
+		return (1);
 
 	path = getenv("PATH");
 	if (path == NULL)
@@ -181,23 +203,59 @@ int	find_full_path(t_process *process)
 	split = ft_split(path, ':');
 	if (split == NULL)
 		return (error_wrapper());
+	split2 = split;
+
 	while (*split != NULL)
 	{
-		name1 = ft_strjoin(process->name, "/");
+		name1 = ft_strjoin(*split, "/");
 		if (name1 == NULL)
 			return (-1);
 		name2 = ft_strjoin(name1, process->name);
 		if (name2 == NULL)
+		{
+			free(name1);
 			return (-1);
+		}
 		free(name1);
 		if (access(name2, F_OK) == 0)
 		{
-			free(process->name);
+			//free(process->name);
 			process->name = name2;
-			return (1);
+			found = 1;
+			break;
+		}
+		free(name2);
+		split++;
+	}
+	if (found == 0)
+	{
+		name1 = malloc(1000);
+		if (name1 == NULL)
+			return (-1);
+		name1 = getcwd(name1, 1000);
+		name1[ft_strlen(name1)] = '/';
+		name1[ft_strlen(name1) + 1] = '\0';
+		name2 = ft_strjoin(name1, process->name);
+		if (name2 == NULL)
+		{
+			free(name1);
+			return (-1);
+		}
+		free(name1);
+		if (access(name2, F_OK) == 0)
+		{
+			//free(process->name);
+			process->name = name2;
 		}
 	}
-	return (-1);
+
+	while (*split2 == NULL)
+	{
+		free(*split2);
+		split2++;
+	}
+	free(split2);
+	return (1);
 }
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
@@ -210,6 +268,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	program = process->name;
 	argv = process->argv;
 	pid = fork();
+	
 	if (pid == 0)
 	{
 		if (i != 0)
@@ -278,7 +337,7 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 			return_value = launch_inbuilt(&process, fd_array, pipe_struct->p_amount, i);
 			if (return_value == 0)
 				return (0);
-			pid_array[i] = return_value;
+			pipe_struct->last_exit_value = return_value;
 		}
 		i++;
 	}
@@ -305,7 +364,13 @@ int	execute_line(t_pipe *pipe_struct)
 	last_pid = waitpid(pid_array[p_amount - 1], &status_pointer, 0);
 	if (last_pid == -1)
 		return (0);
-	printf("status %d %d", last_pid, WEXITSTATUS(status_pointer)); //debug
+	pipe_struct->last_exit_value = status_pointer;
+	if (! set_exit_value(pipe_struct->last_exit_value))
+		return (0);
+		
+	printf("status %d\n", last_pid); //debug
+	//env(NULL); debug
+	
 	return (1);
 }
 
@@ -318,10 +383,10 @@ int main()
 	char *argv2[4];
 	char *argv3[4];
 
-	pipe_struct.p_amount = 2;
+	pipe_struct.p_amount = 1;
 	
-	argv1[0] = "echo";
-	argv1[1] = "eins";
+	argv1[0] = "ls";
+	argv1[1] = NULL;
 	argv1[2] = "zwei";
 	argv1[3] = NULL;
 
@@ -335,7 +400,10 @@ int main()
 	argv3[2] = "bestie";
 	argv3[3] = NULL;
 
-	pipe_struct.processes[0].name = "echo";
+	pipe_struct.input_file = NULL;
+	pipe_struct.output_file = NULL;
+	pipe_struct.output_file_append = NULL;
+	pipe_struct.processes[0].name = "ls";
 	// pipe_struct.processes[0].name = "echo";
 	pipe_struct.processes[0].argv = argv1;
 	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";

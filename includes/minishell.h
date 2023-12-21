@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 15:46:21 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 18:42:02 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_pipe {
 	char		*here_file;
 	char		*output_file;
 	char		*output_file_append;
+	int			last_exit_value;
 }	t_pipe;
 
 typedef struct s_parsing {
@@ -99,4 +100,4 @@ bool	ft_isdelimiter(char c);
 void	parse_placeholder(t_parsing *pd);
 
 // helper_functions.c
-int	error_wrapper(void);
+bool	error_wrapper(void);

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:46:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 15:55:07 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:05:21 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ bool	env(char **argv)
 		}
 		pointer++;
 	}
+	printf("%p\n", environ);
 	return (true);
 }

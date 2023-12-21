@@ -6,14 +6,14 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 14:19:16 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:25:33 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	init_new_environ(char *remove_var, char **old_env,
-							char **new_env, size_t env_size)
+static bool	init_new_environ(char *remove_var, char **new_env,
+							char **old_env, size_t env_size)
 {
 	long	new_index;
 	long	old_index;
@@ -36,6 +36,7 @@ static bool	init_new_environ(char *remove_var, char **old_env,
 		}
 		old_index++;
 	}
+	new_env[new_index - 1] = NULL;
 	return (true);
 }
 
