@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 17:52:49 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/21 12:29:22 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,6 @@
 #define	CWD_BUFFER_SIZE 1000
 #define	PROC_FIELD_BUFFER 1000
 
-// typedef struct s_tokens {
-// 	char 	*token;
-// 	bool	in_s_quotes;
-// 	bool	in_d_quotes;
-// 	bool	pipe;
-// 	bool	red_left;
-// 	bool	red_right;
-// }	t_tokens;
-
 typedef bool (*t_function_pointer)(char **argv);
 
 typedef struct s_process {
@@ -60,6 +51,15 @@ typedef struct s_pipe {
 	char		*output_file;
 	char		*output_file_append;
 }	t_pipe;
+
+typedef struct s_parsing {
+	char	buffer[PROC_FIELD_BUFFER];
+	char	*entered_line;
+	size_t	line_i;
+	size_t	buffer_i;
+	bool	new_proc;
+	t_pipe	*task;
+}	t_parsing;
 
 // input_utils.c
 char	*read_a_line(char *prompt);
@@ -91,4 +91,4 @@ bool	parse_line(char *entered_line, t_pipe *task);
 // parsing_utils.c
 char 	**append_string(char **orig, char *str);
 bool	ft_isdelimiter(char c);
-void	parse_placeholder(char *entered_line, size_t *line_i, size_t *buf_i, char *argv_buf);
+void	parse_placeholder(t_parsing *pd);
