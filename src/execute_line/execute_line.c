@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/21 19:32:06 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:25:42 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -368,7 +368,7 @@ int	execute_line(t_pipe *pipe_struct)
 	if (! set_exit_value(pipe_struct->last_exit_value))
 		return (0);
 		
-	printf("status %d\n", last_pid); //debug
+	printf("pid of last process %d\n", last_pid); //debug
 	//env(NULL); debug
 	
 	return (1);
@@ -383,14 +383,14 @@ int main()
 	char *argv2[4];
 	char *argv3[4];
 
-	pipe_struct.p_amount = 1;
+	pipe_struct.p_amount = 2;
 	
-	argv1[0] = "ls";
-	argv1[1] = NULL;
-	argv1[2] = "zwei";
+	argv1[0] = "pwd";
+	argv1[1] = "a";
+	argv1[2] = "b";
 	argv1[3] = NULL;
 
-	argv2[0] = "dummy2";
+	argv2[0] = "cat";
 	argv2[1] = NULL;
 	argv2[2] = NULL;
 	argv2[3] = NULL;
@@ -403,11 +403,13 @@ int main()
 	pipe_struct.input_file = NULL;
 	pipe_struct.output_file = NULL;
 	pipe_struct.output_file_append = NULL;
-	pipe_struct.processes[0].name = "ls";
+
+	pipe_struct.processes[0].name = "pwd";
 	// pipe_struct.processes[0].name = "echo";
 	pipe_struct.processes[0].argv = argv1;
-	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
-	// pipe_struct.processes[1].name = "env";
+
+	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
+	pipe_struct.processes[1].name = "cat";
 	pipe_struct.processes[1].argv = argv2;
 
 	pipe_struct.processes[2].name = "env";

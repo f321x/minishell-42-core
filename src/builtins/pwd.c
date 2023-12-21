@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:31:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 15:55:20 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 20:25:06 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,16 @@ bool	pwd(char **argv)
 	char	*getcwd_retv;
 	int		error;
 
+	if (argv[1] != NULL)
+	{
+		write(2, "pwd: too many arguments", 23);
+		return (false);
+	}
 	getcwd_retv = getcwd(buffer, CWD_BUFFER_SIZE);
 	if (getcwd_retv == NULL)
-	{
-		perror("Error getting path.");
-		return (false);
-	}
+		return (error_wrapper());
 	error = ft_printf("%s\n", buffer);
 	if (error < 0)
-	{
-		perror("Error printing path.");
-		return (false);
-	}
+		return (error_wrapper());
 	return (true);
 }
