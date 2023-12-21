@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:34:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 19:07:54 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/21 19:12:37 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	parse_placeholder(t_parsing *pd)
 	char 	*env_value;
 	size_t	env_val_i;
 
-	printf("PARSE PLACEHOLDER\n");
+	// printf("PARSE PLACEHOLDER\n");
 	env_val_i = 0;
 	pd->line_i++;
 	// parse var
