@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:38:28 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 14:38:10 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/21 15:06:37 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,14 +98,19 @@ bool	parse_line(char *entered_line, t_pipe *task)
 		// isolate name
 		if (pd.new_proc)
 		{
+			// printf("NEW PROC CALLED\n");
 			isolate_name(&pd);
 			pd.new_proc = false;
 			task->processes[task->p_amount].name = ft_strdup(pd.buffer);
+			// printf("process %s\n", task->processes[task->p_amount].name);
 		}
 		if (entered_line[pd.line_i] == '|')
 		{
+			// printf("PIPE CALLED\n");
 			pd.new_proc = true;
 			(pd.line_i)++;
+			while (entered_line[pd.line_i] == ' ')
+				(pd.line_i)++;
 			(task->p_amount)++;
 		}
 		else if (entered_line[pd.line_i])
