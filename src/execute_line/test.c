@@ -1,11 +1,11 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 int main()
 {
-	int fd = open("testfile", O_RDONLY);
-	char s[10];
-	read(fd, s, 5);
-	printf("%s\n", s);
+	char *a = malloc(-1);
+	perror("mytest");
+	printf("-%p", a);
 }
