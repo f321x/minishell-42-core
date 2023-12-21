@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:34:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 13:00:24 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/21 14:41:33 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ char **append_string(char **orig, char *str)
 
 	amount = 0;
 	index = 0;
+	// printf("appended string: %s\n", str);
 	while (orig && orig[amount] != NULL)
 		amount++;
-	new_str_arr = malloc(((sizeof(char *) + 1) * amount) + sizeof(void *));
+	new_str_arr = malloc((sizeof(char *) * amount) + sizeof(void *) + sizeof(char *));
 	if (!new_str_arr)
 		return (NULL);
 	while (index < amount)
