@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:38:28 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 15:06:37 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/21 15:40:27 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,13 @@ static bool	check_rest(t_parsing *pd)
 		pd->line_i++;
 		while (!ft_isdelimiter(pd->entered_line[pd->line_i]) && pd->entered_line[pd->line_i])
 		{
-			pd->buffer[pd->buffer_i++] = pd->entered_line[pd->line_i];
-			pd->line_i++;
+			if (pd->entered_line[pd->line_i] == '$')
+				parse_placeholder(pd);
+			else
+			{
+				pd->buffer[pd->buffer_i++] = pd->entered_line[pd->line_i];
+				pd->line_i++;
+			}
 		}
 		pd->buffer[pd->buffer_i] = '\0';
 		if (ft_strlen(pd->buffer) > 0)
