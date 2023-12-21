@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 18:42:02 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:35:57 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_process {
 typedef struct s_pipe {
 	t_process	processes[1000];
 	size_t		p_amount;
-	char 		*input_file;
+	char 		*input_file;  //NULL
 	char		*here_file;
 	char		*output_file;
 	char		*output_file_append;
