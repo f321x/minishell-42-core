@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:46:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 15:55:07 by student         ###   ########.fr       */
+/*   Updated: 2023/12/21 19:05:21 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ bool	env(char **argv)
 		}
 		pointer++;
 	}
+	printf("%p\n", environ);
 	return (true);
 }
