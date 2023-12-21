@@ -6,7 +6,7 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/20 16:31:42 by marschul         ###   ########.fr        #
+#    Updated: 2023/12/21 14:54:30 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIB_DEBUG := libs/libft/libft_debug.a -lreadline
 
 SRCS 	:= $(SRCDIR)/minishell.c \
 $(SRCDIR)/input_handling/input_utils.c \
-$(SRCDIR)/parsing/parsing_main.c \
+$(SRCDIR)/parsing/parsing_main.c $(SRCDIR)/parsing/parsing_utils.c \
 $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c
 # $(SRCDIR)/execute_line/execute_line.c
 

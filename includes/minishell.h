@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/19 17:48:00 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/20 16:49:29 by marschul         ###   ########.fr       */
+/*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
+/*   Updated: 2023/12/21 14:54:12 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,6 @@
 #define	CWD_BUFFER_SIZE 1000
 #define	PROC_FIELD_BUFFER 1000
 
-// typedef struct s_tokens {
-// 	char 	*token;
-// 	bool	in_s_quotes;
-// 	bool	in_d_quotes;
-// 	bool	pipe;
-// 	bool	red_left;
-// 	bool	red_right;
-// }	t_tokens;
-
 typedef bool (*t_function_pointer)(char **argv);
 
 typedef struct s_process {
@@ -62,6 +53,15 @@ typedef struct s_pipe {
 	char		*output_file;
 	char		*output_file_append;
 }	t_pipe;
+
+typedef struct s_parsing {
+	char	buffer[PROC_FIELD_BUFFER];
+	char	*entered_line;
+	size_t	line_i;
+	size_t	buffer_i;
+	bool	new_proc;
+	t_pipe	*task;
+}	t_parsing;
 
 // input_utils.c
 char	*read_a_line(char *prompt);
@@ -87,7 +87,13 @@ bool	unset(char **argv);
 // env.c
 bool	env(char **argv);
 
-// parsing_main.c
+// parsing.c
 bool	parse_line(char *entered_line, t_pipe *task);
 
+// execute line
 int	execute_line(t_pipe *pipe_struct);
+
+// parsing_utils.c
+char 	**append_string(char **orig, char *str);
+bool	ft_isdelimiter(char c);
+void	parse_placeholder(t_parsing *pd);
