@@ -6,7 +6,7 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/21 14:54:30 by marschul         ###   ########.fr        #
+#    Updated: 2023/12/21 15:47:23 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ OBJDIR		:= objs
 LIB 		:= libs/libft/libft.a -lreadline
 LIB_DEBUG := libs/libft/libft_debug.a -lreadline
 
-SRCS 	:= $(SRCDIR)/minishell.c \
+SRCS 	:= $(SRCDIR)/minishell.c $(SRCDIR)/helper_functions.c \
 $(SRCDIR)/input_handling/input_utils.c \
 $(SRCDIR)/parsing/parsing_main.c $(SRCDIR)/parsing/parsing_utils.c \
 $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c
@@ -51,7 +51,7 @@ debug: $(DOBJS)
 
 testexecute:
 	make -C libs/libft
-	gcc -Wall -Werror -g  -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c
+	gcc -Wall -Werror -g  -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/helper_functions.c
 
 clean:
 	make -C libs/libft clean

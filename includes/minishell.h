@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 14:54:12 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 15:46:21 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,3 +97,6 @@ int	execute_line(t_pipe *pipe_struct);
 char 	**append_string(char **orig, char *str);
 bool	ft_isdelimiter(char c);
 void	parse_placeholder(t_parsing *pd);
+
+// helper_functions.c
+int	error_wrapper(void);
