@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 17:15:25 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/10/06 10:01:32 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/22 14:15:19 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *string)
 	size_t	counter;
 
 	counter = 0;
-	while (string[counter] != '\0')
+	while (string && string[counter] != '\0')
 		counter++;
 	return (counter);
 }
