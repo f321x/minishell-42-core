@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:38:28 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 15:40:27 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/22 13:17:21 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	parse_quote(t_parsing *pd)
 	}
 }
 
-static bool	check_rest(t_parsing *pd)
+static void	check_rest(t_parsing *pd)
 {
 	pd->buffer_i = 0;
 	pd->buffer[0] = '\0';
@@ -82,12 +82,14 @@ static bool	check_rest(t_parsing *pd)
 			pd->task->processes[pd->task->p_amount].argv = append_string(pd->task->processes[pd->task->p_amount].argv, pd->buffer);
 	}
 	else if (pd->entered_line[pd->line_i] == 39 || pd->entered_line[pd->line_i] == '"')
-	{
 		parse_quote(pd);
-	}
 	else if (pd->entered_line[pd->line_i] == '$')
 		parse_placeholder(pd);
-	return (false);
+	else if (pd->entered_line[pd->line_i] == '<')
+		parse_infile(pd);
+	else if (pd->entered_line[pd->line_i] == '>')
+		parse_outfile(pd);
+	// return (false);
 }
 
 bool	parse_line(char *entered_line, t_pipe *task)
@@ -98,6 +100,7 @@ bool	parse_line(char *entered_line, t_pipe *task)
 	pd.new_proc = true;
 	pd.entered_line = entered_line;
 	pd.task = task;
+	pd.task->processes[task->p_amount].argv = NULL;
 	while (entered_line && entered_line[pd.line_i])
 	{
 		// isolate name
