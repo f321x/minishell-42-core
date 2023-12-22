@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:46:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 19:05:21 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:17:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,15 @@ bool	env(char **argv)
 	char		**pointer;
 	int			error;
 
+	if (argv[1] != NULL)
+		return (error_wrapper());
 	pointer = environ;
 	while (pointer && *pointer)
 	{
 		error = ft_printf("%s\n", *pointer);
 		if (error < 0)
-		{
-			perror("Printing env variable failed.");
-			return (false);
-		}
+			return (error_wrapper());
 		pointer++;
 	}
-	printf("%p\n", environ);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/21 20:25:42 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:18:16 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,9 +383,9 @@ int main()
 	char *argv2[4];
 	char *argv3[4];
 
-	pipe_struct.p_amount = 2;
+	pipe_struct.p_amount = 1;
 	
-	argv1[0] = "pwd";
+	argv1[0] = "env";
 	argv1[1] = "a";
 	argv1[2] = "b";
 	argv1[3] = NULL;
@@ -404,7 +404,7 @@ int main()
 	pipe_struct.output_file = NULL;
 	pipe_struct.output_file_append = NULL;
 
-	pipe_struct.processes[0].name = "pwd";
+	pipe_struct.processes[0].name = "env";
 	// pipe_struct.processes[0].name = "echo";
 	pipe_struct.processes[0].argv = argv1;
 

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 19:25:33 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/21 21:39:05 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,11 @@ bool	unset(char **argv)
 	char		**env_buffer;
 	char		*variable_name;
 
+	if (argv[1] == NULL)
+	{
+		write(2, "unset: not enough arguments\n", 28);
+		return (false);
+	}
 	if (argv[1] != NULL)
 		variable_name = argv[1];
 	env_size = get_env_length();
@@ -65,4 +70,9 @@ bool	unset(char **argv)
 	environ = new_environ;
 	free_old_env(env_buffer);
 	return (true);
+}
+
+int main()
+{
+	unset(NULL);
 }
