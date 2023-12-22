@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/21 21:18:16 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:04:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	handle_outfile(t_pipe *pipe_struct)
 	}
 	if (pipe_struct->output_file_append != NULL)
 	{
-		output_file = pipe_struct->output_file;	
+		output_file = pipe_struct->output_file;
 		fd = open(output_file, O_RDONLY | O_APPEND);
 	}
 	if (fd == -1)
@@ -135,7 +135,7 @@ int	close_all_fds(int (*fd_array)[2], size_t p_amount)
 		if (close(fd_array[i][1]) == -1)
 		{
 			perror("Minishell: close_all_fds");
-			return (0);			
+			return (0);
 		}
 		i++;
 	}
@@ -152,12 +152,12 @@ int	close_last_fds(int (*fd_array)[2], size_t i)
 		if (close(fd_array[i - 1][0]) == -1)
 		{
 			perror("Minishell: close_last_fds");
-			return (0);			
+			return (0);
 		}
 		if (close(fd_array[i - 1][1]) == -1)
 		{
 			perror("Minishell: close_last_fds");
-			return (0);			
+			return (0);
 		}
 	}
 	return (1);
@@ -268,7 +268,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	program = process->name;
 	argv = process->argv;
 	pid = fork();
-	
+
 	if (pid == 0)
 	{
 		if (i != 0)
@@ -367,52 +367,52 @@ int	execute_line(t_pipe *pipe_struct)
 	pipe_struct->last_exit_value = status_pointer;
 	if (! set_exit_value(pipe_struct->last_exit_value))
 		return (0);
-		
+
 	printf("pid of last process %d\n", last_pid); //debug
 	//env(NULL); debug
-	
+
 	return (1);
 }
 
 //==========
 
-int main()
-{
-	t_pipe pipe_struct;
-	char *argv1[4];
-	char *argv2[4];
-	char *argv3[4];
+// int main()
+// {
+// 	t_pipe pipe_struct;
+// 	char *argv1[4];
+// 	char *argv2[4];
+// 	char *argv3[4];
 
-	pipe_struct.p_amount = 1;
-	
-	argv1[0] = "env";
-	argv1[1] = "a";
-	argv1[2] = "b";
-	argv1[3] = NULL;
+// 	pipe_struct.p_amount = 2;
 
-	argv2[0] = "cat";
-	argv2[1] = NULL;
-	argv2[2] = NULL;
-	argv2[3] = NULL;
+// 	argv1[0] = "pwd";
+// 	argv1[1] = "a";
+// 	argv1[2] = "b";
+// 	argv1[3] = NULL;
 
-	argv3[0] = "env";
-	argv3[1] = NULL;
-	argv3[2] = "bestie";
-	argv3[3] = NULL;
+// 	argv2[0] = "cat";
+// 	argv2[1] = NULL;
+// 	argv2[2] = NULL;
+// 	argv2[3] = NULL;
 
-	pipe_struct.input_file = NULL;
-	pipe_struct.output_file = NULL;
-	pipe_struct.output_file_append = NULL;
+// 	argv3[0] = "env";
+// 	argv3[1] = NULL;
+// 	argv3[2] = "bestie";
+// 	argv3[3] = NULL;
 
-	pipe_struct.processes[0].name = "env";
-	// pipe_struct.processes[0].name = "echo";
-	pipe_struct.processes[0].argv = argv1;
+// 	pipe_struct.input_file = NULL;
+// 	pipe_struct.output_file = NULL;
+// 	pipe_struct.output_file_append = NULL;
 
-	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
-	pipe_struct.processes[1].name = "cat";
-	pipe_struct.processes[1].argv = argv2;
+	// pipe_struct.processes[0].name = "pwd";
+	// // pipe_struct.processes[0].name = "echo";
+	// pipe_struct.processes[0].argv = argv1;
 
-	pipe_struct.processes[2].name = "env";
-	pipe_struct.processes[2].argv = argv3;
-	execute_line(&pipe_struct);
-}
+// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
+// 	pipe_struct.processes[1].name = "cat";
+// 	pipe_struct.processes[1].argv = argv2;
+
+// 	pipe_struct.processes[2].name = "env";
+// 	pipe_struct.processes[2].argv = argv3;
+// 	execute_line(&pipe_struct);
+// }
