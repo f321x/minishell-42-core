@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:38:28 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/22 13:17:21 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/22 14:16:54 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,14 @@ static void	check_rest(t_parsing *pd)
 bool	parse_line(char *entered_line, t_pipe *task)
 {
 	t_parsing pd;
+	extern char **environ;
 
 	pd.line_i = 0;
 	pd.new_proc = true;
 	pd.entered_line = entered_line;
 	pd.task = task;
 	pd.task->processes[task->p_amount].argv = NULL;
+	pd.task->processes[task->p_amount].env = environ;
 	while (entered_line && entered_line[pd.line_i])
 	{
 		// isolate name
