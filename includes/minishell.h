@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 19:35:57 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/22 13:53:22 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 #define SHELL_PROMPT "minishell$ "
 #define	CWD_BUFFER_SIZE 1000
 #define	PROC_FIELD_BUFFER 1000
+#define MAX_PROC_AMOUNT 1000
 
 typedef bool (*t_function_pointer)(char **argv);
 
@@ -39,14 +40,10 @@ typedef struct s_process {
 	char 	*name;
 	char 	**argv;
 	t_function_pointer	inbuilt;
-	// bool	pipe;
-	// bool	red_left;
-	// bool	red_right;
-	// char 	**env;
 }	t_process;
 
 typedef struct s_pipe {
-	t_process	processes[1000];
+	t_process	processes[MAX_PROC_AMOUNT];
 	size_t		p_amount;
 	char 		*input_file;  //NULL
 	char		*here_file;
@@ -101,3 +98,8 @@ void	parse_placeholder(t_parsing *pd);
 
 // helper_functions.c
 bool	error_wrapper(void);
+
+// in_out_parsing.c
+void	parse_infile(t_parsing *pd);
+void	parse_outfile(t_parsing *pd);
+void	parse_heredoc(t_parsing *pd);
