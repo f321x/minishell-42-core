@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 19:23:00 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/22 13:54:27 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,16 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		if (!parse_line(entered_line, &task))
 			continue ;
-		for (size_t i = 0; i < task.p_amount; i++)
-		{
-			printf("process %zu: %s\n", i, task.processes[i].name);
-			while (task.processes[i].argv && *task.processes[i].argv)
-			{
-				printf("argv: %s\n", *task.processes[i].argv);
-				task.processes[i].argv++;
-			}
-		}
+		// for (size_t i = 0; i < task.p_amount; i++)
+		// {
+		// 	printf("process %zu: %s\n", i, task.processes[i].name);
+		// 	while (task.processes[i].argv && *task.processes[i].argv)
+		// 	{
+		// 		printf("argv: %s\n", *task.processes[i].argv);
+		// 		task.processes[i].argv++;
+		// 	}
+		// }
+		execute_line(&task);
 		// free(entered_line);
 		continue ;
 
