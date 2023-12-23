@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 15:38:28 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/22 14:16:54 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/23 14:14:49 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	isolate_name(t_parsing *pd)
 	pd->buffer[pd->buffer_i] = '\0';
 }
 
-void	parse_quote(t_parsing *pd)
+bool	parse_quote(t_parsing *pd)
 {
 	pd->buffer_i = 0;
 	pd->buffer[0] = '\0';
@@ -40,6 +40,8 @@ void	parse_quote(t_parsing *pd)
 		pd->buffer[pd->buffer_i] = '\0';
 		if (ft_strlen(pd->buffer) > 0)
 			pd->task->processes[pd->task->p_amount].argv = append_string(pd->task->processes[pd->task->p_amount].argv, pd->buffer);
+			if (!pd->task->processes[pd->task->p_amount].argv)
+				return (false);
 	}
 	else if (pd->entered_line[pd->line_i] == '"')
 	{
@@ -47,7 +49,8 @@ void	parse_quote(t_parsing *pd)
 		while (pd->entered_line[pd->line_i] && pd->entered_line[pd->line_i] != '"')
 		{
 			if (pd->entered_line[pd->line_i] == '$')
-				parse_placeholder(pd);
+				if (!parse_placeholder(pd))
+					return (false);
 			else
 			{
 				pd->buffer[pd->buffer_i++] = pd->entered_line[pd->line_i];
@@ -57,10 +60,13 @@ void	parse_quote(t_parsing *pd)
 		pd->buffer[pd->buffer_i] = '\0';
 		if (ft_strlen(pd->buffer) > 0)
 			pd->task->processes[pd->task->p_amount].argv = append_string(pd->task->processes[pd->task->p_amount].argv, pd->buffer);
+			if (!pd->task->processes[pd->task->p_amount].argv)
+				return (false);
 	}
+	return (true);
 }
 
-static void	check_rest(t_parsing *pd)
+static bool	check_rest(t_parsing *pd)
 {
 	pd->buffer_i = 0;
 	pd->buffer[0] = '\0';
@@ -70,7 +76,8 @@ static void	check_rest(t_parsing *pd)
 		while (!ft_isdelimiter(pd->entered_line[pd->line_i]) && pd->entered_line[pd->line_i])
 		{
 			if (pd->entered_line[pd->line_i] == '$')
-				parse_placeholder(pd);
+				if (!parse_placeholder(pd))
+					return (false);
 			else
 			{
 				pd->buffer[pd->buffer_i++] = pd->entered_line[pd->line_i];
@@ -80,21 +87,23 @@ static void	check_rest(t_parsing *pd)
 		pd->buffer[pd->buffer_i] = '\0';
 		if (ft_strlen(pd->buffer) > 0)
 			pd->task->processes[pd->task->p_amount].argv = append_string(pd->task->processes[pd->task->p_amount].argv, pd->buffer);
+			if (!pd->task->processes[pd->task->p_amount].argv)
+				return (false);
 	}
 	else if (pd->entered_line[pd->line_i] == 39 || pd->entered_line[pd->line_i] == '"')
-		parse_quote(pd);
+		return (parse_quote(pd));
 	else if (pd->entered_line[pd->line_i] == '$')
-		parse_placeholder(pd);
+		return (parse_placeholder(pd));
 	else if (pd->entered_line[pd->line_i] == '<')
-		parse_infile(pd);
+		return (parse_infile(pd));
 	else if (pd->entered_line[pd->line_i] == '>')
-		parse_outfile(pd);
-	// return (false);
+		return (parse_outfile(pd));
+	return (true);
 }
 
 bool	parse_line(char *entered_line, t_pipe *task)
 {
-	t_parsing pd;
+	t_parsing 	pd;
 	extern char **environ;
 
 	pd.line_i = 0;
@@ -112,6 +121,8 @@ bool	parse_line(char *entered_line, t_pipe *task)
 			isolate_name(&pd);
 			pd.new_proc = false;
 			task->processes[task->p_amount].name = ft_strdup(pd.buffer);
+			if (!task->processes[task->p_amount].name)
+				return (false);
 			// printf("process %s\n", task->processes[task->p_amount].name);
 		}
 		if (entered_line[pd.line_i] == '|')
@@ -125,7 +136,8 @@ bool	parse_line(char *entered_line, t_pipe *task)
 		}
 		else if (entered_line[pd.line_i])
 		{
-			check_rest(&pd);
+			if (!check_rest(&pd))
+				return (false);
 		}
 	}
 	(task->p_amount)++;
