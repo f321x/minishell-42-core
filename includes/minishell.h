@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/23 14:20:32 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/27 12:22:57 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_process {
 	char 	*name;
 	char 	**argv;
 	char	**env;
-	t_function_pointer	inbuilt;
+	t_function_pointer	builtin;
 }	t_process;
 
 typedef struct s_pipe {
@@ -66,25 +66,15 @@ typedef struct s_parsing {
 // input_utils.c
 char	*read_a_line(char *prompt);
 
-// echo.c
+// builtins
 bool	echo(char **argv);
-
-// cd.c
 bool	cd(char **argv);
-
-// pwd.c
 bool	pwd(char **argv);
-
-// export.c
 bool	export_one_pair(char *env_pair);
 void	free_old_env(char **old_env);
 size_t	get_env_length(void);
 bool	export(char **argv);
-
-// unset.c
 bool	unset(char **argv);
-
-// env.c
 bool	env(char **argv);
 
 // parsing.c

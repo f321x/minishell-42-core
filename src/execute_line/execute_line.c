@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/22 14:04:59 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/27 12:24:07 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,19 +163,19 @@ int	close_last_fds(int (*fd_array)[2], size_t i)
 	return (1);
 }
 
-int	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
+int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
-	bool	(*inbuilt) (char** argv);
+	bool	(*builtin) (char** argv);
 	int		temp;
 
-	inbuilt = process->inbuilt;
+	builtin = process->builtin;
 	close_last_fds(fd_array, i);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
 		temp = dup(1);
 		dup2(fd_array[i][1], 1);
 	}
-	if (inbuilt(process->argv) == false)
+	if (builtin(process->argv) == false)
 		return (0);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
@@ -265,6 +265,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	int			pid;
 	extern char	**environ;
 
+	printf("parent %p %p\n", process->env, environ);
 	program = process->name;
 	argv = process->argv;
 	pid = fork();
@@ -278,7 +279,8 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		close_all_fds(fd_array, p_amount);
 		if (find_full_path(process) == -1)
 			return (0);
-		if (execve(process->name, argv, environ) == -1)
+		printf("child %p %p\n", process->env, environ);
+		if (execve(process->name, argv, process->env) == -1)
 			perror("Minishell: launch_process");
 		return (0);
 	}
@@ -289,7 +291,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	}
 }
 
-bool	is_inbuilt(t_process *process)
+bool	is_builtin(t_process *process)
 {
 	const char	*function_names[6] = {"cd", "echo", "env", "export", "pwd", "unset"};
 	const t_function_pointer	function_pointers[6] = {cd, echo, env, export, pwd, unset};
@@ -302,7 +304,7 @@ bool	is_inbuilt(t_process *process)
 	{
 		if (ft_strncmp(name, function_names[i], 7) == 0)
 		{
-			process->inbuilt = function_pointers[i];
+			process->builtin = function_pointers[i];
 			return (true);
 		}
 		i++;
@@ -325,7 +327,7 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		if (is_inbuilt(&process) == 0)
+		if (is_builtin(&process) == 0)
 		{
 			pid = launch_process(&process, fd_array, pipe_struct->p_amount, i);
 			if (pid == 0)
@@ -334,7 +336,7 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		}
 		else
 		{
-			return_value = launch_inbuilt(&process, fd_array, pipe_struct->p_amount, i);
+			return_value = launch_builtin(&process, fd_array, pipe_struct->p_amount, i);
 			if (return_value == 0)
 				return (0);
 			pipe_struct->last_exit_value = return_value;
@@ -376,43 +378,43 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// int main()
-// {
-// 	t_pipe pipe_struct;
-// 	char *argv1[4];
-// 	char *argv2[4];
-// 	char *argv3[4];
+int main()
+{
+	t_pipe pipe_struct;
+	char *argv1[4];
+	char *argv2[4];
+	char *argv3[4];
 
-// 	pipe_struct.p_amount = 2;
+	pipe_struct.p_amount = 2;
 
-// 	argv1[0] = "pwd";
-// 	argv1[1] = "a";
-// 	argv1[2] = "b";
-// 	argv1[3] = NULL;
+	argv1[0] = "cd";
+	argv1[1] = "src";
+	argv1[2] = NULL;
+	argv1[3] = NULL;
 
-// 	argv2[0] = "cat";
-// 	argv2[1] = NULL;
-// 	argv2[2] = NULL;
-// 	argv2[3] = NULL;
+	argv2[0] = "pwd";
+	argv2[1] = NULL;
+	argv2[2] = NULL;
+	argv2[3] = NULL;
 
-// 	argv3[0] = "env";
-// 	argv3[1] = NULL;
-// 	argv3[2] = "bestie";
-// 	argv3[3] = NULL;
+	argv3[0] = "env";
+	argv3[1] = NULL;
+	argv3[2] = "bestie";
+	argv3[3] = NULL;
 
-// 	pipe_struct.input_file = NULL;
-// 	pipe_struct.output_file = NULL;
-// 	pipe_struct.output_file_append = NULL;
+	pipe_struct.input_file = NULL;
+	pipe_struct.output_file = NULL;
+	pipe_struct.output_file_append = NULL;
 
-	// pipe_struct.processes[0].name = "pwd";
-	// // pipe_struct.processes[0].name = "echo";
-	// pipe_struct.processes[0].argv = argv1;
+	pipe_struct.processes[0].name = "cd";
+	// pipe_struct.processes[0].name = "echo";
+	pipe_struct.processes[0].argv = argv1;
 
-// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
-// 	pipe_struct.processes[1].name = "cat";
-// 	pipe_struct.processes[1].argv = argv2;
+	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
+	pipe_struct.processes[1].name = "pwd";
+	pipe_struct.processes[1].argv = argv2;
 
-// 	pipe_struct.processes[2].name = "env";
-// 	pipe_struct.processes[2].argv = argv3;
-// 	execute_line(&pipe_struct);
-// }
+	pipe_struct.processes[2].name = "env";
+	pipe_struct.processes[2].argv = argv3;
+	execute_line(&pipe_struct);
+}

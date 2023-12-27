@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 21:39:05 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:10:02 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ bool	unset(char **argv)
 	return (true);
 }
 
-int main()
-{
-	unset(NULL);
-}
+// int main()
+// {
+// 	unset(NULL);
+// }

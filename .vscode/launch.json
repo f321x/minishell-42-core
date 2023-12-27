@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Launch",
-            "type": "cppdbg",
+            "type": "lldb",
             "program": "${workspaceFolder}/minishell_debug",
             "args": [],
             "cwd": "${workspaceFolder}",
