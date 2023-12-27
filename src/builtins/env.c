@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:46:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 21:17:59 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/27 12:50:57 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ bool	env(char **argv)
 	extern char	**environ;
 	char		**pointer;
 	int			error;
+
+	assert(argv != NULL && ft_strcmp(argv[0], "env") == 0); // debug
 
 	if (argv[1] != NULL)
 		return (error_wrapper());
