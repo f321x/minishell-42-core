@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/27 13:57:51 by student         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:06:47 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ bool	unset(char **argv)
 	{
 		variable_name = argv[i];
 		if (getenv(variable_name) == NULL)
+		{
+			i++;
 			continue;
+		}
 		env_size = get_env_length();
 		if (env_size < 1)
 			return (true);
