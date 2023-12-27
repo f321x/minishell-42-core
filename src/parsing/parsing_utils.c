@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/20 16:34:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/22 13:19:08 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/23 14:08:57 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ bool	ft_isdelimiter(char c)
 // 	free(env_var_name);
 // }
 
-void	parse_placeholder(t_parsing *pd)
+bool	parse_placeholder(t_parsing *pd)
 {
 	char 	*env_var;
 	char 	*env_value;
@@ -109,7 +109,7 @@ void	parse_placeholder(t_parsing *pd)
 		env_val_i++;
 	env_var = ft_substr(&pd->entered_line[pd->line_i], 0, env_val_i);
 	if (!env_var)
-		return ;
+		return (false);
 	pd->line_i += ft_strlen(env_var);
 	env_value = getenv(env_var);
 	env_val_i = 0;
@@ -120,4 +120,5 @@ void	parse_placeholder(t_parsing *pd)
 		env_val_i++;
 	}
 	free(env_var);
+	return (true);
 }

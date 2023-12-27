@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/22 13:53:22 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/23 14:20:32 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include <string.h>
 #include <termios.h>
 #include <assert.h>
+// #include <stdint.h>
 #include "../libs/libft/includes/libft.h"
 
 #define SHELL_PROMPT "minishell$ "
@@ -39,6 +40,7 @@ typedef bool (*t_function_pointer)(char **argv);
 typedef struct s_process {
 	char 	*name;
 	char 	**argv;
+	char	**env;
 	t_function_pointer	inbuilt;
 }	t_process;
 
@@ -94,12 +96,12 @@ int	execute_line(t_pipe *pipe_struct);
 // parsing_utils.c
 char 	**append_string(char **orig, char *str);
 bool	ft_isdelimiter(char c);
-void	parse_placeholder(t_parsing *pd);
+bool	parse_placeholder(t_parsing *pd);
 
 // helper_functions.c
 bool	error_wrapper(void);
 
 // in_out_parsing.c
-void	parse_infile(t_parsing *pd);
-void	parse_outfile(t_parsing *pd);
-void	parse_heredoc(t_parsing *pd);
+bool	parse_infile(t_parsing *pd);
+bool	parse_outfile(t_parsing *pd);
+bool	parse_heredoc(t_parsing *pd);

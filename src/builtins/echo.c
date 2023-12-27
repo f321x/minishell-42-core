@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 14:58:11 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 20:19:58 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/22 14:48:40 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	echo(char **argv)
 	int 	i;
 	bool	n_flag;
 
-	if (argv[1] != NULL && ft_strncmp("-n", argv[1], 3) == 0)
+	if (argv && argv[1] != NULL && ft_strncmp("-n", argv[1], 3) == 0)
 	{
 		n_flag = true;
 		i = 2;
