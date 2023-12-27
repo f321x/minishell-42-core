@@ -6,11 +6,17 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/27 21:25:23 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/27 21:39:19 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	cleanup(t_pipe *pipe_struct)
+{
+	if (pipe_struct->here_file)
+		unlink("tmp");
+}
 
 int	create_pid_array(pid_t **pid_array, size_t p_amount)
 {
@@ -65,8 +71,7 @@ int	get_here_file(char *keyword, int n)
 	ssize_t	i;
 	char	buffer[1];
 
-	fd = open("tmp", O_CREAT | O_RDWR, 0700);
-	ft_printf("%d\n", fd);
+	fd = open("tmp", O_CREAT | O_RDWR, 0600);
 	i = 0;
 	end = false;
 	while (!end)
@@ -95,6 +100,8 @@ int	get_here_file(char *keyword, int n)
 				i = 0;
 		}
 	}
+	close(fd);
+	fd = open("tmp", O_RDONLY, 0600);
 	return (fd);
 }
 
@@ -394,6 +401,7 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		}
 		i++;
 	}
+	cleanup(pipe_struct);
 	return (1);
 }
 
@@ -452,7 +460,7 @@ int main()
 	argv3[3] = NULL;
 
 	pipe_struct.input_file = NULL;
-	pipe_struct.here_file = NULL;
+	pipe_struct.here_file = "here";
 	pipe_struct.output_file = NULL;
 	pipe_struct.output_file_append = NULL;
 
