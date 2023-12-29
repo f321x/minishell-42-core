@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/29 17:38:15 by student         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:04:28 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ size_t	get_env_length(void);
 bool	export(char **argv);
 bool	unset(char **argv);
 bool	env(char **argv);
+bool	_exit_(char **argv);
 
 // parsing.c
 bool	parse_line(char *entered_line, t_pipe *task);
