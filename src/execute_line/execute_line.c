@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/27 21:39:19 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/29 16:41:00 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -435,44 +435,44 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-int main()
-{
-	t_pipe pipe_struct;
-	char *argv1[4];
-	char *argv2[4];
-	char *argv3[4];
+// int main()
+// {
+// 	t_pipe pipe_struct;
+// 	char *argv1[4];
+// 	char *argv2[4];
+// 	char *argv3[4];
 
-	pipe_struct.p_amount = 1;
+// 	pipe_struct.p_amount = 1;
 
-	argv1[0] = "cat";
-	argv1[1] = NULL;
-	argv1[2] = NULL;
-	argv1[3] = NULL;
+// 	argv1[0] = "cat";
+// 	argv1[1] = NULL;
+// 	argv1[2] = NULL;
+// 	argv1[3] = NULL;
 
-	argv2[0] = "cat";
-	argv2[1] = NULL;
-	argv2[2] = NULL;
-	argv2[3] = NULL;
+// 	argv2[0] = "cat";
+// 	argv2[1] = NULL;
+// 	argv2[2] = NULL;
+// 	argv2[3] = NULL;
 
-	argv3[0] = "env";
-	argv3[1] = NULL;
-	argv3[2] = NULL;
-	argv3[3] = NULL;
+// 	argv3[0] = "env";
+// 	argv3[1] = NULL;
+// 	argv3[2] = NULL;
+// 	argv3[3] = NULL;
 
-	pipe_struct.input_file = NULL;
-	pipe_struct.here_file = "here";
-	pipe_struct.output_file = NULL;
-	pipe_struct.output_file_append = NULL;
+// 	pipe_struct.input_file = NULL;
+// 	pipe_struct.here_file = "here";
+// 	pipe_struct.output_file = NULL;
+// 	pipe_struct.output_file_append = NULL;
 
-	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/dummy1";
-	pipe_struct.processes[0].name = "cat";
-	pipe_struct.processes[0].argv = argv1;
+// 	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/dummy1";
+// 	pipe_struct.processes[0].name = "cat";
+// 	pipe_struct.processes[0].argv = argv1;
 
-	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-	// pipe_struct.processes[1].name = "cat";
-	pipe_struct.processes[1].argv = argv2;
+// 	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+// 	// pipe_struct.processes[1].name = "cat";
+// 	pipe_struct.processes[1].argv = argv2;
 
-	pipe_struct.processes[2].name = "env";
-	pipe_struct.processes[2].argv = argv3;
-	execute_line(&pipe_struct);
-}
+// 	pipe_struct.processes[2].name = "env";
+// 	pipe_struct.processes[2].argv = argv3;
+// 	execute_line(&pipe_struct);
+// }

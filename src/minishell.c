@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/27 11:18:33 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:08:52 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	main(int argc, char **argv, char **envp)
 	t_pipe 	task;
 	char	*entered_line;
 
-	// signal handlers
+	// register signal handlers
+	register_signal_handlers();
 
 	while (1)
 	{
