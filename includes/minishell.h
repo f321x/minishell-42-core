@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/27 12:22:57 by student         ###   ########.fr       */
+/*   Updated: 2023/12/29 17:38:15 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,3 +95,8 @@ bool	error_wrapper(void);
 bool	parse_infile(t_parsing *pd);
 bool	parse_outfile(t_parsing *pd);
 bool	parse_heredoc(t_parsing *pd);
+
+// signals.c
+void	register_signal_handlers(void);
+void	sigint_handler(int signum);
+void	sigquit_handler(int signum);
