@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/29 17:38:15 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:04:28 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ size_t	get_env_length(void);
 bool	export(char **argv);
 bool	unset(char **argv);
 bool	env(char **argv);
+bool	_exit_(char **argv);
 
 // parsing.c
 bool	parse_line(char *entered_line, t_pipe *task);

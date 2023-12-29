@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/29 16:41:00 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/29 18:05:15 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,14 +351,14 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 
 bool	is_builtin(t_process *process)
 {
-	const char	*function_names[6] = {"cd", "echo", "env", "export", "pwd", "unset"};
-	const t_function_pointer	function_pointers[6] = {cd, echo, env, export, pwd, unset};
+	const char	*function_names[7] = {"cd", "echo", "env", "export", "pwd", "unset", "exit"};
+	const t_function_pointer	function_pointers[7] = {cd, echo, env, export, pwd, unset, _exit_};
 	char		*name;
 	int			i;
 
 	name = process->name;
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		if (ft_strncmp(name, function_names[i], 7) == 0)
 		{
