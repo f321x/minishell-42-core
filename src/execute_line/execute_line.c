@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/29 18:05:15 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/30 20:12:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,77 +246,75 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	return (1);
 }
 
-int	find_full_path(t_process *process)
+char	*join_path_and_program_name(char *path, char *name)
 {
-	char		**split;
-	char		**split2;
-	char		*path;
-	char		*name1;
-	char		*name2;
-	int			found = 0;
+	char	*full_path;
+	char	*path_plus_slash;
 
-	if (process->name[0] == '/')
-		return (1);
+	path_plus_slash = malloc(ft_strlen(path) + 2);
+	if (path_plus_slash == NULL)
+		return (NULL);
+	ft_strlcpy(path_plus_slash, path, ft_strlen(path) + 1);
+	path_plus_slash[ft_strlen(path) + 1] = '\0';
+	path_plus_slash[ft_strlen(path)] = '/';
+	full_path = ft_strjoin(path_plus_slash, name);
+	free(path_plus_slash);
+	return (full_path);
+}
 
-	path = getenv("PATH");
-	if (path == NULL)
-		return (error_wrapper());
-	split = ft_split(path, ':');
+bool	find_full_path_in_path_var(t_process *process, char *paths)
+{
+	char	*full_path;
+	char	**split;
+	int		i;
+
+	split = ft_split(paths, ':');
 	if (split == NULL)
 		return (error_wrapper());
-	split2 = split;
-
-	while (*split != NULL)
+	i = 0;
+	while (split[i] != NULL)
 	{
-		name1 = ft_strjoin(*split, "/");
-		if (name1 == NULL)
-			return (-1);
-		name2 = ft_strjoin(name1, process->name);
-		if (name2 == NULL)
-		{
-			free(name1);
-			return (-1);
-		}
-		free(name1);
-		if (access(name2, F_OK) == 0)
+		full_path = join_path_and_program_name(split[i], process->name);
+		if (access(full_path, F_OK) == 0)
 		{
 			//free(process->name);
-			process->name = name2;
-			found = 1;
+			process->name = full_path;
 			break;
 		}
-		free(name2);
-		split++;
+		free(full_path);
+		i++;
 	}
-	if (found == 0)
+	i = 0;
+	while (split[i] != NULL)
 	{
-		name1 = malloc(1000);
-		if (name1 == NULL)
-			return (-1);
-		name1 = getcwd(name1, 1000);
-		name1[ft_strlen(name1)] = '/';
-		name1[ft_strlen(name1) + 1] = '\0';
-		name2 = ft_strjoin(name1, process->name);
-		if (name2 == NULL)
-		{
-			free(name1);
-			return (-1);
-		}
-		free(name1);
-		if (access(name2, F_OK) == 0)
-		{
-			//free(process->name);
-			process->name = name2;
-		}
+		free(split[i]);
+		i++;
 	}
+	free(split);
+	return (true);
+}
 
-	while (*split2 == NULL)
-	{
-		free(*split2);
-		split2++;
-	}
-	free(split2);
-	return (1);
+bool	find_full_path(t_process *process)
+{
+	char	cwd[PATH_MAX];
+	char	*old_path_var_with_colon;
+	char	*new_path_var;
+	char	*paths;
+
+	if (process->name[0] == '/')
+		return (true);
+	paths = getenv("PATH");
+	if (paths == NULL)
+		return (error_wrapper());
+	getcwd(cwd, PATH_MAX);
+	old_path_var_with_colon = ft_strjoin(paths, ":");
+	if (old_path_var_with_colon == NULL)
+		return (false);
+	new_path_var = ft_strjoin(old_path_var_with_colon, cwd);
+	free(old_path_var_with_colon);
+	if (!find_full_path_in_path_var(process, new_path_var))
+		return (error_wrapper());
+	return (true);
 }
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
@@ -336,9 +334,9 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		if (i != p_amount - 1)
 			dup2(fd_array[i][1], 1);
 		close_all_fds(fd_array, p_amount);
-		if (find_full_path(process) == -1)
+		if (!find_full_path(process))
 			return (0);
-		if (execve(process->name, argv, process->env) == -1)
+		if (execve(process->name, argv, environ) == -1)
 			perror("Minishell: launch_process");
 		return (0);
 	}
@@ -435,44 +433,44 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// int main()
-// {
-// 	t_pipe pipe_struct;
-// 	char *argv1[4];
-// 	char *argv2[4];
-// 	char *argv3[4];
+int main()
+{
+	t_pipe pipe_struct;
+	char *argv1[4];
+	char *argv2[4];
+	char *argv3[4];
 
-// 	pipe_struct.p_amount = 1;
+	pipe_struct.p_amount = 1;
 
-// 	argv1[0] = "cat";
-// 	argv1[1] = NULL;
-// 	argv1[2] = NULL;
-// 	argv1[3] = NULL;
+	argv1[0] = "ls";
+	argv1[1] = NULL;
+	argv1[2] = NULL;
+	argv1[3] = NULL;
 
-// 	argv2[0] = "cat";
-// 	argv2[1] = NULL;
-// 	argv2[2] = NULL;
-// 	argv2[3] = NULL;
+	argv2[0] = "cat";
+	argv2[1] = NULL;
+	argv2[2] = NULL;
+	argv2[3] = NULL;
 
-// 	argv3[0] = "env";
-// 	argv3[1] = NULL;
-// 	argv3[2] = NULL;
-// 	argv3[3] = NULL;
+	argv3[0] = "env";
+	argv3[1] = NULL;
+	argv3[2] = NULL;
+	argv3[3] = NULL;
 
-// 	pipe_struct.input_file = NULL;
-// 	pipe_struct.here_file = "here";
-// 	pipe_struct.output_file = NULL;
-// 	pipe_struct.output_file_append = NULL;
+	pipe_struct.input_file = NULL;
+	pipe_struct.here_file = NULL;
+	pipe_struct.output_file = NULL;
+	pipe_struct.output_file_append = NULL;
 
-// 	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/dummy1";
-// 	pipe_struct.processes[0].name = "cat";
-// 	pipe_struct.processes[0].argv = argv1;
+	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/dummy1";
+	pipe_struct.processes[0].name = "ls";
+	pipe_struct.processes[0].argv = argv1;
 
-// 	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-// 	// pipe_struct.processes[1].name = "cat";
-// 	pipe_struct.processes[1].argv = argv2;
+	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+	// pipe_struct.processes[1].name = "cat";
+	pipe_struct.processes[1].argv = argv2;
 
-// 	pipe_struct.processes[2].name = "env";
-// 	pipe_struct.processes[2].argv = argv3;
-// 	execute_line(&pipe_struct);
-// }
+	pipe_struct.processes[2].name = "env";
+	pipe_struct.processes[2].argv = argv3;
+	execute_line(&pipe_struct);
+}
