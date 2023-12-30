@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/30 21:32:28 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/30 23:28:48 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	pid = fork();
 	if (pid == 0)
 	{	
+		signal(SIGQUIT, SIG_DFL);
 		if (i != 0)
 			dup2(fd_array[i - 1][0], 0);
 		if (i != p_amount - 1)
@@ -430,6 +431,8 @@ int	execute_line(t_pipe *pipe_struct)
 	if (execute_commands(pipe_struct, fd_array, pid_array) == 0)
 		return (0);
 	last_pid = waitpid(pid_array[p_amount - 1], &status_pointer, 0);
+	if (WIFSIGNALED(status_pointer) && WTERMSIG(status_pointer) == 3)
+		ft_printf("Quit: 3\n");
 	if (last_pid == -1)
 		return (0);
 	pipe_struct->last_exit_value = status_pointer;
