@@ -6,7 +6,7 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/01 19:07:12 by marschul         ###   ########.fr        #
+#    Updated: 2024/01/01 20:09:13 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ OBJS	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 DOBJS   := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.d.o,$(SRCS))
 $(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling $(OBJDIR)/parsing $(OBJDIR)/builtins $(OBJDIR)/execute_line)
 
-SRCS_TEST = $(patsubst $(SRCDIR)/minishell.c, $(TESTDIR)/test_builtins.c , $(SRCS))
+SRCS_TEST_BUILTINS = $(patsubst $(SRCDIR)/minishell.c, $(TESTDIR)/test_builtins.c , $(SRCS))
+SRCS_TEST_FINDFULLPATH = $(patsubst $(SRCDIR)/minishell.c, $(TESTDIR)/test_findfullpath.c , $(SRCS))
 
 all: $(NAME)
 
@@ -57,9 +58,13 @@ testexecute:
 	make -C libs/libft
 	gcc -Wall -Werror -g -fsanitize=address -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/exit.c $(SRCDIR)/helper_functions.c
 
-testbuiltins: $(SRCS_TEST)
+testbuiltins: $(SRCS_TEST_BUILTINS)
 	make -C libs/libft debug
-	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST) -o $(TESTDIR)/testbuiltins
+	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST_BUILTINS) -o $(TESTDIR)/testbuiltins
+
+testfindfullpath: $(SRCS_TEST_FINDFULLPATH)
+	make -C libs/libft debug
+	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST_FINDFULLPATH) -o $(TESTDIR)/testfindfullpath
 
 clean:
 	make -C libs/libft clean

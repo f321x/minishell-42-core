@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/30 22:03:56 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/01 20:08:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,3 +101,6 @@ bool	parse_heredoc(t_parsing *pd);
 void	register_signal_handlers(void);
 void	sigint_handler(int signum);
 void	sigquit_handler(int signum);
+
+// just for testing
+bool	find_full_path(t_process *process);
