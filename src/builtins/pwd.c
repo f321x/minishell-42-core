@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:31:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/27 12:19:57 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:17:13 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ bool	pwd(char **argv)
 
 	assert(argv != NULL && ft_strcmp(argv[0], "pwd") == 0); // debug
 
-	if (argv[1] != NULL)
-	{
-		write(2, "pwd: too many arguments\n", 24);
-		return (false);
-	}
 	getcwd_retv = getcwd(buffer, CWD_BUFFER_SIZE);
 	if (getcwd_retv == NULL)
 		return (error_wrapper());

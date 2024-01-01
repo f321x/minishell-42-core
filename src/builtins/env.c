@@ -6,13 +6,12 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:46:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/27 12:50:57 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/01 18:02:48 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// Should we give out error, when there is an argument to the command, or not?
 bool	env(char **argv)
 {
 	extern char	**environ;

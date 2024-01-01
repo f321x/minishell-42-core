@@ -6,7 +6,7 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2023/12/30 18:00:19 by marschul         ###   ########.fr        #
+#    Updated: 2024/01/01 19:07:12 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,12 +14,13 @@ NAME	:= minishell
 
 CC 		:= cc
 # CFLAGS 	:= -Wall -Wextra -Werror
-DFLAGS 	:= -g3
+DFLAGS 	:= -g3 -fsanitize=address
 DNAME 	:= minishell_debug
 HEADERS = -I./includes -I ./libs/libft/includes
 
 SRCDIR		:= src
 OBJDIR		:= objs
+TESTDIR		:= test
 LIB 		:= libs/libft/libft.a -lreadline
 LIB_DEBUG := libs/libft/libft_debug.a -lreadline
 
@@ -33,6 +34,8 @@ $(SRCDIR)/signals.c
 OBJS	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 DOBJS   := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.d.o,$(SRCS))
 $(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling $(OBJDIR)/parsing $(OBJDIR)/builtins $(OBJDIR)/execute_line)
+
+SRCS_TEST = $(patsubst $(SRCDIR)/minishell.c, $(TESTDIR)/test_builtins.c , $(SRCS))
 
 all: $(NAME)
 
@@ -53,6 +56,10 @@ debug: $(DOBJS)
 testexecute:
 	make -C libs/libft
 	gcc -Wall -Werror -g -fsanitize=address -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/exit.c $(SRCDIR)/helper_functions.c
+
+testbuiltins: $(SRCS_TEST)
+	make -C libs/libft debug
+	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST) -o $(TESTDIR)/testbuiltins
 
 clean:
 	make -C libs/libft clean

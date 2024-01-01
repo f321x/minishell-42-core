@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/27 21:06:47 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:36:46 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,6 @@ bool	unset(char **argv)
 
 	assert(argv != NULL && ft_strcmp(argv[0], "unset") == 0); // debug
 
-	if (argv[1] == NULL)
-	{
-		write(2, "unset: not enough arguments\n", 28);
-		return (false);
-	}
 	i = 1;
 	while (argv[i] != NULL)
 	{
