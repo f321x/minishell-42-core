@@ -6,11 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/03 14:57:37 by marschul         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/03 15:03:56 by ***REMOVED***            ###   ########.fr       */
->>>>>>> 7dcdcccdb2a0eb2c6276c84a89b8c1908ef544ea
+/*   Updated: 2024/01/03 15:14:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +55,7 @@ typedef struct s_process {
 	char 				**argv;
 	t_inoutfiles		iofiles[IOFILES_AMOUNT];
 	long				io_amount;
-	t_function_pointer	inbuilt;
+	t_function_pointer	builtin;
 }	t_process;
 
 typedef struct s_pipe {
