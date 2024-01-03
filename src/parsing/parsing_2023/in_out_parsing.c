@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 13:08:19 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/22 14:35:48 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/22 20:51:52 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	parse_outfile(t_parsing *pd)
 void	parse_heredoc(t_parsing *pd)
 {
 	char	*prev_res;
+	char	*buffer;
 	char 	*result;
 	char	*in_buffer;
 
@@ -67,10 +68,14 @@ void	parse_heredoc(t_parsing *pd)
 		pd->buffer_i++;
 		(pd->line_i)++;
 	}
+	pd->buffer[pd->buffer_i++] = '\n';
 	pd->buffer[pd->buffer_i] = '\0';
 	while (1)
 	{
 		in_buffer = readline("heredoc> ");
+		buffer = in_buffer;
+		in_buffer = ft_strjoin(buffer, "\n");
+		free(buffer);
 		result = ft_strjoin(prev_res, in_buffer);
 		if (prev_res)
 			free(prev_res);
