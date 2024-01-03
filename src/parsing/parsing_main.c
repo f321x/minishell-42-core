@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:03:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 17:33:30 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 17:57:37 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,17 @@ bool	parsing_main(char *input, t_pipe *task)
 	while (input && input[p.inp_i])
 	{
 		skip_whitespace(&p);
-		if (p.new_proc)  // will be true at the beginning and after pipe |
+		if (p.new_proc && input[p.inp_i])  // will be true at the beginning and after pipe |
 		{
 			if (!parse_name(&p))
-				return (free_all_argvs(p));
+				return (free_all_argvs(&p));
 			skip_whitespace(&p);
 		}
 		if (!parse_delimiter(&p))
 			return (free_all_argvs(&p));
+		if (p.new_proc)
+			p.task->p_amount++;
 	}
+	p.task->p_amount++;
 	return (true);
 }

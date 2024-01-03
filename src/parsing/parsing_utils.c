@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:10:41 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 17:27:23 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 17:47:20 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,12 @@ bool	add_to_argv(t_parsing *p)
 	*current_argv = append_string(*current_argv, buffer);
 	if (!(*current_argv))
 		return (false);
+	return (true);
+}
+
+bool	handle_pipe(t_parsing *p)
+{
+	p->inp_i++;
+	p->new_proc = true;
 	return (true);
 }

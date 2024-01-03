@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:40:15 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 17:33:28 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 17:51:44 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ bool	parse_delimiter(t_parsing *p)
 	if (!current_c)
 		return (true);
 	else if (current_c == '>')
-
+		return (false);
 	else if (current_c == '<')
-
+		return (false);
 	else if (current_c == '|')
-
+		return (handle_pipe(p));
 	else if (current_c == '$')
-
+		return (false);
 	else if (current_c == '"')
-
+		return (false);
 	else if (current_c == 39)
-
+		return (false);
 	else
 		return (add_to_argv(p));
 	return (true);

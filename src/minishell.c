@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 12:04:12 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 17:57:18 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void init_task(t_pipe *task)
 {
 	task->p_amount = 0;
-	task->input_file = NULL;
-	task->here_file = NULL;
-	task->output_file = NULL;
-	task->output_file_append = NULL;
+	// task->input_file = NULL;
+	// task->here_file = NULL;
+	// task->output_file = NULL;
+	// task->output_file_append = NULL;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(entered_line);
 		if (!entered_line)
 			continue ;
-		if (!parse_line(entered_line, &task))
+		if (!parsing_main(entered_line, &task))
 			continue ;
 
 		// for (size_t i = 0; i < task.p_amount; i++)

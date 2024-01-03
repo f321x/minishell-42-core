@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/03 15:13:33 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:02:40 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,8 +202,8 @@ bool	handle_inoutfiles(t_process *process)
 		else
 			return_value = false;
 		if (return_value == false)
-			return (false);	
-		i++;	
+			return (false);
+		i++;
 	}
 	return (true);
 }
@@ -373,7 +373,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	argv = process->argv;
 	pid = fork();
 	if (pid == 0)
-	{	
+	{
 		signal(SIGQUIT, SIG_DFL);
 		if (i != 0)
 			dup2(fd_array[i - 1][0], 0);
@@ -481,46 +481,46 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-int main()
-{
-	t_pipe pipe_struct;
-	char *argv1[4];
-	// char *argv2[4];
-	// char *argv3[4];
-	t_inoutfiles	one;
-	t_inoutfiles	two;
+// int main()
+// {
+// 	t_pipe pipe_struct;
+// 	char *argv1[4];
+// 	// char *argv2[4];
+// 	// char *argv3[4];
+// 	t_inoutfiles	one;
+// 	t_inoutfiles	two;
 
-	pipe_struct.p_amount = 1;
+// 	pipe_struct.p_amount = 1;
 
-	argv1[0] = "cat";
-	argv1[1] = NULL;
-	argv1[2] = NULL;
-	argv1[3] = NULL;
+// 	argv1[0] = "cat";
+// 	argv1[1] = NULL;
+// 	argv1[2] = NULL;
+// 	argv1[3] = NULL;
 
-	// argv2[0] = "cat";
-	// argv2[1] = NULL;
-	// argv2[2] = NULL;
-	// argv2[3] = NULL;
+// 	// argv2[0] = "cat";
+// 	// argv2[1] = NULL;
+// 	// argv2[2] = NULL;
+// 	// argv2[3] = NULL;
 
-	// argv3[0] = "env";
-	// argv3[1] = NULL;
-	// argv3[2] = NULL;
-	// argv3[3] = NULL;
+// 	// argv3[0] = "env";
+// 	// argv3[1] = NULL;
+// 	// argv3[2] = NULL;
+// 	// argv3[3] = NULL;
 
-	one.name = "f1";
-	one.type = IN;
-	two.name = "f2";
-	two.type = OUT;
+// 	one.name = "f1";
+// 	one.type = IN;
+// 	two.name = "f2";
+// 	two.type = OUT;
 
-	pipe_struct.processes[0].argv = argv1;
-	pipe_struct.processes[0].iofiles[0] = one;
-	pipe_struct.processes[0].iofiles[1] = two;
+// 	pipe_struct.processes[0].argv = argv1;
+// 	pipe_struct.processes[0].iofiles[0] = one;
+// 	pipe_struct.processes[0].iofiles[1] = two;
 
-	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-	// // pipe_struct.processes[1].name = "cat";
-	// pipe_struct.processes[1].argv = argv2;
+// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+// 	// // pipe_struct.processes[1].name = "cat";
+// 	// pipe_struct.processes[1].argv = argv2;
 
-	// pipe_struct.processes[2].name = "env";
-	// pipe_struct.processes[2].argv = argv3;
-	execute_line(&pipe_struct);
-}
+// 	// pipe_struct.processes[2].name = "env";
+// 	// pipe_struct.processes[2].argv = argv3;
+// 	execute_line(&pipe_struct);
+// }
