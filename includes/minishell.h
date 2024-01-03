@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 12:03:12 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 12:03:49 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 #include <string.h>
 #include <termios.h>
 #include <assert.h>
+// #include <stdint.h>
 #include "../libs/libft/includes/libft.h"
 
 #define SHELL_PROMPT "minishell$ "
@@ -74,26 +75,17 @@ typedef struct s_parsing {
 // input_utils.c
 char	*read_a_line(char *prompt);
 
-// echo.c
+// builtins
 bool	echo(char **argv);
-
-// cd.c
 bool	cd(char **argv);
-
-// pwd.c
 bool	pwd(char **argv);
-
-// export.c
 bool	export_one_pair(char *env_pair);
 void	free_old_env(char **old_env);
 size_t	get_env_length(void);
 bool	export(char **argv);
-
-// unset.c
 bool	unset(char **argv);
-
-// env.c
 bool	env(char **argv);
+bool	_exit_(char **argv);
 
 // parsing.c
 bool	parse_line(char *entered_line, t_pipe *task);
@@ -104,12 +96,20 @@ int	execute_line(t_pipe *pipe_struct);
 // parsing_utils.c
 char 	**append_string(char **orig, char *str);
 bool	ft_isdelimiter(char c);
-void	parse_placeholder(t_parsing *pd);
+bool	parse_placeholder(t_parsing *pd);
 
 // helper_functions.c
 bool	error_wrapper(void);
 
 // in_out_parsing.c
-void	parse_infile(t_parsing *pd);
-void	parse_outfile(t_parsing *pd);
-void	parse_heredoc(t_parsing *pd);
+bool	parse_infile(t_parsing *pd);
+bool	parse_outfile(t_parsing *pd);
+bool	parse_heredoc(t_parsing *pd);
+
+// signals.c
+void	register_signal_handlers(void);
+void	sigint_handler(int signum);
+void	sigquit_handler(int signum);
+
+// just for testing
+bool	find_full_path(t_process *process);

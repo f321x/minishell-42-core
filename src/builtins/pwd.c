@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:31:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 20:25:06 by student         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:17:13 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,8 @@ bool	pwd(char **argv)
 	char	*getcwd_retv;
 	int		error;
 
-	if (argv[1] != NULL)
-	{
-		write(2, "pwd: too many arguments", 23);
-		return (false);
-	}
+	assert(argv != NULL && ft_strcmp(argv[0], "pwd") == 0); // debug
+
 	getcwd_retv = getcwd(buffer, CWD_BUFFER_SIZE);
 	if (getcwd_retv == NULL)
 		return (error_wrapper());
