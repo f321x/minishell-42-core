@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 13:57:39 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 15:03:56 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_inoutfiles {
 typedef struct s_process {
 	char 				**argv;
 	t_inoutfiles		iofiles[IOFILES_AMOUNT];
+	long				io_amount;
 	t_function_pointer	inbuilt;
 }	t_process;
 
@@ -68,7 +69,7 @@ typedef struct s_pipe {
 }	t_pipe;
 
 typedef struct s_parsing {
-	char	buffer[PROC_FIELD_BUFFER];
+	// char	buffer[PROC_FIELD_BUFFER];
 	char	*u_input;
 	size_t	inp_i;
 	size_t	buffer_i;
