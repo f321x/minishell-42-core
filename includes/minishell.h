@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/22 14:15:51 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 12:03:12 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,22 @@
 #define	CWD_BUFFER_SIZE 1000
 #define	PROC_FIELD_BUFFER 1000
 #define MAX_PROC_AMOUNT 1000
+#define	IOFILES_AMOUNT	1000
 
 typedef bool (*t_function_pointer)(char **argv);
 
+typedef enum {
+
+}	e_ftypes;
+
+typedef struct s_inoutfiles {
+	char 		*name;
+	e_ftypes	type;
+}	t_inoutfiles;
+
 typedef struct s_process {
-	char 	*name;
-	char 	**argv;
-	char	**env;
+	char 				**argv;
+	t_inoutfiles		iofiles[IOFILES_AMOUNT];
 	t_function_pointer	inbuilt;
 }	t_process;
 
@@ -55,7 +64,7 @@ typedef struct s_pipe {
 
 typedef struct s_parsing {
 	char	buffer[PROC_FIELD_BUFFER];
-	char	*entered_line;
+	char	*u_input;
 	size_t	line_i;
 	size_t	buffer_i;
 	bool	new_proc;
