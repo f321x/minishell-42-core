@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 19:25:33 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:36:46 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool	init_new_environ(char *remove_var, char **new_env,
 	old_index = 0;
 	while (old_index < env_size)
 	{
-		if (ft_strncmp(old_env[old_index], remove_var, ft_strlen(remove_var)))
+		if (getenv(remove_var) - 1 - ft_strlen(remove_var) != old_env[old_index])
 		{
 			new_env[new_index] = ft_strdup(old_env[old_index]);
 			if (!new_env[new_index])
@@ -36,7 +36,7 @@ static bool	init_new_environ(char *remove_var, char **new_env,
 		}
 		old_index++;
 	}
-	new_env[new_index - 1] = NULL;
+	new_env[new_index] = NULL;
 	return (true);
 }
 
@@ -47,22 +47,34 @@ bool	unset(char **argv)
 	char		**new_environ;
 	char		**env_buffer;
 	char		*variable_name;
+	int			i;
 
-	if (argv[1] != NULL)
-		variable_name = argv[1];
-	env_size = get_env_length();
-	if (env_size < 1)
-		return (false);
-	new_environ = malloc((sizeof(char *) * (env_size - 1)) + sizeof(void *));
-	if (!new_environ)
-		return (false);
-	if (!init_new_environ(variable_name, new_environ, environ, env_size))
+	assert(argv != NULL && ft_strcmp(argv[0], "unset") == 0); // debug
+
+	i = 1;
+	while (argv[i] != NULL)
 	{
-		free(new_environ);
-		return (false);
+		variable_name = argv[i];
+		if (getenv(variable_name) == NULL)
+		{
+			i++;
+			continue;
+		}
+		env_size = get_env_length();
+		if (env_size < 1)
+			return (true);
+		new_environ = malloc((sizeof(char *) * (env_size - 1)) + sizeof(void *));
+		if (!new_environ)
+			return (false);
+		if (!init_new_environ(variable_name, new_environ, environ, env_size))
+		{
+			free(new_environ);
+			return (false);
+		}
+		env_buffer = environ;
+		environ = new_environ;
+		free_old_env(env_buffer);
+		i++;
 	}
-	env_buffer = environ;
-	environ = new_environ;
-	free_old_env(env_buffer);
 	return (true);
 }

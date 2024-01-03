@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/22 13:54:01 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2023/12/30 23:28:48 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	cleanup(t_pipe *pipe_struct)
+{
+	if (pipe_struct->here_file)
+		unlink("tmp");
+}
 
 int	create_pid_array(pid_t **pid_array, size_t p_amount)
 {
@@ -56,6 +62,58 @@ int	create_pipes(int (*fd_array)[2], size_t n)
 	return (1);
 }
 
+int	get_here_file(char *keyword, int n)
+{
+	int		fd;
+	bool	end;
+	ssize_t	bytes_read;
+	ssize_t	bytes_written;
+	ssize_t	i;
+	char	buffer[1];
+
+	fd = open("tmp", O_CREAT | O_WRONLY, 0600);
+	i = 0;
+	end = false;
+	while (!end)
+	{
+		if (i == 0)
+			bytes_written = write(1, ">", 1);
+		bytes_read = read(0, buffer, 1);
+		if (i != -1)
+		{
+			if (buffer[0] == keyword[i])
+				i++;
+			else
+			{
+				if (buffer[0] == '\n')
+					if (i == ft_strlen(keyword))
+						end = true;
+					else
+					{
+						bytes_written = write(fd, keyword, i);
+						i = 0;
+						bytes_written = write(fd, buffer, 1);
+					}
+				else
+				{
+					bytes_written = write(fd, keyword, i);
+					i = -1;
+					bytes_written = write(fd, buffer, 1);
+				}
+			}
+		}
+		else
+		{
+			bytes_written = write(fd, buffer, 1);
+			if (buffer[0] == '\n')
+				i = 0;
+		}
+	}
+	close(fd);
+	fd = open("tmp", O_RDONLY, 0600);
+	return (fd);
+}
+
 int	handle_infile(t_pipe *pipe_struct)
 {
 	int		fd;
@@ -64,7 +122,18 @@ int	handle_infile(t_pipe *pipe_struct)
 	if (pipe_struct->input_file != NULL)
 	{
 		input_file = pipe_struct->input_file;
-		fd = open(input_file, O_RDONLY);
+		fd = open(input_file, O_RDONLY | O_NONBLOCK);
+		if (fd == -1)
+		{
+			perror("Minishell: handle_infile");
+			return (0);
+		}
+		dup2(fd, 0);
+		close(fd);
+	}
+	if (pipe_struct->here_file != NULL)
+	{
+		fd = get_here_file(pipe_struct->here_file, pipe_struct->p_amount - 1);
 		if (fd == -1)
 		{
 			perror("Minishell: handle_infile");
@@ -92,13 +161,16 @@ int	handle_outfile(t_pipe *pipe_struct)
 		output_file = pipe_struct->output_file;
 		fd = open(output_file, O_RDONLY | O_APPEND);
 	}
-	if (fd == -1)
+	if (pipe_struct->output_file != NULL || pipe_struct->output_file_append != NULL)
 	{
-		perror("Minishell: handle_outfile");
-		return (0);
+		if (fd == -1)
+		{
+			perror("Minishell: handle_outfile");
+			return (0);
+		}
+		dup2(fd, 1);
+		close(fd);
 	}
-	dup2(fd, 1);
-	close(fd);
 	return (1);
 }
 
@@ -107,10 +179,8 @@ bool	set_exit_value(int exit_value)
 	char	*environment_var;
 	char	*argv[3];
 
-	argv[1] = "?";
+	argv[0] = "export";
 	argv[2] = NULL;
-	if (! unset(argv))
-		return (false);
 	environment_var = ft_strjoin("?=", ft_itoa(exit_value));
 	if (environment_var == NULL)
 		return (false);
@@ -163,19 +233,19 @@ int	close_last_fds(int (*fd_array)[2], size_t i)
 	return (1);
 }
 
-int	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
+int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
-	bool	(*inbuilt) (char** argv);
+	bool	(*builtin) (char** argv);
 	int		temp;
 
-	inbuilt = process->inbuilt;
+	builtin = process->builtin;
 	close_last_fds(fd_array, i);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
 		temp = dup(1);
 		dup2(fd_array[i][1], 1);
 	}
-	if (inbuilt(process->argv) == false)
+	if (builtin(process->argv) == false)
 		return (0);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
@@ -185,77 +255,75 @@ int	launch_inbuilt(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	return (1);
 }
 
-int	find_full_path(t_process *process)
+char	*join_path_and_program_name(char *path, char *name)
 {
-	char		**split;
-	char		**split2;
-	char		*path;
-	char		*name1;
-	char		*name2;
-	int			found = 0;
+	char	*full_path;
+	char	*path_plus_slash;
 
-	if (process->name[0] == '/')
-		return (1);
+	path_plus_slash = malloc(ft_strlen(path) + 2);
+	if (path_plus_slash == NULL)
+		return (NULL);
+	ft_strlcpy(path_plus_slash, path, ft_strlen(path) + 1);
+	path_plus_slash[ft_strlen(path) + 1] = '\0';
+	path_plus_slash[ft_strlen(path)] = '/';
+	full_path = ft_strjoin(path_plus_slash, name);
+	free(path_plus_slash);
+	return (full_path);
+}
 
-	path = getenv("PATH");
-	if (path == NULL)
-		return (error_wrapper());
-	split = ft_split(path, ':');
+bool	find_full_path_in_path_var(t_process *process, char *paths)
+{
+	char	*full_path;
+	char	**split;
+	int		i;
+
+	split = ft_split(paths, ':');
 	if (split == NULL)
 		return (error_wrapper());
-	split2 = split;
-
-	while (*split != NULL)
+	i = 0;
+	while (split[i] != NULL)
 	{
-		name1 = ft_strjoin(*split, "/");
-		if (name1 == NULL)
-			return (-1);
-		name2 = ft_strjoin(name1, process->name);
-		if (name2 == NULL)
-		{
-			free(name1);
-			return (-1);
-		}
-		free(name1);
-		if (access(name2, F_OK) == 0)
+		full_path = join_path_and_program_name(split[i], process->name);
+		if (access(full_path, F_OK) == 0)
 		{
 			//free(process->name);
-			process->name = name2;
-			found = 1;
+			process->name = full_path;
 			break;
 		}
-		free(name2);
-		split++;
+		free(full_path);
+		i++;
 	}
-	if (found == 0)
+	i = 0;
+	while (split[i] != NULL)
 	{
-		name1 = malloc(1000);
-		if (name1 == NULL)
-			return (-1);
-		name1 = getcwd(name1, 1000);
-		name1[ft_strlen(name1)] = '/';
-		name1[ft_strlen(name1) + 1] = '\0';
-		name2 = ft_strjoin(name1, process->name);
-		if (name2 == NULL)
-		{
-			free(name1);
-			return (-1);
-		}
-		free(name1);
-		if (access(name2, F_OK) == 0)
-		{
-			//free(process->name);
-			process->name = name2;
-		}
+		free(split[i]);
+		i++;
 	}
+	free(split);
+	return (true);
+}
 
-	while (*split2 == NULL)
-	{
-		free(*split2);
-		split2++;
-	}
-	free(split2);
-	return (1);
+bool	find_full_path(t_process *process)
+{
+	char	cwd[PATH_MAX];
+	char	*old_path_var_with_colon;
+	char	*new_path_var;
+	char	*paths;
+
+	if (process->name[0] == '/')
+		return (true);
+	paths = getenv("PATH");
+	if (paths == NULL)
+		return (error_wrapper());
+	getcwd(cwd, PATH_MAX);
+	old_path_var_with_colon = ft_strjoin(paths, ":");
+	if (old_path_var_with_colon == NULL)
+		return (false);
+	new_path_var = ft_strjoin(old_path_var_with_colon, cwd);
+	free(old_path_var_with_colon);
+	if (!find_full_path_in_path_var(process, new_path_var))
+		return (error_wrapper());
+	return (true);
 }
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
@@ -268,15 +336,15 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	program = process->name;
 	argv = process->argv;
 	pid = fork();
-
 	if (pid == 0)
-	{
+	{	
+		signal(SIGQUIT, SIG_DFL);
 		if (i != 0)
 			dup2(fd_array[i - 1][0], 0);
 		if (i != p_amount - 1)
 			dup2(fd_array[i][1], 1);
 		close_all_fds(fd_array, p_amount);
-		if (find_full_path(process) == -1)
+		if (!find_full_path(process))
 			return (0);
 		if (execve(process->name, argv, environ) == -1)
 			perror("Minishell: launch_process");
@@ -289,20 +357,20 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	}
 }
 
-bool	is_inbuilt(t_process *process)
+bool	is_builtin(t_process *process)
 {
-	const char	*function_names[6] = {"cd", "echo", "env", "export", "pwd", "unset"};
-	const t_function_pointer	function_pointers[6] = {cd, echo, env, export, pwd, unset};
+	const char	*function_names[7] = {"cd", "echo", "env", "export", "pwd", "unset", "exit"};
+	const t_function_pointer	function_pointers[7] = {cd, echo, env, export, pwd, unset, _exit_};
 	char		*name;
 	int			i;
 
 	name = process->name;
 	i = 0;
-	while (i < 6)
+	while (i < 7)
 	{
 		if (ft_strncmp(name, function_names[i], 7) == 0)
 		{
-			process->inbuilt = function_pointers[i];
+			process->builtin = function_pointers[i];
 			return (true);
 		}
 		i++;
@@ -325,7 +393,7 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		if (is_inbuilt(&process) == 0)
+		if (is_builtin(&process) == 0)
 		{
 			pid = launch_process(&process, fd_array, pipe_struct->p_amount, i);
 			if (pid == 0)
@@ -334,13 +402,14 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		}
 		else
 		{
-			return_value = launch_inbuilt(&process, fd_array, pipe_struct->p_amount, i);
+			return_value = launch_builtin(&process, fd_array, pipe_struct->p_amount, i);
 			if (return_value == 0)
 				return (0);
 			pipe_struct->last_exit_value = return_value;
 		}
 		i++;
 	}
+	cleanup(pipe_struct);
 	return (1);
 }
 
@@ -362,6 +431,8 @@ int	execute_line(t_pipe *pipe_struct)
 	if (execute_commands(pipe_struct, fd_array, pid_array) == 0)
 		return (0);
 	last_pid = waitpid(pid_array[p_amount - 1], &status_pointer, 0);
+	if (WIFSIGNALED(status_pointer) && WTERMSIG(status_pointer) == 3)
+		ft_printf("Quit: 3\n");
 	if (last_pid == -1)
 		return (0);
 	pipe_struct->last_exit_value = status_pointer;
@@ -369,8 +440,6 @@ int	execute_line(t_pipe *pipe_struct)
 		return (0);
 
 	printf("pid of last process %d\n", last_pid); //debug
-	//env(NULL); debug
-
 	return (1);
 }
 
@@ -383,11 +452,11 @@ int	execute_line(t_pipe *pipe_struct)
 // 	char *argv2[4];
 // 	char *argv3[4];
 
-// 	pipe_struct.p_amount = 2;
+// 	pipe_struct.p_amount = 1;
 
-// 	argv1[0] = "pwd";
-// 	argv1[1] = "a";
-// 	argv1[2] = "b";
+// 	argv1[0] = "cat";
+// 	argv1[1] = NULL;
+// 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
 
 // 	argv2[0] = "cat";
@@ -397,19 +466,20 @@ int	execute_line(t_pipe *pipe_struct)
 
 // 	argv3[0] = "env";
 // 	argv3[1] = NULL;
-// 	argv3[2] = "bestie";
+// 	argv3[2] = NULL;
 // 	argv3[3] = NULL;
 
 // 	pipe_struct.input_file = NULL;
+// 	pipe_struct.here_file = "here";
 // 	pipe_struct.output_file = NULL;
 // 	pipe_struct.output_file_append = NULL;
 
-// 	pipe_struct.processes[0].name = "pwd";
-// 	// pipe_struct.processes[0].name = "echo";
+// 	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/dummy1";
+// 	pipe_struct.processes[0].name = "cat";
 // 	pipe_struct.processes[0].argv = argv1;
 
-// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/src/execute_line/dummy2";
-// 	pipe_struct.processes[1].name = "cat";
+// 	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+// 	// pipe_struct.processes[1].name = "cat";
 // 	pipe_struct.processes[1].argv = argv2;
 
 // 	pipe_struct.processes[2].name = "env";

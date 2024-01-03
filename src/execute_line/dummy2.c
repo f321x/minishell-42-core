@@ -10,5 +10,6 @@ int main()
 	write(1, "|", 1);
 	write(1, buf, r);
 	write(1, "|", 1);
-	return(33);
+	r = read(0, buf, 10);
+	exit(33);
 }

@@ -6,18 +6,22 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:16:14 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/21 20:05:22 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/27 12:05:22 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// returns absolute path
+/*
+cd works with relative paths.
+*/
 bool	cd(char **argv)
 {
 	int		error;
 	char	*entered_path_arg;
 
+	assert(argv != NULL && ft_strcmp(argv[0], "cd") == 0); // debug
+	
 	entered_path_arg = argv[1];
 	if (argv[1] != NULL && argv[2] != NULL)
 	{

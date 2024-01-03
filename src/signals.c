@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 15:31:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/01 19:17:13 by marschul         ###   ########.fr       */
+/*   Created: 2023/12/29 17:07:12 by marschul          #+#    #+#             */
+/*   Updated: 2023/12/30 23:29:41 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	pwd(char **argv)
+void sigint_handler(int signum)
 {
-	char	buffer[CWD_BUFFER_SIZE];
-	char	*getcwd_retv;
-	int		error;
+    ft_printf("\nCtrl+C was pressed. We need a new prompt.\n");
+}
 
-	assert(argv != NULL && ft_strcmp(argv[0], "pwd") == 0); // debug
-
-	getcwd_retv = getcwd(buffer, CWD_BUFFER_SIZE);
-	if (getcwd_retv == NULL)
-		return (error_wrapper());
-	error = ft_printf("%s\n", buffer);
-	if (error < 0)
-		return (error_wrapper());
-	return (true);
+void	register_signal_handlers(void)
+{
+	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 }

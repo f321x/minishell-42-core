@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2023/12/20 14:32:00 by marschul         ###   ########.fr       */
+/*   Updated: 2023/12/27 16:14:30 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,12 +117,34 @@ bool	export_one_pair(char *env_pair)
 
 bool	export(char **argv)
 {
-	int	i;
+	int		i;
 	bool	error;
+	char	*key;
+	char	*false_argv_for_unset[3];
+
+	assert(argv != NULL && ft_strcmp(argv[0], "export") == 0); // debug
 
 	i = 1;
 	while (argv[i] != NULL)
 	{
+		if (ft_strchr(argv[i], '=') == NULL)
+		{
+			i++;
+			continue;
+		}
+		key = ft_strdup(argv[i]);
+		if (key == NULL)
+			return (false);
+		*(ft_strchr(key, '=')) = '\0';
+		if (getenv(key) != NULL)
+		{
+			false_argv_for_unset[0] = "unset";
+			false_argv_for_unset[1] = key;
+			false_argv_for_unset[2] = NULL;
+			if (!unset(false_argv_for_unset))
+				return (false);
+		}
+		free(key);
 		error = export_one_pair(argv[i]);
 		if (!error)
 			return (false);

@@ -1,30 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/18 15:31:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/01 19:17:13 by marschul         ###   ########.fr       */
+/*   Created: 2023/12/29 17:59:20 by marschul          #+#    #+#             */
+/*   Updated: 2024/01/01 18:45:40 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	pwd(char **argv)
+bool	_exit_(char **argv)
 {
-	char	buffer[CWD_BUFFER_SIZE];
-	char	*getcwd_retv;
-	int		error;
+	int	exit_value;
+	int	i;
 
-	assert(argv != NULL && ft_strcmp(argv[0], "pwd") == 0); // debug
+	assert(argv != NULL && ft_strcmp(argv[0], "exit") == 0); // debug
 
-	getcwd_retv = getcwd(buffer, CWD_BUFFER_SIZE);
-	if (getcwd_retv == NULL)
-		return (error_wrapper());
-	error = ft_printf("%s\n", buffer);
-	if (error < 0)
-		return (error_wrapper());
-	return (true);
+	if (argv[1] != NULL)
+	{
+		exit_value = (char) ft_atoi(argv[1]);
+		i = 0;
+		while (argv[1][i] != '\0')
+		{
+			if (ft_isdigit(argv[1][i]) == 0)
+			{
+				ft_printf("Minishell: Numeric argument required.\n");
+				exit_value = 255;
+				break;
+			}
+			i++;
+		}
+	}
+	else
+		exit_value = 0;
+	exit(exit_value);
 }
