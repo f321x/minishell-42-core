@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by student          #+#    #+#             */
-/*   Updated: 2024/01/03 15:11:10 by student         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:13:33 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ bool	handle_inoutfiles(t_process *process)
 	t_inoutfiles	*file;
 
 	i = 0;
-	while (process->iofiles[i] != NULL)
+	while (i < process->io_amount)
 	{
 		file = &process->iofiles[i];
 		if (file->type == IN)
