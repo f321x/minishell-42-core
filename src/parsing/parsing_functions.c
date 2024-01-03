@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:40:15 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 15:26:29 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 17:33:28 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ bool	parse_name(t_parsing *p)
 	{
 		curr_proc->argv = append_string(curr_proc->argv, buffer);
 		if (!curr_proc->argv)
-		{
-			free_all_argvs(p);
 			return (false);
-		}
 	}
 	p->new_proc = false;
 	return (true);
@@ -60,5 +57,6 @@ bool	parse_delimiter(t_parsing *p)
 	else if (current_c == 39)
 
 	else
-
+		return (add_to_argv(p));
+	return (true);
 }
