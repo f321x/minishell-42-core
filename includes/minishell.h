@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 12:03:49 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 12:07:22 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@
 typedef bool (*t_function_pointer)(char **argv);
 
 typedef enum {
-
+	IN,
+	OUT,
+	APPEND,
+	HEREDOC,
 }	e_ftypes;
 
 typedef struct s_inoutfiles {
