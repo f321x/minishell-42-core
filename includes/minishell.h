@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 12:09:32 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 13:57:39 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ typedef struct s_process {
 typedef struct s_pipe {
 	t_process	processes[MAX_PROC_AMOUNT];
 	size_t		p_amount;
-	char 		*input_file;
-	char		*here_file;
-	char		*output_file;
-	char		*output_file_append;
+	// char 		*input_file;
+	// char		*here_file;
+	// char		*output_file;
+	// char		*output_file_append;
 	int			last_exit_value;
 }	t_pipe;
 
 typedef struct s_parsing {
 	char	buffer[PROC_FIELD_BUFFER];
 	char	*u_input;
-	size_t	line_i;
+	size_t	inp_i;
 	size_t	buffer_i;
 	bool	new_proc;
 	t_pipe	*task;
