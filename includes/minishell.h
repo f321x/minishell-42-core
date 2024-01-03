@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 12:07:22 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 12:09:32 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,16 @@
 #define	CWD_BUFFER_SIZE 1000
 #define	PROC_FIELD_BUFFER 1000
 #define MAX_PROC_AMOUNT 1000
-#define	IOFILES_AMOUNT	1000
+#define	IOFILES_AMOUNT	100
 
 typedef bool (*t_function_pointer)(char **argv);
 
 typedef enum {
+	UNDEFINED,
 	IN,
 	OUT,
 	APPEND,
-	HEREDOC,
+	HEREDOC
 }	e_ftypes;
 
 typedef struct s_inoutfiles {
@@ -59,7 +60,7 @@ typedef struct s_process {
 typedef struct s_pipe {
 	t_process	processes[MAX_PROC_AMOUNT];
 	size_t		p_amount;
-	char 		*input_file;  //NULL
+	char 		*input_file;
 	char		*here_file;
 	char		*output_file;
 	char		*output_file_append;
