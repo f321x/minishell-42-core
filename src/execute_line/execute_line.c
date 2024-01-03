@@ -6,16 +6,15 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/30 23:28:48 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/03 15:13:33 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	cleanup(t_pipe *pipe_struct)
+void	cleanup(t_process *process)
 {
-	if (pipe_struct->here_file)
-		unlink("tmp");
+	// free all resources of the process, including a temp file
 }
 
 int	create_pid_array(pid_t **pid_array, size_t p_amount)
@@ -62,7 +61,7 @@ int	create_pipes(int (*fd_array)[2], size_t n)
 	return (1);
 }
 
-int	get_here_file(char *keyword, int n)
+int	get_here_file(char *keyword)
 {
 	int		fd;
 	bool	end;
@@ -114,64 +113,99 @@ int	get_here_file(char *keyword, int n)
 	return (fd);
 }
 
-int	handle_infile(t_pipe *pipe_struct)
+bool	handle_infile(t_inoutfiles *file)
 {
 	int		fd;
-	char	*input_file;
+	char	*name;
 
-	if (pipe_struct->input_file != NULL)
+	name = file->name;
+	fd = open(name, O_RDONLY | O_NONBLOCK);
+	if (fd == -1)
 	{
-		input_file = pipe_struct->input_file;
-		fd = open(input_file, O_RDONLY | O_NONBLOCK);
-		if (fd == -1)
-		{
-			perror("Minishell: handle_infile");
-			return (0);
-		}
-		dup2(fd, 0);
-		close(fd);
+		perror("Minishell: handle_infile");
+		return (false);
 	}
-	if (pipe_struct->here_file != NULL)
-	{
-		fd = get_here_file(pipe_struct->here_file, pipe_struct->p_amount - 1);
-		if (fd == -1)
-		{
-			perror("Minishell: handle_infile");
-			return (0);
-		}
-		dup2(fd, 0);
-		close(fd);
-	}
-	return (1);
+	dup2(fd, 0);
+	close(fd);
+	return (true);
 }
 
-int	handle_outfile(t_pipe *pipe_struct)
+bool	handle_herefile(t_inoutfiles *file)
 {
 	int		fd;
-	char	*output_file;
+	char	*name;
 
-	assert (pipe_struct->output_file == NULL || pipe_struct->output_file_append == NULL);
-	if (pipe_struct->output_file != NULL)
+	name = file->name;
+	fd = get_here_file(name);
+	if (fd == -1)
 	{
-		output_file = pipe_struct->output_file;
-		fd = open(output_file, O_RDONLY);
+		perror("Minishell: handle_herefile");
+		return (false);
 	}
-	if (pipe_struct->output_file_append != NULL)
+	dup2(fd, 0);
+	close(fd);
+	return (true);
+}
+
+bool	handle_outfile(t_inoutfiles *file)
+{
+	int		fd;
+	char	*name;
+
+	name = file->name;
+	fd = open(name, O_RDONLY);
+	if (fd == -1)
 	{
-		output_file = pipe_struct->output_file;
-		fd = open(output_file, O_RDONLY | O_APPEND);
+		perror("Minishell: handle_outfile");
+		return (false);
 	}
-	if (pipe_struct->output_file != NULL || pipe_struct->output_file_append != NULL)
+	dup2(fd, 1);
+	close(fd);
+	return (true);
+}
+
+bool	handle_appendfile(t_inoutfiles *file)
+{
+	int		fd;
+	char	*name;
+
+	name = file->name;
+	fd = open(name, O_RDONLY | O_APPEND);
+	if (fd == -1)
 	{
-		if (fd == -1)
-		{
-			perror("Minishell: handle_outfile");
-			return (0);
-		}
-		dup2(fd, 1);
-		close(fd);
+		perror("Minishell: handle_appendfile");
+		return (false);
 	}
-	return (1);
+	dup2(fd, 1);
+	close(fd);
+	return (true);
+}
+
+bool	handle_inoutfiles(t_process *process)
+{
+	int				i;
+	int				return_value;
+	t_inoutfiles	*file;
+
+	i = 0;
+	while (i < process->io_amount)
+	{
+		file = &process->iofiles[i];
+		if (file->type == IN)
+			return_value = handle_infile(file);
+		if (file->type == OUT)
+			return_value = handle_outfile(file);
+		if (file->type == HEREDOC)
+			return_value = handle_herefile(file);
+		if (file->type == APPEND)
+			return_value = handle_appendfile(file);
+		else
+			return_value = false;
+		if (return_value == false)
+			return (false);	
+		i++;	
+	}
+	return (true);
 }
 
 bool	set_exit_value(int exit_value)
@@ -283,11 +317,11 @@ bool	find_full_path_in_path_var(t_process *process, char *paths)
 	i = 0;
 	while (split[i] != NULL)
 	{
-		full_path = join_path_and_program_name(split[i], process->name);
+		full_path = join_path_and_program_name(split[i], process->argv[0]);
 		if (access(full_path, F_OK) == 0)
 		{
-			//free(process->name);
-			process->name = full_path;
+			//free(process->argv[0]);
+			process->argv[0] = full_path;
 			break;
 		}
 		free(full_path);
@@ -309,8 +343,10 @@ bool	find_full_path(t_process *process)
 	char	*old_path_var_with_colon;
 	char	*new_path_var;
 	char	*paths;
+	char	*name;
 
-	if (process->name[0] == '/')
+	name = process->argv[0];
+	if (name[0] == '/')
 		return (true);
 	paths = getenv("PATH");
 	if (paths == NULL)
@@ -333,7 +369,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	int			pid;
 	extern char	**environ;
 
-	program = process->name;
+	program = process->argv[0];
 	argv = process->argv;
 	pid = fork();
 	if (pid == 0)
@@ -346,7 +382,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		close_all_fds(fd_array, p_amount);
 		if (!find_full_path(process))
 			return (0);
-		if (execve(process->name, argv, environ) == -1)
+		if (execve(program, argv, environ) == -1)
 			perror("Minishell: launch_process");
 		return (0);
 	}
@@ -364,7 +400,7 @@ bool	is_builtin(t_process *process)
 	char		*name;
 	int			i;
 
-	name = process->name;
+	name = process->argv[0];
 	i = 0;
 	while (i < 7)
 	{
@@ -385,14 +421,14 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	t_process	process;
 	size_t		i;
 
-	if (handle_infile(pipe_struct) == 0)
-		return (0);
-	if (handle_outfile(pipe_struct) == 0)
-		return (0);
 	i = 0;
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
+		if (handle_inoutfiles(&process) == 0)
+			return (0);
+		if (process.argv == NULL)
+			continue;
 		if (is_builtin(&process) == 0)
 		{
 			pid = launch_process(&process, fd_array, pipe_struct->p_amount, i);
@@ -407,9 +443,9 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 				return (0);
 			pipe_struct->last_exit_value = return_value;
 		}
+		cleanup(&process);
 		i++;
 	}
-	cleanup(pipe_struct);
 	return (1);
 }
 
@@ -445,44 +481,46 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// int main()
-// {
-// 	t_pipe pipe_struct;
-// 	char *argv1[4];
-// 	char *argv2[4];
-// 	char *argv3[4];
+int main()
+{
+	t_pipe pipe_struct;
+	char *argv1[4];
+	// char *argv2[4];
+	// char *argv3[4];
+	t_inoutfiles	one;
+	t_inoutfiles	two;
 
-// 	pipe_struct.p_amount = 1;
+	pipe_struct.p_amount = 1;
 
-// 	argv1[0] = "cat";
-// 	argv1[1] = NULL;
-// 	argv1[2] = NULL;
-// 	argv1[3] = NULL;
+	argv1[0] = "cat";
+	argv1[1] = NULL;
+	argv1[2] = NULL;
+	argv1[3] = NULL;
 
-// 	argv2[0] = "cat";
-// 	argv2[1] = NULL;
-// 	argv2[2] = NULL;
-// 	argv2[3] = NULL;
+	// argv2[0] = "cat";
+	// argv2[1] = NULL;
+	// argv2[2] = NULL;
+	// argv2[3] = NULL;
 
-// 	argv3[0] = "env";
-// 	argv3[1] = NULL;
-// 	argv3[2] = NULL;
-// 	argv3[3] = NULL;
+	// argv3[0] = "env";
+	// argv3[1] = NULL;
+	// argv3[2] = NULL;
+	// argv3[3] = NULL;
 
-// 	pipe_struct.input_file = NULL;
-// 	pipe_struct.here_file = "here";
-// 	pipe_struct.output_file = NULL;
-// 	pipe_struct.output_file_append = NULL;
+	one.name = "f1";
+	one.type = IN;
+	two.name = "f2";
+	two.type = OUT;
 
-// 	// pipe_struct.processes[0].name = "/Users/marschul/minishell_github/dummy1";
-// 	pipe_struct.processes[0].name = "cat";
-// 	pipe_struct.processes[0].argv = argv1;
+	pipe_struct.processes[0].argv = argv1;
+	pipe_struct.processes[0].iofiles[0] = one;
+	pipe_struct.processes[0].iofiles[1] = two;
 
-// 	pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-// 	// pipe_struct.processes[1].name = "cat";
-// 	pipe_struct.processes[1].argv = argv2;
+	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+	// // pipe_struct.processes[1].name = "cat";
+	// pipe_struct.processes[1].argv = argv2;
 
-// 	pipe_struct.processes[2].name = "env";
-// 	pipe_struct.processes[2].argv = argv3;
-// 	execute_line(&pipe_struct);
-// }
+	// pipe_struct.processes[2].name = "env";
+	// pipe_struct.processes[2].argv = argv3;
+	execute_line(&pipe_struct);
+}

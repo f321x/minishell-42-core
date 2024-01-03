@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 15:03:56 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 15:14:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_process {
 	char 				**argv;
 	t_inoutfiles		iofiles[IOFILES_AMOUNT];
 	long				io_amount;
-	t_function_pointer	inbuilt;
+	t_function_pointer	builtin;
 }	t_process;
 
 typedef struct s_pipe {
