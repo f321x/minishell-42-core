@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/04 16:52:08 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/04 17:09:41 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ bool	parse_delimiter(t_parsing *p);
 
 // quote_parsing.c
 bool	parse_single_quote(t_parsing *p);
+bool	parse_double_quote(t_parsing *p);
 
 // array_utils.c
 char 	**append_string(char **orig, char *str);
