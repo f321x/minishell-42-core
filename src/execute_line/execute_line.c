@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/04 17:54:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:57:42 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	create_pipes(int (*fd_array)[2], size_t n)
 	return (1);
 }
 
-int	get_here_file(char *keyword)
+int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 {
 	int		fd;
 	bool	end;
@@ -76,8 +76,8 @@ int	get_here_file(char *keyword)
 	while (!end)
 	{
 		if (i == 0)
-			bytes_written = write(1, ">", 1);
-		bytes_read = read(0, buffer, 1);
+			bytes_written = write(true_stdout, ">", 1);
+		bytes_read = read(true_stdin, buffer, 1);
 		if (i != -1)
 		{
 			if (buffer[0] == keyword[i])
@@ -130,13 +130,13 @@ bool	handle_infile(t_inoutfiles *file)
 	return (true);
 }
 
-bool	handle_herefile(t_inoutfiles *file)
+bool	handle_herefile(t_inoutfiles *file, int true_stdin, int true_stdout)
 {
 	int		fd;
 	char	*name;
 
 	name = file->name;
-	fd = get_here_file(name);
+	fd = get_here_file(name, true_stdin, true_stdout);
 	if (fd == -1)
 	{
 		perror("Minishell: handle_herefile");
@@ -186,7 +186,14 @@ bool	handle_inoutfiles(t_process *process)
 	int				i;
 	int				return_value;
 	t_inoutfiles	*file;
+	static int		true_stdin;
+	static int		true_stdout;
 
+	if (true_stdin == 0 && true_stdout == 0)
+	{
+		true_stdin = dup(0);
+		true_stdout = dup(1);
+	}
 	i = 0;
 	while (i < process->io_amount)
 	{
@@ -196,7 +203,7 @@ bool	handle_inoutfiles(t_process *process)
 		if (file->type == OUT)
 			return_value = handle_outfile(file);
 		if (file->type == HEREDOC)
-			return_value = handle_herefile(file);
+			return_value = handle_herefile(file, true_stdin, true_stdout);
 		if (file->type == APPEND)
 			return_value = handle_appendfile(file);
 		if (return_value == false)
@@ -482,54 +489,54 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-int main()
-{
-	t_pipe pipe_struct;
-	char *argv1[4];
-	char *argv2[4];
-	char *argv3[4];
-	t_inoutfiles	one;
-	t_inoutfiles	two;
-	t_inoutfiles	three;
+// int main()
+// {
+// 	t_pipe pipe_struct;
+// 	char *argv1[4];
+// 	char *argv2[4];
+// 	char *argv3[4];
+// 	t_inoutfiles	one;
+// 	t_inoutfiles	two;
+// 	t_inoutfiles	three;
 
-	pipe_struct.p_amount = 3;
+// 	pipe_struct.p_amount = 1;
 
-	argv1[0] = "ls";
-	argv1[1] = NULL;
-	argv1[2] = NULL;
-	argv1[3] = NULL;
+// 	argv1[0] = "cat";
+// 	argv1[1] = NULL;
+// 	argv1[2] = NULL;
+// 	argv1[3] = NULL;
 
-	argv2[0] = "echo";
-	argv2[1] = "test";
-	argv2[2] = NULL;
-	argv2[3] = NULL;
+// 	argv2[0] = "echo";
+// 	argv2[1] = "test";
+// 	argv2[2] = NULL;
+// 	argv2[3] = NULL;
 
-	argv3[0] = "env";
-	argv3[1] = NULL;
-	argv3[2] = NULL;
-	argv3[3] = NULL;
+// 	argv3[0] = "env";
+// 	argv3[1] = NULL;
+// 	argv3[2] = NULL;
+// 	argv3[3] = NULL;
 
-	one.name = "f1";
-	one.type = OUT;
-	two.name = "f2";
-	two.type = OUT;
-	three.name = "f3";
-	three.type = OUT;
+// 	one.name = "f1";
+// 	one.type = HEREDOC;
+// 	two.name = "f2";
+// 	two.type = HEREDOC;
+// 	three.name = "f3";
+// 	three.type = OUT;
 
-	pipe_struct.processes[0].argv = argv1;
+// 	pipe_struct.processes[0].argv = argv1;
 
-	pipe_struct.processes[1].iofiles[0] = one;
-	pipe_struct.processes[0].iofiles[1] = two;
-	pipe_struct.processes[0].iofiles[2] = three;
+// 	pipe_struct.processes[0].iofiles[0] = one;
+// 	pipe_struct.processes[0].iofiles[1] = two;
+// 	pipe_struct.processes[0].iofiles[2] = three;
 
-	pipe_struct.processes[1].io_amount = 1;
-	pipe_struct.processes[0].io_amount = 1;
-	pipe_struct.processes[2].io_amount = 1;
+// 	pipe_struct.processes[0].io_amount = 2;
+// 	pipe_struct.processes[1].io_amount = 1;
+// 	pipe_struct.processes[2].io_amount = 1;
 
-	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-	pipe_struct.processes[1].argv = argv2;
+// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+// 	pipe_struct.processes[1].argv = argv2;
 
-	// pipe_struct.processes[2].name = "env";
-	pipe_struct.processes[2].argv = argv3;
-	execute_line(&pipe_struct);
-}
+// 	// pipe_struct.processes[2].name = "env";
+// 	pipe_struct.processes[2].argv = argv3;
+// 	execute_line(&pipe_struct);
+// }
