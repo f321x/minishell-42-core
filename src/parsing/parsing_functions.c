@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:40:15 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 15:00:04 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/04 11:49:47 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ bool	parse_name(t_parsing *p)
 	{
 		curr_proc->argv = append_string(curr_proc->argv, buffer);
 		if (!curr_proc->argv)
-		{
-			free_all_argvs(p);
 			return (false);
-		}
 	}
 	p->new_proc = false;
 	return (true);
@@ -42,5 +39,24 @@ bool	parse_name(t_parsing *p)
 
 bool	parse_delimiter(t_parsing *p)
 {
-	if (!(p->u_input))
+	char	current_c;
+
+	current_c = p->u_input[p->inp_i];
+	if (!current_c)
+		return (true);
+	else if (current_c == '>')
+		return (false);
+	else if (current_c == '<')
+		return (false);
+	else if (current_c == '|')
+		return (handle_pipe(p));
+	else if (current_c == '$')
+		return (false);
+	else if (current_c == '"')
+		return (false);
+	else if (current_c == 39)
+		return (parse_single_quote(p));
+	else
+		return (add_to_argv(p));
+	return (true);
 }
