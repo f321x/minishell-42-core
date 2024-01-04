@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 11:50:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/04 17:09:01 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/04 18:20:20 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,20 @@ static void fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i)
 	char		env_buffer[PROC_FIELD_BUFFER];
 	char		*env_var;
 
+	p->inp_i++;
+	if (!ft_isalnum(p->u_input[p->inp_i]))
+	{
+		buffer[(*buffer_i)++] = '$';
+		return ;
+	}
 	fill_buffer(env_buffer, PROC_FIELD_BUFFER,
 							p->u_input, &(p->inp_i));
 	env_var = getenv(env_buffer);
-	ft_strlcat(buffer, env_var, PROC_FIELD_BUFFER);
-	buffer_i += ft_strlen(env_var);
+	if (env_var != NULL)
+	{
+		ft_strlcat(buffer, env_var, PROC_FIELD_BUFFER);
+		*buffer_i += ft_strlen(env_var);
+	}
 }
 
 bool	parse_double_quote(t_parsing *p)
@@ -57,6 +66,7 @@ bool	parse_double_quote(t_parsing *p)
 	buffer_i = 0;
 	curr_proc = &(p->task->processes[p->task->p_amount]);
 	p->inp_i++;
+	ft_memset(buffer, '\0', PROC_FIELD_BUFFER);
 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != '"')
 	{
 		if (p->u_input[p->inp_i] == '$')
@@ -72,5 +82,6 @@ bool	parse_double_quote(t_parsing *p)
 		if (!curr_proc->argv)
 			return (false);
 	}
+	p->inp_i++;
 	return (true);
 }
