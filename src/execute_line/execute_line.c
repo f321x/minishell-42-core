@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/04 17:54:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/04 18:28:55 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -482,54 +482,54 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-int main()
-{
-	t_pipe pipe_struct;
-	char *argv1[4];
-	char *argv2[4];
-	char *argv3[4];
-	t_inoutfiles	one;
-	t_inoutfiles	two;
-	t_inoutfiles	three;
+// int main()
+// {
+// 	t_pipe pipe_struct;
+// 	char *argv1[4];
+// 	char *argv2[4];
+// 	char *argv3[4];
+// 	t_inoutfiles	one;
+// 	t_inoutfiles	two;
+// 	t_inoutfiles	three;
 
-	pipe_struct.p_amount = 3;
+// 	pipe_struct.p_amount = 3;
 
-	argv1[0] = "ls";
-	argv1[1] = NULL;
-	argv1[2] = NULL;
-	argv1[3] = NULL;
+// 	argv1[0] = "ls";
+// 	argv1[1] = NULL;
+// 	argv1[2] = NULL;
+// 	argv1[3] = NULL;
 
-	argv2[0] = "echo";
-	argv2[1] = "test";
-	argv2[2] = NULL;
-	argv2[3] = NULL;
+// 	argv2[0] = "echo";
+// 	argv2[1] = "test";
+// 	argv2[2] = NULL;
+// 	argv2[3] = NULL;
 
-	argv3[0] = "env";
-	argv3[1] = NULL;
-	argv3[2] = NULL;
-	argv3[3] = NULL;
+// 	argv3[0] = "env";
+// 	argv3[1] = NULL;
+// 	argv3[2] = NULL;
+// 	argv3[3] = NULL;
 
-	one.name = "f1";
-	one.type = OUT;
-	two.name = "f2";
-	two.type = OUT;
-	three.name = "f3";
-	three.type = OUT;
+// 	one.name = "f1";
+// 	one.type = OUT;
+// 	two.name = "f2";
+// 	two.type = OUT;
+// 	three.name = "f3";
+// 	three.type = OUT;
 
-	pipe_struct.processes[0].argv = argv1;
+// 	pipe_struct.processes[0].argv = argv1;
 
-	pipe_struct.processes[1].iofiles[0] = one;
-	pipe_struct.processes[0].iofiles[1] = two;
-	pipe_struct.processes[0].iofiles[2] = three;
+// 	pipe_struct.processes[1].iofiles[0] = one;
+// 	pipe_struct.processes[0].iofiles[1] = two;
+// 	pipe_struct.processes[0].iofiles[2] = three;
 
-	pipe_struct.processes[1].io_amount = 1;
-	pipe_struct.processes[0].io_amount = 1;
-	pipe_struct.processes[2].io_amount = 1;
+// 	pipe_struct.processes[1].io_amount = 1;
+// 	pipe_struct.processes[0].io_amount = 1;
+// 	pipe_struct.processes[2].io_amount = 1;
 
-	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-	pipe_struct.processes[1].argv = argv2;
+// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+// 	pipe_struct.processes[1].argv = argv2;
 
-	// pipe_struct.processes[2].name = "env";
-	pipe_struct.processes[2].argv = argv3;
-	execute_line(&pipe_struct);
-}
+// 	// pipe_struct.processes[2].name = "env";
+// 	pipe_struct.processes[2].argv = argv3;
+// 	execute_line(&pipe_struct);
+// }
