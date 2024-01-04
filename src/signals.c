@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:07:12 by marschul          #+#    #+#             */
-/*   Updated: 2023/12/30 23:29:41 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:58:20 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void sigint_handler(int signum)
 {
     ft_printf("\nCtrl+C was pressed. We need a new prompt.\n");
+	exit(0);
 }
 
 void	register_signal_handlers(void)
