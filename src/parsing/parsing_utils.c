@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:10:41 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 17:47:20 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/04 12:57:28 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,16 @@ bool	free_all_argvs(t_parsing *p)
 	while (p->task->p_amount > 0)
 	{
 		index = 0;
-		while (processes && processes->argv[index] != NULL)
-			index++;
-		while (index >= 0)
+		while (processes && processes->argv &&
+				processes->argv[index] != NULL)
 		{
+			printf("index %ld\n", index);
 			free(processes->argv[index]);
-			index--;
+			index++;
 		}
 		free(processes->argv);
 		p->task->p_amount--;
+		processes++;
 	}
 	return (false);
 }
