@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:40:15 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/04 11:49:47 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/04 16:52:23 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ bool	parse_delimiter(t_parsing *p)
 	current_c = p->u_input[p->inp_i];
 	if (!current_c)
 		return (true);
+	if (p->new_proc)  // in case first char in line is a delimiter
+		p->new_proc = false;
 	else if (current_c == '>')
 		return (false);
 	else if (current_c == '<')
@@ -51,9 +53,9 @@ bool	parse_delimiter(t_parsing *p)
 	else if (current_c == '|')
 		return (handle_pipe(p));
 	else if (current_c == '$')
-		return (false);
+		return (parse_env_var(p));
 	else if (current_c == '"')
-		return (false);
+		return (parse_double_quote(p));
 	else if (current_c == 39)
 		return (parse_single_quote(p));
 	else
