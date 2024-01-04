@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/03 15:13:33 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/03 17:07:28 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ bool	handle_infile(t_inoutfiles *file)
 	char	*name;
 
 	name = file->name;
-	fd = open(name, O_RDONLY | O_NONBLOCK);
+	fd = open(name, O_RDONLY | O_NONBLOCK, 0600);
 	if (fd == -1)
 	{
 		perror("Minishell: handle_infile");
@@ -153,7 +153,7 @@ bool	handle_outfile(t_inoutfiles *file)
 	char	*name;
 
 	name = file->name;
-	fd = open(name, O_RDONLY);
+	fd = open(name, O_CREAT | O_WRONLY, 0600);
 	if (fd == -1)
 	{
 		perror("Minishell: handle_outfile");
@@ -170,7 +170,7 @@ bool	handle_appendfile(t_inoutfiles *file)
 	char	*name;
 
 	name = file->name;
-	fd = open(name, O_RDONLY | O_APPEND);
+	fd = open(name, O_CREAT | O_WRONLY | O_APPEND, 0600);
 	if (fd == -1)
 	{
 		perror("Minishell: handle_appendfile");
@@ -199,8 +199,6 @@ bool	handle_inoutfiles(t_process *process)
 			return_value = handle_herefile(file);
 		if (file->type == APPEND)
 			return_value = handle_appendfile(file);
-		else
-			return_value = false;
 		if (return_value == false)
 			return (false);	
 		i++;	
@@ -364,12 +362,10 @@ bool	find_full_path(t_process *process)
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
-	char 		*program;
 	char 		**argv;
 	int			pid;
 	extern char	**environ;
 
-	program = process->argv[0];
 	argv = process->argv;
 	pid = fork();
 	if (pid == 0)
@@ -382,7 +378,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		close_all_fds(fd_array, p_amount);
 		if (!find_full_path(process))
 			return (0);
-		if (execve(program, argv, environ) == -1)
+		if (execve(process->argv[0], argv, environ) == -1)
 			perror("Minishell: launch_process");
 		return (0);
 	}
@@ -420,13 +416,16 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	int			return_value;
 	t_process	process;
 	size_t		i;
+	int			temp0, temp1;
 
 	i = 0;
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		if (handle_inoutfiles(&process) == 0)
-			return (0);
+		temp0 = dup(0);
+		temp1 = dup(1);
+		if (handle_inoutfiles(&process) == false)
+			return (false);
 		if (process.argv == NULL)
 			continue;
 		if (is_builtin(&process) == 0)
@@ -443,6 +442,10 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 				return (0);
 			pipe_struct->last_exit_value = return_value;
 		}
+		dup2(temp0, 0);
+		close(temp0);
+		dup2(temp1, 1);
+		close(temp1);
 		cleanup(&process);
 		i++;
 	}
@@ -485,22 +488,22 @@ int main()
 {
 	t_pipe pipe_struct;
 	char *argv1[4];
-	// char *argv2[4];
+	char *argv2[4];
 	// char *argv3[4];
 	t_inoutfiles	one;
 	t_inoutfiles	two;
 
-	pipe_struct.p_amount = 1;
+	pipe_struct.p_amount = 2;
 
 	argv1[0] = "cat";
 	argv1[1] = NULL;
 	argv1[2] = NULL;
 	argv1[3] = NULL;
 
-	// argv2[0] = "cat";
-	// argv2[1] = NULL;
-	// argv2[2] = NULL;
-	// argv2[3] = NULL;
+	argv2[0] = "ls";
+	argv2[1] = NULL;
+	argv2[2] = NULL;
+	argv2[3] = NULL;
 
 	// argv3[0] = "env";
 	// argv3[1] = NULL;
@@ -515,10 +518,10 @@ int main()
 	pipe_struct.processes[0].argv = argv1;
 	pipe_struct.processes[0].iofiles[0] = one;
 	pipe_struct.processes[0].iofiles[1] = two;
+	pipe_struct.processes[0].io_amount = 2;
 
 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-	// // pipe_struct.processes[1].name = "cat";
-	// pipe_struct.processes[1].argv = argv2;
+	pipe_struct.processes[1].argv = argv2;
 
 	// pipe_struct.processes[2].name = "env";
 	// pipe_struct.processes[2].argv = argv3;
