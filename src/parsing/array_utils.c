@@ -6,13 +6,13 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:18:02 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 11:22:37 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/03 18:01:51 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char **alloc_new_arr(char **original, int *amount)
+static char **alloc_new_arr(char **original, size_t *amount)
 {
 	*amount = 0;
 	while (original && original[*amount])
@@ -25,8 +25,8 @@ static void *free_on_error(char **to_free, int from_index)
 {
 	while (from_index > 0)
 	{
+		from_index--;
 		free(to_free[from_index]);
-		index--;
 	}
 	free(to_free);
 	return (NULL);

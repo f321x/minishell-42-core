@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/03 15:14:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/04 11:58:05 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,24 +92,34 @@ bool	unset(char **argv);
 bool	env(char **argv);
 bool	_exit_(char **argv);
 
-// parsing.c
-bool	parse_line(char *entered_line, t_pipe *task);
+// parsing_main.c
+bool	parsing_main(char *input, t_pipe *task);
+
+// parsing_utils.c
+void	init_parsing_data(t_parsing *data, t_pipe *task, char *input);
+void	skip_whitespace(t_parsing *p);
+bool	free_all_argvs(t_parsing *p);
+bool	add_to_argv(t_parsing *p);
+bool	handle_pipe(t_parsing *p);
+
+// parsing_functions.c
+bool	parse_name(t_parsing *p);
+bool	parse_delimiter(t_parsing *p);
+
+// quote_parsing.c
+bool	parse_single_quote(t_parsing *p);
+
+// array_utils.c
+char 	**append_string(char **orig, char *str);
+
+// string_utils.c
+bool	ft_isdelimiter(char c);
 
 // execute line
 int	execute_line(t_pipe *pipe_struct);
 
-// parsing_utils.c
-char 	**append_string(char **orig, char *str);
-bool	ft_isdelimiter(char c);
-bool	parse_placeholder(t_parsing *pd);
-
 // helper_functions.c
 bool	error_wrapper(void);
-
-// in_out_parsing.c
-bool	parse_infile(t_parsing *pd);
-bool	parse_outfile(t_parsing *pd);
-bool	parse_heredoc(t_parsing *pd);
 
 // signals.c
 void	register_signal_handlers(void);

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/03 17:07:28 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:16:10 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,8 +200,8 @@ bool	handle_inoutfiles(t_process *process)
 		if (file->type == APPEND)
 			return_value = handle_appendfile(file);
 		if (return_value == false)
-			return (false);	
-		i++;	
+			return (false);
+		i++;
 	}
 	return (true);
 }
@@ -369,7 +369,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	argv = process->argv;
 	pid = fork();
 	if (pid == 0)
-	{	
+	{
 		signal(SIGQUIT, SIG_DFL);
 		if (i != 0)
 			dup2(fd_array[i - 1][0], 0);
