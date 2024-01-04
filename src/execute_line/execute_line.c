@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/03 18:02:40 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/04 17:54:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	get_here_file(char *keyword)
 	ssize_t	i;
 	char	buffer[1];
 
-	fd = open("tmp", O_CREAT | O_WRONLY, 0600);
+	fd = open("tmp", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	i = 0;
 	end = false;
 	while (!end)
@@ -119,7 +119,7 @@ bool	handle_infile(t_inoutfiles *file)
 	char	*name;
 
 	name = file->name;
-	fd = open(name, O_RDONLY | O_NONBLOCK);
+	fd = open(name, O_RDONLY | O_NONBLOCK, 0600);
 	if (fd == -1)
 	{
 		perror("Minishell: handle_infile");
@@ -153,7 +153,7 @@ bool	handle_outfile(t_inoutfiles *file)
 	char	*name;
 
 	name = file->name;
-	fd = open(name, O_RDONLY);
+	fd = open(name, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	if (fd == -1)
 	{
 		perror("Minishell: handle_outfile");
@@ -170,7 +170,7 @@ bool	handle_appendfile(t_inoutfiles *file)
 	char	*name;
 
 	name = file->name;
-	fd = open(name, O_RDONLY | O_APPEND);
+	fd = open(name, O_CREAT | O_WRONLY | O_APPEND, 0600);
 	if (fd == -1)
 	{
 		perror("Minishell: handle_appendfile");
@@ -199,8 +199,6 @@ bool	handle_inoutfiles(t_process *process)
 			return_value = handle_herefile(file);
 		if (file->type == APPEND)
 			return_value = handle_appendfile(file);
-		else
-			return_value = false;
 		if (return_value == false)
 			return (false);
 		i++;
@@ -270,22 +268,24 @@ int	close_last_fds(int (*fd_array)[2], size_t i)
 int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
 	bool	(*builtin) (char** argv);
-	int		temp;
+	int		temp_in;
+	int		temp_out;
 
 	builtin = process->builtin;
 	close_last_fds(fd_array, i);
+	temp_in = dup(0);
+	temp_out = dup(1);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
-		temp = dup(1);
 		dup2(fd_array[i][1], 1);
 	}
+	handle_inoutfiles(process);
 	if (builtin(process->argv) == false)
 		return (0);
-	if (p_amount > 1 && i != p_amount - 1)
-	{
-		dup2(temp, 1);
-		close(temp);
-	}
+	dup2(temp_in, 0);
+	close(temp_in);
+	dup2(temp_out, 1);
+	close(temp_out);
 	return (1);
 }
 
@@ -364,25 +364,28 @@ bool	find_full_path(t_process *process)
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
-	char 		*program;
 	char 		**argv;
 	int			pid;
 	extern char	**environ;
 
-	program = process->argv[0];
 	argv = process->argv;
 	pid = fork();
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		if (i != 0)
+		{
 			dup2(fd_array[i - 1][0], 0);
+		}
 		if (i != p_amount - 1)
+		{
 			dup2(fd_array[i][1], 1);
+		}
 		close_all_fds(fd_array, p_amount);
+		handle_inoutfiles(process);
 		if (!find_full_path(process))
 			return (0);
-		if (execve(program, argv, environ) == -1)
+		if (execve(process->argv[0], argv, environ) == -1)
 			perror("Minishell: launch_process");
 		return (0);
 	}
@@ -425,8 +428,6 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		if (handle_inoutfiles(&process) == 0)
-			return (0);
 		if (process.argv == NULL)
 			continue;
 		if (is_builtin(&process) == 0)
@@ -481,46 +482,54 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// int main()
-// {
-// 	t_pipe pipe_struct;
-// 	char *argv1[4];
-// 	// char *argv2[4];
-// 	// char *argv3[4];
-// 	t_inoutfiles	one;
-// 	t_inoutfiles	two;
+int main()
+{
+	t_pipe pipe_struct;
+	char *argv1[4];
+	char *argv2[4];
+	char *argv3[4];
+	t_inoutfiles	one;
+	t_inoutfiles	two;
+	t_inoutfiles	three;
 
-// 	pipe_struct.p_amount = 1;
+	pipe_struct.p_amount = 3;
 
-// 	argv1[0] = "cat";
-// 	argv1[1] = NULL;
-// 	argv1[2] = NULL;
-// 	argv1[3] = NULL;
+	argv1[0] = "ls";
+	argv1[1] = NULL;
+	argv1[2] = NULL;
+	argv1[3] = NULL;
 
-// 	// argv2[0] = "cat";
-// 	// argv2[1] = NULL;
-// 	// argv2[2] = NULL;
-// 	// argv2[3] = NULL;
+	argv2[0] = "echo";
+	argv2[1] = "test";
+	argv2[2] = NULL;
+	argv2[3] = NULL;
 
-// 	// argv3[0] = "env";
-// 	// argv3[1] = NULL;
-// 	// argv3[2] = NULL;
-// 	// argv3[3] = NULL;
+	argv3[0] = "env";
+	argv3[1] = NULL;
+	argv3[2] = NULL;
+	argv3[3] = NULL;
 
-// 	one.name = "f1";
-// 	one.type = IN;
-// 	two.name = "f2";
-// 	two.type = OUT;
+	one.name = "f1";
+	one.type = OUT;
+	two.name = "f2";
+	two.type = OUT;
+	three.name = "f3";
+	three.type = OUT;
 
-// 	pipe_struct.processes[0].argv = argv1;
-// 	pipe_struct.processes[0].iofiles[0] = one;
-// 	pipe_struct.processes[0].iofiles[1] = two;
+	pipe_struct.processes[0].argv = argv1;
 
-// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-// 	// // pipe_struct.processes[1].name = "cat";
-// 	// pipe_struct.processes[1].argv = argv2;
+	pipe_struct.processes[1].iofiles[0] = one;
+	pipe_struct.processes[0].iofiles[1] = two;
+	pipe_struct.processes[0].iofiles[2] = three;
 
-// 	// pipe_struct.processes[2].name = "env";
-// 	// pipe_struct.processes[2].argv = argv3;
-// 	execute_line(&pipe_struct);
-// }
+	pipe_struct.processes[1].io_amount = 1;
+	pipe_struct.processes[0].io_amount = 1;
+	pipe_struct.processes[2].io_amount = 1;
+
+	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
+	pipe_struct.processes[1].argv = argv2;
+
+	// pipe_struct.processes[2].name = "env";
+	pipe_struct.processes[2].argv = argv3;
+	execute_line(&pipe_struct);
+}
