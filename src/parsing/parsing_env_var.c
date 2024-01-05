@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/05 08:52:47 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/05 08:59:34 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,30 @@ static void	parse_dq_assignment(t_parsing *p, char *assignment_buffer,
 	char	env_key_buffer[PROC_FIELD_BUFFER];
 	char	*env_var;
 
-	p->inp_i++;
-	if (p->u_input[p->inp_i] == ' ' || p->u_input[p->inp_i] == '"')
+	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != '"')
 	{
-		assignment_buffer[(*ass_buff_i)++] = '$';
-		return ;
-	}
-	fill_buffer(env_key_buffer, PROC_FIELD_BUFFER,
-							p->u_input, &(p->inp_i));
-	env_var = getenv(env_key_buffer);
-	if (env_var != NULL)
-	{
-		ft_strlcat(assignment_buffer, env_var, PROC_FIELD_BUFFER);
-		*ass_buff_i += ft_strlen(env_var);
+		if (p->u_input[p->inp_i] == '$')
+		{
+			p->inp_i++;
+			if (p->u_input[p->inp_i] == ' ' || p->u_input[p->inp_i] == '"')
+			{
+				assignment_buffer[(*ass_buff_i)++] = '$';
+				continue ;
+			}
+			fill_buffer(env_key_buffer, PROC_FIELD_BUFFER,
+									p->u_input, &(p->inp_i));
+			env_var = getenv(env_key_buffer);
+			if (env_var != NULL)
+			{
+				ft_strlcat(assignment_buffer, env_var, PROC_FIELD_BUFFER);
+				*ass_buff_i += ft_strlen(env_var);
+			}
+		}
+		else
+			assignment_buffer[(*ass_buff_i)++] = p->u_input[p->inp_i++];
 	}
 }
-// needs to be tested, not done yet
+
 void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
@@ -92,13 +100,7 @@ void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 	else if (p->u_input[p->inp_i] == '"')  // value in double quotes -> parse env vars
 	{
 		p->inp_i++;
-		while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != '"')
-		{
-			if (p->u_input[p->inp_i] == '$')
-				parse_dq_assignment(p, buffer, buffer_i);
-			else
-				buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
-		}
+		parse_dq_assignment(p, buffer, buffer_i);
 		p->inp_i++;
 	}
 	else if (ft_isalnum(p->u_input[p->inp_i]))  // value without quotes
