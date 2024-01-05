@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:10:41 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/04 12:57:28 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/05 08:36:41 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,12 @@ bool	add_to_argv(t_parsing *p)
 	buffer[buffer_i++] = p->u_input[(p->inp_i)++];
 	while (p->u_input && p->u_input[p->inp_i]
 			&& !ft_isdelimiter(p->u_input[p->inp_i]))
-		buffer[buffer_i++] = p->u_input[p->inp_i++];
+	{
+		if (p->u_input[p->inp_i] == '=')
+			parse_env_assignment(p, buffer, &buffer_i);
+		else
+			buffer[buffer_i++] = p->u_input[p->inp_i++];
+	}
 	*current_argv = append_string(*current_argv, buffer);
 	if (!(*current_argv))
 		return (false);
