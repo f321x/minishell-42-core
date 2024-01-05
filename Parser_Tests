@@ -1,0 +1,62 @@
+1)
+arg0 arg1 arg2
+
+2)
+'aaa' 'bbb'
+
+3)
+"aaa" "bbb"
+
+4)
+"'"'
+
+5)
+'"'"
+
+6)
+export testvar=test
+"$testvar"
+
+7)
+export testvar=test
+"aaa$testvar"bbb
+
+8)
+aaa'bbb'ccc
+
+9)
+arg0 < in > out >> here >> append
+
+10)
+< in > out >> here >> append | arg0
+
+11)
+< in arg0 > out arg1 >> here arg2 >> append
+
+12)
+< in
+
+13)
+word1 | word2 | word3 | word4
+
+14)
+word1 | word2 < in > out | word3
+
+15)
+export testvar="a b"
+< $testvar
+SHOULD GIVE SYNTAXERROR!
+
+16)
+word1 |
+SHOULD GIVE SYNTAXERROR!
+
+17)
+word1 < | word2
+SHOULD GIVE SYNTAXERROR!
+
+18)
+export testvar="a b"
+arg0 < $testvar
+SHOULD BE: arg0 a b
+

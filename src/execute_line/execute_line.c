@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/04 18:58:31 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/05 09:45:37 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ bool	handle_inoutfiles(t_process *process)
 	static int		true_stdin;
 	static int		true_stdout;
 
+	// Das funktioniert nicht! Wir lesen mehrere Command lines!
 	if (true_stdin == 0 && true_stdout == 0)
 	{
 		true_stdin = dup(0);
