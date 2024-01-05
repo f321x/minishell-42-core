@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/04 17:09:41 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/05 08:06:59 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ bool	ft_isdelimiter(char c);
 void	fill_buffer(char *buffer, size_t buffer_s,
 					char *string, size_t *str_index);
 bool	parse_env_var(t_parsing *p);
+void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
 
 // execute line
 int	execute_line(t_pipe *pipe_struct);

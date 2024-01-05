@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/04 18:34:10 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/05 08:36:59 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,22 +38,27 @@ int	main(int argc, char **argv, char **envp)
 		if (!entered_line)
 			continue ;
 		if (!parsing_main(entered_line, &task))
+		{
+			printf("parsing dead\n");
 			continue ;
-
-		// for (size_t i = 0; i < task.p_amount; i++)
-		// {
-		// 	printf("argv:");
-		// 	while (task.processes[i].argv && *task.processes[i].argv)
-		// 	{
-		// 		printf(" %s", *task.processes[i].argv);
-		// 		task.processes[i].argv++;
-		// 	}
-		// 	printf("\n");
-		// }
+		}
+		for (size_t i = 0; i < task.p_amount; i++)
+		{
+			int in = 0;
+			printf("argv:");
+			while (task.processes[i].argv && task.processes[i].argv[in])
+			{
+				printf(" %s", task.processes[i].argv[in]);
+				// task.processes[i].argv;
+				in++;
+			}
+			printf("\n");
+		}
+		printf("\n");
 		// continue;
-
 		execute_line(&task);
 		// free(entered_line);
+		printf("\n");
 		continue ;
 
 		// if (!parse_line(entered_line, &task))
