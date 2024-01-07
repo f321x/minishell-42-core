@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/05 08:36:59 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/07 20:41:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ void init_task(t_pipe *task)
 	// task->output_file_append = NULL;
 }
 
+void	initialize_exit_code(void)
+{
+	char	*argv[3];
+
+	argv[0] = "export";
+	argv[1] = "?=0";
+	argv[2] = NULL;
+	export(argv);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipe 	task;
@@ -28,6 +38,9 @@ int	main(int argc, char **argv, char **envp)
 
 	// register signal handlers
 	register_signal_handlers();
+
+	// initialize env var ? mit 0
+	initialize_exit_code();
 
 	while (1)
 	{

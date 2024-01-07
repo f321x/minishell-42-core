@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/07 19:45:49 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/07 21:50:21 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ bool	set_exit_value(int exit_value)
 
 	argv[0] = "export";
 	argv[2] = NULL;
-	environment_var = ft_strjoin("?=", ft_itoa(exit_value)); //ft_itoa malloced, wir muessen freeen!
+	environment_var = ft_strjoin("?=", ft_itoa(exit_value)); //ft_itoa mallocs, wir muessen freeen!
 	if (environment_var == NULL)
 		return (false);
 	argv[1] = environment_var;
@@ -446,14 +446,48 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		else
 		{
 			return_value = launch_builtin(&process, fd_array, pipe_struct->p_amount, i);
-			if (return_value == 0)
-				return (0);
-			pipe_struct->last_exit_value = return_value;
+			pid_array[i] = return_value;
 		}
 		cleanup(&process);
 		i++;
 	}
 	return (1);
+}
+
+
+bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct)
+{
+	int	last_pid;
+	int	i;
+	int	status_pointer;
+
+	i = 0;
+	while (i < pipe_struct->p_amount)
+	{
+		if (pid_array[i] == 0 || pid_array[i] == 1)
+		{
+			set_exit_value(1 - pid_array[i]);
+			i++;
+			continue;
+		}
+		last_pid = waitpid(pid_array[i], &status_pointer, 0);
+		if (WIFSIGNALED(status_pointer) && WTERMSIG(status_pointer) == 3)
+		{
+			ft_printf("Quit: 3\n");
+			set_exit_value(131);
+			return (true);
+		}
+		if (WIFSIGNALED(status_pointer) && WTERMSIG(status_pointer) == 2)
+		{
+			set_exit_value(130);
+			return (true);
+		}
+		if (last_pid == -1)
+			return (false);
+		i++;
+	}
+	if (! set_exit_value(status_pointer))
+		return (0);
 }
 
 int	execute_line(t_pipe *pipe_struct)
@@ -462,7 +496,6 @@ int	execute_line(t_pipe *pipe_struct)
 	pid_t	*pid_array;
 	int		(*fd_array)[2];
 	pid_t	last_pid;
-	int		status_pointer;
 
 	p_amount = pipe_struct->p_amount;
 	if (create_pid_array(&pid_array, p_amount) == 0)
@@ -473,16 +506,8 @@ int	execute_line(t_pipe *pipe_struct)
 		return (0);
 	if (execute_commands(pipe_struct, fd_array, pid_array) == 0)
 		return (0);
-	last_pid = waitpid(pid_array[p_amount - 1], &status_pointer, 0);
-	if (WIFSIGNALED(status_pointer) && WTERMSIG(status_pointer) == 3)
-		ft_printf("Quit: 3\n");
-	if (last_pid == -1)
+	if (! wait_for_all(pid_array, pipe_struct))
 		return (0);
-	pipe_struct->last_exit_value = status_pointer;
-	if (! set_exit_value(pipe_struct->last_exit_value))
-		return (0);
-
-	printf("pid of last process %d\n", last_pid); //debug
 	return (1);
 }
 

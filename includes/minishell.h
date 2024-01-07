@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/05 08:06:59 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/07 21:46:07 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,6 @@ typedef struct s_process {
 typedef struct s_pipe {
 	t_process	processes[MAX_PROC_AMOUNT];
 	size_t		p_amount;
-	// char 		*input_file;
-	// char		*here_file;
-	// char		*output_file;
-	// char		*output_file_append;
-	int			last_exit_value;
 }	t_pipe;
 
 typedef struct s_parsing {
@@ -124,6 +119,7 @@ void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
 
 // execute line
 int	execute_line(t_pipe *pipe_struct);
+bool	set_exit_value(int exit_value);
 
 // helper_functions.c
 bool	error_wrapper(void);
