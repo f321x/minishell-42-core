@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/05 09:45:37 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/07 18:44:43 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,11 +190,11 @@ bool	handle_inoutfiles(t_process *process)
 	static int		true_stdout;
 
 	// Das funktioniert nicht! Wir lesen mehrere Command lines!
-	if (true_stdin == 0 && true_stdout == 0)
-	{
-		true_stdin = dup(0);
-		true_stdout = dup(1);
-	}
+	// if (true_stdin == 0 && true_stdout == 0)
+	// {
+	// 	true_stdin = dup(0);
+	// 	true_stdout = dup(1);
+	// }
 	i = 0;
 	while (i < process->io_amount)
 	{
@@ -221,7 +221,7 @@ bool	set_exit_value(int exit_value)
 
 	argv[0] = "export";
 	argv[2] = NULL;
-	environment_var = ft_strjoin("?=", ft_itoa(exit_value));
+	environment_var = ft_strjoin("?=", ft_itoa(exit_value)); //ft_itoa malloced, wir muessen freeen!
 	if (environment_var == NULL)
 		return (false);
 	argv[1] = environment_var;
@@ -237,16 +237,20 @@ int	close_all_fds(int (*fd_array)[2], size_t p_amount)
 	i = 0;
 	while (i < p_amount - 1)
 	{
-		if (close(fd_array[i][0]) == -1)
-		{
-			perror("Minishell: close_all_fds");
-			return (0);
-		}
-		if (close(fd_array[i][1]) == -1)
-		{
-			perror("Minishell: close_all_fds");
-			return (0);
-		}
+		close(fd_array[i][0]);
+		close(fd_array[i][1]);
+		// if (close(fd_array[i][0]) == -1)
+		// {
+		// 	ft_printf("%d 0", i);
+		// 	perror("Minishell: close_all_fds");
+		// 	return (0);
+		// }
+		// if (close(fd_array[i][1]) == -1)
+		// {
+		// 	ft_printf("%d 1", i);
+		// 	perror("Minishell: close_all_fds");
+		// 	return (0);
+		// }
 		i++;
 	}
 	return (1);
@@ -276,12 +280,10 @@ int	close_last_fds(int (*fd_array)[2], size_t i)
 int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
 {
 	bool	(*builtin) (char** argv);
-	int		temp_in;
 	int		temp_out;
 
 	builtin = process->builtin;
 	close_last_fds(fd_array, i);
-	temp_in = dup(0);
 	temp_out = dup(1);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
@@ -290,8 +292,6 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	handle_inoutfiles(process);
 	if (builtin(process->argv) == false)
 		return (0);
-	dup2(temp_in, 0);
-	close(temp_in);
 	dup2(temp_out, 1);
 	close(temp_out);
 	return (1);
@@ -357,8 +357,6 @@ bool	find_full_path(t_process *process)
 	if (name[0] == '/')
 		return (true);
 	paths = getenv("PATH");
-	if (paths == NULL)
-		return (error_wrapper());
 	getcwd(cwd, PATH_MAX);
 	old_path_var_with_colon = ft_strjoin(paths, ":");
 	if (old_path_var_with_colon == NULL)
@@ -500,19 +498,19 @@ int	execute_line(t_pipe *pipe_struct)
 // 	t_inoutfiles	two;
 // 	t_inoutfiles	three;
 
-// 	pipe_struct.p_amount = 1;
+// 	pipe_struct.p_amount = 3;
 
-// 	argv1[0] = "cat";
+// 	argv1[0] = "ls";
 // 	argv1[1] = NULL;
 // 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
 
-// 	argv2[0] = "echo";
-// 	argv2[1] = "test";
+// 	argv2[0] = "ls";
+// 	argv2[1] = NULL;
 // 	argv2[2] = NULL;
 // 	argv2[3] = NULL;
 
-// 	argv3[0] = "env";
+// 	argv3[0] = "ls";
 // 	argv3[1] = NULL;
 // 	argv3[2] = NULL;
 // 	argv3[3] = NULL;
@@ -525,19 +523,16 @@ int	execute_line(t_pipe *pipe_struct)
 // 	three.type = OUT;
 
 // 	pipe_struct.processes[0].argv = argv1;
+// 	pipe_struct.processes[1].argv = argv2;
+// 	pipe_struct.processes[2].argv = argv3;
 
 // 	pipe_struct.processes[0].iofiles[0] = one;
 // 	pipe_struct.processes[0].iofiles[1] = two;
 // 	pipe_struct.processes[0].iofiles[2] = three;
 
-// 	pipe_struct.processes[0].io_amount = 2;
-// 	pipe_struct.processes[1].io_amount = 1;
-// 	pipe_struct.processes[2].io_amount = 1;
+// 	pipe_struct.processes[0].io_amount = 0;
+// 	pipe_struct.processes[1].io_amount = 0;
+// 	pipe_struct.processes[2].io_amount = 0;
 
-// 	// pipe_struct.processes[1].name = "/Users/marschul/minishell_github/dummy2";
-// 	pipe_struct.processes[1].argv = argv2;
-
-// 	// pipe_struct.processes[2].name = "env";
-// 	pipe_struct.processes[2].argv = argv3;
 // 	execute_line(&pipe_struct);
 // }
