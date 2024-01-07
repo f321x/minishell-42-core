@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/07 18:44:43 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:45:49 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	create_fd_array(int (*(*fd_array))[2], size_t n)
 {
 	int	(*res)[2];
 
-	res = malloc(sizeof(int[n][2]));
+	res = (int (*)[2]) malloc(sizeof(int[n][2]));
 	*fd_array = res;
 	if (*fd_array == NULL)
 	{
@@ -41,7 +41,11 @@ int	create_fd_array(int (*(*fd_array))[2], size_t n)
 		return (0);
 	}
 	else
+	{
+		(*fd_array)[n - 1][0] = dup(0);
+		(*fd_array)[n - 1][1] = dup(1);
 		return (1);
+	}
 }
 
 int	create_pipes(int (*fd_array)[2], size_t n)
@@ -181,20 +185,16 @@ bool	handle_appendfile(t_inoutfiles *file)
 	return (true);
 }
 
-bool	handle_inoutfiles(t_process *process)
+bool	handle_inoutfiles(t_process *process, int true_inout_fds[2])
 {
 	int				i;
 	int				return_value;
 	t_inoutfiles	*file;
-	static int		true_stdin;
-	static int		true_stdout;
+	int		true_stdin;
+	int		true_stdout;
 
-	// Das funktioniert nicht! Wir lesen mehrere Command lines!
-	// if (true_stdin == 0 && true_stdout == 0)
-	// {
-	// 	true_stdin = dup(0);
-	// 	true_stdout = dup(1);
-	// }
+	true_stdin = true_inout_fds[0];
+	true_stdout = true_inout_fds[1];
 	i = 0;
 	while (i < process->io_amount)
 	{
@@ -289,7 +289,7 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	{
 		dup2(fd_array[i][1], 1);
 	}
-	handle_inoutfiles(process);
+	handle_inoutfiles(process, fd_array[p_amount - 1]);
 	if (builtin(process->argv) == false)
 		return (0);
 	dup2(temp_out, 1);
@@ -388,7 +388,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 			dup2(fd_array[i][1], 1);
 		}
 		close_all_fds(fd_array, p_amount);
-		handle_inoutfiles(process);
+		handle_inoutfiles(process, fd_array[p_amount - 1]);
 		if (!find_full_path(process))
 			return (0);
 		if (execve(process->argv[0], argv, environ) == -1)
@@ -467,7 +467,7 @@ int	execute_line(t_pipe *pipe_struct)
 	p_amount = pipe_struct->p_amount;
 	if (create_pid_array(&pid_array, p_amount) == 0)
 		return (0);
-	if (create_fd_array(&fd_array, p_amount - 1) == 0)
+	if (create_fd_array(&fd_array, p_amount) == 0)
 		return (0);
 	if (create_pipes(fd_array, p_amount - 1) == 0)
 		return (0);
@@ -500,39 +500,39 @@ int	execute_line(t_pipe *pipe_struct)
 
 // 	pipe_struct.p_amount = 3;
 
-// 	argv1[0] = "ls";
+// 	argv1[0] = "cat";
 // 	argv1[1] = NULL;
 // 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
 
-// 	argv2[0] = "ls";
+// 	argv2[0] = "cat";
 // 	argv2[1] = NULL;
 // 	argv2[2] = NULL;
 // 	argv2[3] = NULL;
 
-// 	argv3[0] = "ls";
+// 	argv3[0] = "cat";
 // 	argv3[1] = NULL;
 // 	argv3[2] = NULL;
 // 	argv3[3] = NULL;
 
 // 	one.name = "f1";
-// 	one.type = HEREDOC;
+// 	one.type = IN;
 // 	two.name = "f2";
-// 	two.type = HEREDOC;
-// 	three.name = "f3";
-// 	three.type = OUT;
+// 	two.type = OUT;
+// 	three.name = "here2";
+// 	three.type = HEREDOC;
 
 // 	pipe_struct.processes[0].argv = argv1;
 // 	pipe_struct.processes[1].argv = argv2;
 // 	pipe_struct.processes[2].argv = argv3;
 
 // 	pipe_struct.processes[0].iofiles[0] = one;
-// 	pipe_struct.processes[0].iofiles[1] = two;
+// 	pipe_struct.processes[2].iofiles[0] = two;
 // 	pipe_struct.processes[0].iofiles[2] = three;
 
-// 	pipe_struct.processes[0].io_amount = 0;
+// 	pipe_struct.processes[0].io_amount = 1;
 // 	pipe_struct.processes[1].io_amount = 0;
-// 	pipe_struct.processes[2].io_amount = 0;
+// 	pipe_struct.processes[2].io_amount = 1;
 
 // 	execute_line(&pipe_struct);
 // }
