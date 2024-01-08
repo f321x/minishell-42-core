@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 17:05:56 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 17:57:03 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	fill_buffer(char *buffer, size_t buffer_s,
 
 	buffer_i = 0;
 	ft_memset(buffer, '\0', buffer_s);
+	if (buffer_i < buffer_s && string && string[*str_index] == '?')
+		buffer[buffer_i++] = string[(*str_index)++];
 	while (buffer_i < buffer_s &&
 			string && ft_isalnum(string[*str_index]))
 	 	buffer[buffer_i++] = string[(*str_index)++];
