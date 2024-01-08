@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 11:53:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:56:34 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -536,57 +536,57 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// void leakcheck()
-// {
-// 	system("leaks a.out");
-// }
-// 
-// int main()
-// {
-// 	atexit(leakcheck);
-// 	t_pipe pipe_struct;
-// 	char **argv1 = malloc(4 * sizeof(char *));
-// 	char **argv2 = malloc(4 * sizeof(char *));
-// 	char **argv3 = malloc(4 * sizeof(char *));
-// 	t_inoutfiles	one;
-// 	t_inoutfiles	two;
-// 	t_inoutfiles	three;
+void leakcheck()
+{
+	system("leaks a.out");
+}
 
-// 	pipe_struct.p_amount = 2;
+int main()
+{
+	atexit(leakcheck);
+	t_pipe pipe_struct;
+	char **argv1 = malloc(4 * sizeof(char *));
+	char **argv2 = malloc(4 * sizeof(char *));
+	char **argv3 = malloc(4 * sizeof(char *));
+	t_inoutfiles	one;
+	t_inoutfiles	two;
+	t_inoutfiles	three;
 
-// 	argv1[0] = ft_strdup("ls");
-// 	argv1[1] = NULL;
-// 	argv1[2] = NULL;
-// 	argv1[3] = NULL;
+	pipe_struct.p_amount = 3;
 
-// 	argv2[0] = NULL;
-// 	argv2[1] = NULL;
-// 	argv2[2] = NULL;
-// 	argv2[3] = NULL;
+	argv1[0] = ft_strdup("ls");
+	argv1[1] = ft_strdup("-l");
+	argv1[2] = NULL;
+	argv1[3] = NULL;
 
-// 	argv3[0] = ft_strdup("echo");
-// 	argv3[1] = ft_strdup("test");
-// 	argv3[2] = NULL;
-// 	argv3[3] = NULL;
+	argv2[0] = ft_strdup("cat");
+	argv2[1] = NULL;
+	argv2[2] = NULL;
+	argv2[3] = NULL;
 
-// 	one.name = "f1";
-// 	one.type = IN;
-// 	two.name = "f2";
-// 	two.type = OUT;
-// 	three.name = "here2";
-// 	three.type = HEREDOC;
+	argv3[0] = ft_strdup("wc");
+	argv3[1] = ft_strdup("-c");
+	argv3[2] = NULL;
+	argv3[3] = NULL;
 
-// 	pipe_struct.processes[0].argv = argv1;
-// 	pipe_struct.processes[1].argv = argv2;
-// 	pipe_struct.processes[2].argv = argv3;
+	one.name = "f1";
+	one.type = IN;
+	two.name = "f2";
+	two.type = OUT;
+	three.name = "here2";
+	three.type = HEREDOC;
 
-// 	pipe_struct.processes[1].iofiles[0] = one;
-// 	pipe_struct.processes[0].iofiles[1] = two;
-// 	pipe_struct.processes[0].iofiles[2] = three;
+	pipe_struct.processes[0].argv = argv1;
+	pipe_struct.processes[1].argv = argv2;
+	pipe_struct.processes[2].argv = argv3;
 
-// 	pipe_struct.processes[0].io_amount = 0;
-// 	pipe_struct.processes[1].io_amount = 1;
-// 	pipe_struct.processes[2].io_amount = 0;
+	pipe_struct.processes[1].iofiles[0] = one;
+	pipe_struct.processes[0].iofiles[1] = two;
+	pipe_struct.processes[0].iofiles[2] = three;
 
-// 	execute_line(&pipe_struct);
+	pipe_struct.processes[0].io_amount = 0;
+	pipe_struct.processes[1].io_amount = 0;
+	pipe_struct.processes[2].io_amount = 0;
+
+	execute_line(&pipe_struct);
 }
