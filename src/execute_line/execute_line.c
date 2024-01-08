@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 11:37:10 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:50:02 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,8 +300,11 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		dup2(fd_array[i][1], 1);
 	}
 	handle_inoutfiles(process, fd_array[p_amount - 1]);
-	if (builtin(process->argv) == false)
-		return (0);
+	if (process->argv[0] != NULL)
+	{
+		if (builtin(process->argv) == false)
+			return (0);
+	}
 	dup2(temp_out, 1);
 	close(temp_out);
 	return (1);
@@ -409,7 +412,10 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 
 bool	is_exit(char *name)
 {
-	return (ft_strncmp("exit", name, 5) == 0);
+	if (name == NULL)
+		return (false);
+	else
+		return (ft_strncmp("exit", name, 5) == 0);
 }
 
 bool	is_builtin(t_process *process)
@@ -420,6 +426,8 @@ bool	is_builtin(t_process *process)
 	int			i;
 
 	name = process->argv[0];
+	if (name == NULL)
+		return (true);
 	i = 0;
 	while (i < 6)
 	{
@@ -444,8 +452,6 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		if (process.argv == NULL) // Das ist falsch, die iofiles muessen trotzdem geoeffnet werden!
-			continue;
 		if (is_exit(process.argv[0]))
 		{
 			_exit_(process.argv, pipe_struct, fd_array, pid_array);
@@ -530,10 +536,10 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// void leakcheck()
-// {
-// 	system("leaks a.out");
-// }
+void leakcheck()
+{
+	system("leaks a.out");
+}
 
 // int main()
 // {
@@ -546,14 +552,14 @@ int	execute_line(t_pipe *pipe_struct)
 // 	t_inoutfiles	two;
 // 	t_inoutfiles	three;
 
-// 	pipe_struct.p_amount = 3;
+// 	pipe_struct.p_amount = 2;
 
 // 	argv1[0] = ft_strdup("ls");
 // 	argv1[1] = NULL;
 // 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
 
-// 	argv2[0] = ft_strdup("exit");
+// 	argv2[0] = NULL;
 // 	argv2[1] = NULL;
 // 	argv2[2] = NULL;
 // 	argv2[3] = NULL;
@@ -574,13 +580,13 @@ int	execute_line(t_pipe *pipe_struct)
 // 	pipe_struct.processes[1].argv = argv2;
 // 	pipe_struct.processes[2].argv = argv3;
 
-// 	pipe_struct.processes[0].iofiles[0] = one;
+// 	pipe_struct.processes[1].iofiles[0] = one;
 // 	pipe_struct.processes[0].iofiles[1] = two;
 // 	pipe_struct.processes[0].iofiles[2] = three;
 
 // 	pipe_struct.processes[0].io_amount = 0;
-// 	pipe_struct.processes[1].io_amount = 0;
+// 	pipe_struct.processes[1].io_amount = 1;
 // 	pipe_struct.processes[2].io_amount = 0;
 
 // 	execute_line(&pipe_struct);
-// }
+}
