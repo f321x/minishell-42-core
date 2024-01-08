@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 12:16:17 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 17:24:33 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ int	main(int argc, char **argv, char **envp)
 		debug_printing(&task);
 		// execution of parsed command
 		execute_line(&task);
+		ft_printf("in main loop");
 
 		// freeing for next use.
 		// free_all_argvs(&task);  also done by execute line now

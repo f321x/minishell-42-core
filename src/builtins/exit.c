@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:20 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 11:33:47 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:21:13 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,5 @@ bool	_exit_(char **argv, t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_arr
 	cleanup(pipe_struct, fd_array, pid_array);
 	ft_printf("exit\n");
 	exit(exit_value);
+	ft_printf("we got here");
 }
