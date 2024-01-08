@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:20 by student          #+#    #+#             */
-/*   Updated: 2024/01/08 17:21:13 by student         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:35:50 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,4 @@ bool	_exit_(char **argv, t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_arr
 	cleanup(pipe_struct, fd_array, pid_array);
 	ft_printf("exit\n");
 	exit(exit_value);
-	ft_printf("we got here");
 }

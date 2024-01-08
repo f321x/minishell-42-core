@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by student          #+#    #+#             */
-/*   Updated: 2024/01/08 17:30:29 by student         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:36:09 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,7 +456,6 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		if (is_exit(process.argv[0]))
 		{
 			_exit_(process.argv, pipe_struct, fd_array, pid_array);
-			ft_printf("fuck you");
 		}
 		if (is_builtin(&process) == 0)
 		{
@@ -467,7 +466,6 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		}
 		else
 		{
-			printf("here");
 			return_value = launch_builtin(&process, fd_array, pipe_struct->p_amount, i);
 			pid_array[i] = return_value;
 		}
