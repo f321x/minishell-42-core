@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 17:05:56 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 18:19:09 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,35 @@
 
 static bool	fetch_env_var(t_parsing *p, char *buffer, char ***current_argv)
 {
+	char	argv_buffer[PROC_FIELD_BUFFER];
 	char	*env_var;
+	size_t	argv_buff_i;
 
 	env_var = getenv(buffer);
 	if (env_var == NULL)
 		return (true);
-	*current_argv = append_string(*current_argv, env_var);
-	if (!(*current_argv))
-		return (false);
+	ft_memset(argv_buffer, '\0', PROC_FIELD_BUFFER);
+	argv_buff_i = 0;
+	while (env_var && *env_var)
+	{
+		if (*env_var == ' ')
+		{
+			env_var++;
+			*current_argv = append_string(*current_argv, argv_buffer);
+			if (!(*current_argv))
+				return (false);
+			ft_memset(argv_buffer, '\0', PROC_FIELD_BUFFER);
+			argv_buff_i = 0;
+		}
+		else
+			argv_buffer[argv_buff_i++] = *(env_var++);
+	}
+	if (env_var && !(*env_var))
+	{
+		*current_argv = append_string(*current_argv, argv_buffer);
+		if (!(*current_argv))
+			return (false);
+	}
 	return (true);
 }
 
@@ -32,9 +53,12 @@ void	fill_buffer(char *buffer, size_t buffer_s,
 
 	buffer_i = 0;
 	ft_memset(buffer, '\0', buffer_s);
+	if (buffer_i < buffer_s && string && string[*str_index] == '?')
+		buffer[buffer_i++] = string[(*str_index)++];
 	while (buffer_i < buffer_s &&
 			string && ft_isalnum(string[*str_index]))
 	 	buffer[buffer_i++] = string[(*str_index)++];
+	printf("BUFFER: %s\n", buffer);
 }
 
 bool	parse_env_var(t_parsing *p)
