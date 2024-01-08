@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 17:36:09 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:53:32 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -383,20 +383,20 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	extern char	**environ;
 
 	argv = process->argv;
+	if (i != 0)
+	{
+		dup2(fd_array[i - 1][0], 0);
+	}
+	if (i != p_amount - 1)
+	{
+		dup2(fd_array[i][1], 1);
+	}
+	handle_inoutfiles(process, fd_array[p_amount - 1]);
 	pid = fork();
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
-		if (i != 0)
-		{
-			dup2(fd_array[i - 1][0], 0);
-		}
-		if (i != p_amount - 1)
-		{
-			dup2(fd_array[i][1], 1);
-		}
 		close_all_fds(fd_array, p_amount);
-		handle_inoutfiles(process, fd_array[p_amount - 1]);
 		if (!find_full_path(process))
 			return (0);
 		if (execve(process->argv[0], argv, environ) == -1)
@@ -406,6 +406,8 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	else
 	{
 		close_last_fds(fd_array, i);
+		dup2(fd_array[p_amount - 1][0], 0);
+		dup2(fd_array[p_amount - 1][1], 1);
 		return (pid);
 	}
 }
@@ -536,14 +538,8 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-// void leakcheck()
-// {
-// 	system("leaks a.out");
-// }
-//
 // int main()
 // {
-// 	atexit(leakcheck);
 // 	t_pipe pipe_struct;
 // 	char **argv1 = malloc(4 * sizeof(char *));
 // 	char **argv2 = malloc(4 * sizeof(char *));
@@ -552,25 +548,25 @@ int	execute_line(t_pipe *pipe_struct)
 // 	t_inoutfiles	two;
 // 	t_inoutfiles	three;
 
-// 	pipe_struct.p_amount = 2;
+// 	pipe_struct.p_amount = 3;
 
-// 	argv1[0] = ft_strdup("ls");
+// 	argv1[0] = ft_strdup("cat");
 // 	argv1[1] = NULL;
 // 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
 
-// 	argv2[0] = NULL;
+// 	argv2[0] = ft_strdup("ls");
 // 	argv2[1] = NULL;
 // 	argv2[2] = NULL;
 // 	argv2[3] = NULL;
 
-// 	argv3[0] = ft_strdup("echo");
-// 	argv3[1] = ft_strdup("test");
+// 	argv3[0] = ft_strdup("wc");
+// 	argv3[1] = ft_strdup("-c");
 // 	argv3[2] = NULL;
 // 	argv3[3] = NULL;
 
-// 	one.name = "f1";
-// 	one.type = IN;
+// 	one.name = ft_strdup("here");
+// 	one.type = HEREDOC;
 // 	two.name = "f2";
 // 	two.type = OUT;
 // 	three.name = "here2";
@@ -580,12 +576,12 @@ int	execute_line(t_pipe *pipe_struct)
 // 	pipe_struct.processes[1].argv = argv2;
 // 	pipe_struct.processes[2].argv = argv3;
 
-// 	pipe_struct.processes[1].iofiles[0] = one;
+// 	pipe_struct.processes[0].iofiles[0] = one;
 // 	pipe_struct.processes[0].iofiles[1] = two;
 // 	pipe_struct.processes[0].iofiles[2] = three;
 
-// 	pipe_struct.processes[0].io_amount = 0;
-// 	pipe_struct.processes[1].io_amount = 1;
+// 	pipe_struct.processes[0].io_amount = 1;
+// 	pipe_struct.processes[1].io_amount = 0;
 // 	pipe_struct.processes[2].io_amount = 0;
 
 // 	execute_line(&pipe_struct);

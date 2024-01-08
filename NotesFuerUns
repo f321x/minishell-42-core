@@ -8,4 +8,6 @@ Felix:
 
 
 Mara
-- cat | ls funktioniert nicht richtig
+vergleiche cat | ls (ls wird vor cat ausgefuehrt, bash: genauso) , 
+	dummy_endlessloop | ls (ls wird vor dummy ausgefuehrt, bash: genauso), 
+	cat << here | ls (heredoc wird mit ls output vermischt, bash: heredoc wird vor ls abgefragt) mit Bash!
