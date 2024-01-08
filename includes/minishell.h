@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/07 21:46:07 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:50:19 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ bool	parsing_main(char *input, t_pipe *task);
 // parsing_utils.c
 void	init_parsing_data(t_parsing *data, t_pipe *task, char *input);
 void	skip_whitespace(t_parsing *p);
-bool	free_all_argvs(t_parsing *p);
+bool	free_all_argvs(t_pipe *task);
 bool	add_to_argv(t_parsing *p);
 bool	handle_pipe(t_parsing *p);
 
@@ -104,6 +104,9 @@ bool	parse_delimiter(t_parsing *p);
 // quote_parsing.c
 bool	parse_single_quote(t_parsing *p);
 bool	parse_double_quote(t_parsing *p);
+
+// parse_redirects.c
+bool	parse_out_redirect(t_parsing *p);
 
 // array_utils.c
 char 	**append_string(char **orig, char *str);

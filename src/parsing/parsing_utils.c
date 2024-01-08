@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:10:41 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/05 08:36:41 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 11:36:25 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	init_parsing_data(t_parsing *data, t_pipe *task, char *input)
 {
 	task->processes[task->p_amount].argv = NULL;
+	task->processes[task->p_amount].io_amount = 0;
 	data->inp_i = 0;
 	data->buffer_i = 0;
 	data->new_proc = true;
@@ -32,24 +33,26 @@ void	skip_whitespace(t_parsing *p)
 	}
 }
 
-bool	free_all_argvs(t_parsing *p)
+bool	free_all_argvs(t_pipe *task)
 {
 	t_process 	*processes;
 	long		index;
 
-	processes = p->task->processes;
-	while (p->task->p_amount > 0)
+	processes = task->processes;
+	while (task->p_amount > 0)
 	{
 		index = 0;
 		while (processes && processes->argv &&
 				processes->argv[index] != NULL)
 		{
-			printf("index %ld\n", index);
+			printf("freeing argv %ld\n", index);
 			free(processes->argv[index]);
+			processes->argv[index] = NULL;
 			index++;
 		}
 		free(processes->argv);
-		p->task->p_amount--;
+		processes->argv = NULL;
+		task->p_amount--;
 		processes++;
 	}
 	return (false);

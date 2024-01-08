@@ -6,11 +6,18 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:03:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/05 08:36:49 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 11:42:45 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	create_new_process(t_parsing *p)
+{
+	p->task->p_amount++;
+	p->task->processes[p->task->p_amount].argv = NULL;
+	p->task->processes[p->task->p_amount].io_amount = 0;
+}
 
 bool	parsing_main(char *input, t_pipe *task)
 {
@@ -24,14 +31,14 @@ bool	parsing_main(char *input, t_pipe *task)
 			!ft_isdelimiter(input[p.inp_i]))
 		{
 			if (!parse_name(&p))
-				return (free_all_argvs(&p));
+				return (free_all_argvs(p.task));
 			skip_whitespace(&p);
 		}
 		if (!parse_delimiter(&p))
-			return (free_all_argvs(&p));
+			return (free_all_argvs(p.task));
 		if (p.new_proc)
-			p.task->p_amount++;
+			create_new_process(&p);
 	}
-	p.task->p_amount++;
+	create_new_process(&p);
 	return (true);
 }

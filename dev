@@ -1,0 +1,17 @@
+Makefile
+MinishellEvalSheetEN.pdf
+Parser_Tests
+Pipe_Tests
+README.md
+a.out.dSYM
+dev
+includes
+libs
+minishell.dSYM
+minishell_debug
+minishell_debug.dSYM
+objs
+src
+subject_minishell.pdf
+test
+testbuiltins.dSYM
