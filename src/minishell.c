@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/07 20:41:51 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 10:47:27 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	main(int argc, char **argv, char **envp)
 		}
 		printf("\n");
 		// continue;
-		execute_line(&task);
+		execute_line(&task)
+
 		// free(entered_line);
 		printf("\n");
 		continue ;

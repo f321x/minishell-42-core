@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 09:05:48 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:35:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ size_t	get_env_length(void);
 bool	export(char **argv);
 bool	unset(char **argv);
 bool	env(char **argv);
-bool	_exit_(char **argv);
+bool	_exit_(char **argv, t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
 
 // parsing_main.c
 bool	parsing_main(char *input, t_pipe *task);
@@ -118,8 +118,8 @@ bool	parse_env_var(t_parsing *p);
 void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
 
 // execute line
-int	execute_line(t_pipe *pipe_struct);
-bool	set_exit_value(int exit_value);
+int		execute_line(t_pipe *pipe_struct);
+int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
 
 // helper_functions.c
 bool	error_wrapper(void);

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 09:39:12 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:37:10 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		j = 0;
 		while (j < pipe_struct->processes[i].io_amount)
 		{
-			free(pipe_struct->processes[i].iofiles[j].name);
+			//free(pipe_struct->processes[i].iofiles[j].name);
 			j++;
 		}
 		i++;
 	}
-	if (access("temp", F_OK) == 0)
-		unlink("temp");
+	if (access("tmp", F_OK) == 0)
+		unlink("tmp");
 	return (0);
 }
 
@@ -345,13 +345,7 @@ bool	find_full_path_in_path_var(t_process *process, char *paths)
 		free(full_path);
 		i++;
 	}
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+	free_vector(split);
 	return (true);
 }
 
@@ -413,16 +407,21 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	}
 }
 
+bool	is_exit(char *name)
+{
+	return (ft_strncmp("exit", name, 5) == 0);
+}
+
 bool	is_builtin(t_process *process)
 {
-	const char	*function_names[7] = {"cd", "echo", "env", "export", "pwd", "unset", "exit"};
-	const t_function_pointer	function_pointers[7] = {cd, echo, env, export, pwd, unset, _exit_};
+	const char	*function_names[6] = {"cd", "echo", "env", "export", "pwd", "unset"};
+	const t_function_pointer	function_pointers[7] = {cd, echo, env, export, pwd, unset};
 	char		*name;
 	int			i;
 
 	name = process->argv[0];
 	i = 0;
-	while (i < 7)
+	while (i < 6)
 	{
 		if (ft_strncmp(name, function_names[i], 7) == 0)
 		{
@@ -445,8 +444,13 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		if (process.argv == NULL)
+		if (process.argv == NULL) // Das ist falsch, die iofiles muessen trotzdem geoeffnet werden!
 			continue;
+		if (is_exit(process.argv[0]))
+		{
+			_exit_(process.argv, pipe_struct, fd_array, pid_array);
+			ft_printf("here");
+		}
 		if (is_builtin(&process) == 0)
 		{
 			pid = launch_process(&process, fd_array, pipe_struct->p_amount, i);
@@ -544,18 +548,18 @@ int	execute_line(t_pipe *pipe_struct)
 
 // 	pipe_struct.p_amount = 3;
 
-// 	argv1[0] = ft_strdup("/bin/ls");
+// 	argv1[0] = ft_strdup("ls");
 // 	argv1[1] = NULL;
 // 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
 
-// 	argv2[0] = ft_strdup("ls");
+// 	argv2[0] = ft_strdup("exit");
 // 	argv2[1] = NULL;
 // 	argv2[2] = NULL;
 // 	argv2[3] = NULL;
 
-// 	argv3[0] = ft_strdup("ls");
-// 	argv3[1] = NULL;
+// 	argv3[0] = ft_strdup("echo");
+// 	argv3[1] = ft_strdup("test");
 // 	argv3[2] = NULL;
 // 	argv3[3] = NULL;
 
@@ -571,7 +575,7 @@ int	execute_line(t_pipe *pipe_struct)
 // 	pipe_struct.processes[2].argv = argv3;
 
 // 	pipe_struct.processes[0].iofiles[0] = one;
-// 	pipe_struct.processes[2].iofiles[0] = two;
+// 	pipe_struct.processes[0].iofiles[1] = two;
 // 	pipe_struct.processes[0].iofiles[2] = three;
 
 // 	pipe_struct.processes[0].io_amount = 0;
