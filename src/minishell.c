@@ -6,7 +6,11 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/08 12:00:41 by ***REMOVED***            ###   ########.fr       */
+=======
+/*   Updated: 2024/01/08 10:47:27 by marschul         ###   ########.fr       */
+>>>>>>> 6e9d5f84cc875515fed53e7ff3b17f4feae4216c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +95,32 @@ int	main(int argc, char **argv, char **envp)
 			free(entered_line);
 			continue ;
 		}
+<<<<<<< HEAD
 
 		debug_printing(&task);
 		// execution of parsed command
 		execute_line(&task);
+=======
+		for (size_t i = 0; i < task.p_amount; i++)
+		{
+			int in = 0;
+			printf("argv:");
+			while (task.processes[i].argv && task.processes[i].argv[in])
+			{
+				printf(" %s", task.processes[i].argv[in]);
+				// task.processes[i].argv;
+				in++;
+			}
+			printf("\n");
+		}
+		printf("\n");
+		// continue;
+		execute_line(&task)
+
+		// free(entered_line);
+		printf("\n");
+		continue ;
+>>>>>>> 6e9d5f84cc875515fed53e7ff3b17f4feae4216c
 
 		// freeing for next use.
 		free_all_argvs(&task);

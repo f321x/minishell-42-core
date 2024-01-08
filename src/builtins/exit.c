@@ -6,20 +6,19 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:20 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/07 16:48:53 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:33:47 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	_exit_(char **argv)
+bool	_exit_(char **argv, t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 {
 	unsigned char	exit_value;
 	int	i;
 
 	assert(argv != NULL && ft_strcmp(argv[0], "exit") == 0); // debug
 
-	write(1, "exit\n", 5);
 	if (argv[1] != NULL)
 	{
 		if (argv[1][0] == '\0' || (argv[1][0] != '-' && argv[1][0] != '+' && ft_isdigit(argv[1][0]) != 1))
@@ -45,5 +44,7 @@ bool	_exit_(char **argv)
 	}
 	else
 		exit_value = 0;
+	cleanup(pipe_struct, fd_array, pid_array);
+	ft_printf("exit\n");
 	exit(exit_value);
 }

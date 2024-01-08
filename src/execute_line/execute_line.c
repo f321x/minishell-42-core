@@ -6,15 +6,34 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/07 21:50:21 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:53:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	cleanup(t_process *process)
+int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 {
-	// free all resources of the process, including a temp file
+	size_t	i;
+	long	j;
+
+	free(pid_array);
+	free(fd_array);
+	i = 0;
+	while (i < pipe_struct->p_amount)
+	{
+		free_vector(pipe_struct->processes[i].argv);
+		j = 0;
+		while (j < pipe_struct->processes[i].io_amount)
+		{
+			free(pipe_struct->processes[i].iofiles[j].name);
+			j++;
+		}
+		i++;
+	}
+	if (access("tmp", F_OK) == 0)
+		unlink("tmp");
+	return (0);
 }
 
 int	create_pid_array(pid_t **pid_array, size_t p_amount)
@@ -89,7 +108,7 @@ int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 			else
 			{
 				if (buffer[0] == '\n')
-					if (i == ft_strlen(keyword))
+					if (i == (ssize_t) ft_strlen(keyword))
 						end = true;
 					else
 					{
@@ -218,10 +237,13 @@ bool	set_exit_value(int exit_value)
 {
 	char	*environment_var;
 	char	*argv[3];
+	char	*number_as_string;
 
 	argv[0] = "export";
 	argv[2] = NULL;
-	environment_var = ft_strjoin("?=", ft_itoa(exit_value)); //ft_itoa mallocs, wir muessen freeen!
+	number_as_string = ft_itoa(exit_value);
+	environment_var = ft_strjoin("?=", number_as_string);
+	free(number_as_string);
 	if (environment_var == NULL)
 		return (false);
 	argv[1] = environment_var;
@@ -239,18 +261,6 @@ int	close_all_fds(int (*fd_array)[2], size_t p_amount)
 	{
 		close(fd_array[i][0]);
 		close(fd_array[i][1]);
-		// if (close(fd_array[i][0]) == -1)
-		// {
-		// 	ft_printf("%d 0", i);
-		// 	perror("Minishell: close_all_fds");
-		// 	return (0);
-		// }
-		// if (close(fd_array[i][1]) == -1)
-		// {
-		// 	ft_printf("%d 1", i);
-		// 	perror("Minishell: close_all_fds");
-		// 	return (0);
-		// }
 		i++;
 	}
 	return (1);
@@ -290,8 +300,11 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		dup2(fd_array[i][1], 1);
 	}
 	handle_inoutfiles(process, fd_array[p_amount - 1]);
-	if (builtin(process->argv) == false)
-		return (0);
+	if (process->argv[0] != NULL)
+	{
+		if (builtin(process->argv) == false)
+			return (0);
+	}
 	dup2(temp_out, 1);
 	close(temp_out);
 	return (1);
@@ -328,20 +341,14 @@ bool	find_full_path_in_path_var(t_process *process, char *paths)
 		full_path = join_path_and_program_name(split[i], process->argv[0]);
 		if (access(full_path, F_OK) == 0)
 		{
-			//free(process->argv[0]);
+			free(process->argv[0]);
 			process->argv[0] = full_path;
 			break;
 		}
 		free(full_path);
 		i++;
 	}
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
+	free_vector(split);
 	return (true);
 }
 
@@ -365,6 +372,7 @@ bool	find_full_path(t_process *process)
 	free(old_path_var_with_colon);
 	if (!find_full_path_in_path_var(process, new_path_var))
 		return (error_wrapper());
+	free(new_path_var);
 	return (true);
 }
 
@@ -402,16 +410,26 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	}
 }
 
+bool	is_exit(char *name)
+{
+	if (name == NULL)
+		return (false);
+	else
+		return (ft_strncmp("exit", name, 5) == 0);
+}
+
 bool	is_builtin(t_process *process)
 {
-	const char	*function_names[7] = {"cd", "echo", "env", "export", "pwd", "unset", "exit"};
-	const t_function_pointer	function_pointers[7] = {cd, echo, env, export, pwd, unset, _exit_};
+	const char	*function_names[6] = {"cd", "echo", "env", "export", "pwd", "unset"};
+	const t_function_pointer	function_pointers[7] = {cd, echo, env, export, pwd, unset};
 	char		*name;
 	int			i;
 
 	name = process->argv[0];
+	if (name == NULL)
+		return (true);
 	i = 0;
-	while (i < 7)
+	while (i < 6)
 	{
 		if (ft_strncmp(name, function_names[i], 7) == 0)
 		{
@@ -434,8 +452,11 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		if (process.argv == NULL)
-			continue;
+		if (is_exit(process.argv[0]))
+		{
+			_exit_(process.argv, pipe_struct, fd_array, pid_array);
+			ft_printf("here");
+		}
 		if (is_builtin(&process) == 0)
 		{
 			pid = launch_process(&process, fd_array, pipe_struct->p_amount, i);
@@ -448,7 +469,6 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 			return_value = launch_builtin(&process, fd_array, pipe_struct->p_amount, i);
 			pid_array[i] = return_value;
 		}
-		cleanup(&process);
 		i++;
 	}
 	return (1);
@@ -458,7 +478,7 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct)
 {
 	int	last_pid;
-	int	i;
+	size_t	i;
 	int	status_pointer;
 
 	i = 0;
@@ -487,7 +507,8 @@ bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct)
 		i++;
 	}
 	if (! set_exit_value(status_pointer))
-		return (0);
+		return (false);
+	return (true);
 }
 
 int	execute_line(t_pipe *pipe_struct)
@@ -495,48 +516,56 @@ int	execute_line(t_pipe *pipe_struct)
 	size_t	p_amount;
 	pid_t	*pid_array;
 	int		(*fd_array)[2];
-	pid_t	last_pid;
 
 	p_amount = pipe_struct->p_amount;
+	pid_array = NULL;
+	fd_array = NULL;
 	if (create_pid_array(&pid_array, p_amount) == 0)
-		return (0);
+		return (cleanup(pipe_struct, fd_array, pid_array));
 	if (create_fd_array(&fd_array, p_amount) == 0)
-		return (0);
+		return (cleanup(pipe_struct, fd_array, pid_array));
 	if (create_pipes(fd_array, p_amount - 1) == 0)
-		return (0);
+		return (cleanup(pipe_struct, fd_array, pid_array));
 	if (execute_commands(pipe_struct, fd_array, pid_array) == 0)
-		return (0);
+		return (cleanup(pipe_struct, fd_array, pid_array));
 	if (! wait_for_all(pid_array, pipe_struct))
-		return (0);
+		return (cleanup(pipe_struct, fd_array, pid_array));
+	cleanup(pipe_struct, fd_array, pid_array);
 	return (1);
 }
 
 //==========
 
+// void leakcheck()
+// {
+// 	system("leaks a.out");
+// }
+// 
 // int main()
 // {
+// 	atexit(leakcheck);
 // 	t_pipe pipe_struct;
-// 	char *argv1[4];
-// 	char *argv2[4];
-// 	char *argv3[4];
+// 	char **argv1 = malloc(4 * sizeof(char *));
+// 	char **argv2 = malloc(4 * sizeof(char *));
+// 	char **argv3 = malloc(4 * sizeof(char *));
 // 	t_inoutfiles	one;
 // 	t_inoutfiles	two;
 // 	t_inoutfiles	three;
 
-// 	pipe_struct.p_amount = 3;
+// 	pipe_struct.p_amount = 2;
 
-// 	argv1[0] = "cat";
+// 	argv1[0] = ft_strdup("ls");
 // 	argv1[1] = NULL;
 // 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
 
-// 	argv2[0] = "cat";
+// 	argv2[0] = NULL;
 // 	argv2[1] = NULL;
 // 	argv2[2] = NULL;
 // 	argv2[3] = NULL;
 
-// 	argv3[0] = "cat";
-// 	argv3[1] = NULL;
+// 	argv3[0] = ft_strdup("echo");
+// 	argv3[1] = ft_strdup("test");
 // 	argv3[2] = NULL;
 // 	argv3[3] = NULL;
 
@@ -551,13 +580,13 @@ int	execute_line(t_pipe *pipe_struct)
 // 	pipe_struct.processes[1].argv = argv2;
 // 	pipe_struct.processes[2].argv = argv3;
 
-// 	pipe_struct.processes[0].iofiles[0] = one;
-// 	pipe_struct.processes[2].iofiles[0] = two;
+// 	pipe_struct.processes[1].iofiles[0] = one;
+// 	pipe_struct.processes[0].iofiles[1] = two;
 // 	pipe_struct.processes[0].iofiles[2] = three;
 
-// 	pipe_struct.processes[0].io_amount = 1;
-// 	pipe_struct.processes[1].io_amount = 0;
-// 	pipe_struct.processes[2].io_amount = 1;
+// 	pipe_struct.processes[0].io_amount = 0;
+// 	pipe_struct.processes[1].io_amount = 1;
+// 	pipe_struct.processes[2].io_amount = 0;
 
 // 	execute_line(&pipe_struct);
-// }
+}
