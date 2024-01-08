@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/07 21:46:07 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:05:48 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ bool	set_exit_value(int exit_value);
 
 // helper_functions.c
 bool	error_wrapper(void);
+void	free_vector(char **vector);
 
 // signals.c
 void	register_signal_handlers(void);

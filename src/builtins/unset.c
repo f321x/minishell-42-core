@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:25:06 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/01 19:36:46 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 09:10:04 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static bool	init_new_environ(char *remove_var, char **new_env,
 							char **old_env, size_t env_size)
 {
-	long	new_index;
-	long	old_index;
+	size_t	new_index;
+	size_t	old_index;
 
 	new_index = 0;
 	old_index = 0;

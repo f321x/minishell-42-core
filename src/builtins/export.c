@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/05 07:23:39 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 09:09:42 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	get_env_length(void)
 
 static bool	copy_old_env(char **old_env, char **new_env, size_t env_size)
 {
-	long	index;
+	size_t	index;
 
 	index = 0;
 	while (index < env_size)
