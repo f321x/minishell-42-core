@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
+#    By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/08 11:34:06 by marschul         ###   ########.fr        #
+#    Updated: 2024/01/08 12:11:45 by ***REMOVED***            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ LIB_DEBUG := libs/libft/libft_debug.a -lreadline
 
 SRCS 	:= $(SRCDIR)/minishell.c $(SRCDIR)/helper_functions.c \
 $(SRCDIR)/input_handling/input_utils.c \
-$(SRCDIR)/parsing/parsing_main.c $(SRCDIR)/parsing/parsing_utils.c $(SRCDIR)/parsing/array_utils.c $(SRCDIR)/parsing/parsing_functions.c $(SRCDIR)/parsing/string_utils.c $(SRCDIR)/parsing/quote_parsing.c $(SRCDIR)/parsing/parsing_env_var.c \
+$(SRCDIR)/parsing/parsing_main.c $(SRCDIR)/parsing/parsing_utils.c $(SRCDIR)/parsing/array_utils.c $(SRCDIR)/parsing/parsing_functions.c $(SRCDIR)/parsing/string_utils.c $(SRCDIR)/parsing/quote_parsing.c $(SRCDIR)/parsing/parsing_env_var.c $(SRCDIR)/parsing/parse_redirects.c \
 $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/exit.c\
 $(SRCDIR)/execute_line/execute_line.c \
 $(SRCDIR)/signals.c
