@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 16:03:51 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:36:09 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,7 +401,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 			return (0);
 		if (execve(process->argv[0], argv, environ) == -1)
 			perror("Minishell: launch_process");
-		return (0);
+		exit(1);
 	}
 	else
 	{
