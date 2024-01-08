@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by student          #+#    #+#             */
-/*   Updated: 2024/01/08 11:50:02 by student         ###   ########.fr       */
+/*   Updated: 2024/01/08 11:53:39 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		j = 0;
 		while (j < pipe_struct->processes[i].io_amount)
 		{
-			//free(pipe_struct->processes[i].iofiles[j].name);
+			free(pipe_struct->processes[i].iofiles[j].name);
 			j++;
 		}
 		i++;
@@ -536,11 +536,11 @@ int	execute_line(t_pipe *pipe_struct)
 
 //==========
 
-void leakcheck()
-{
-	system("leaks a.out");
-}
-
+// void leakcheck()
+// {
+// 	system("leaks a.out");
+// }
+// 
 // int main()
 // {
 // 	atexit(leakcheck);
