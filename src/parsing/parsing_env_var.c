@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/05 08:59:34 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 17:05:56 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ bool	parse_env_var(t_parsing *p)
 		*current_argv = append_string(*current_argv, "$");
 		if (!(*current_argv))
 			return (false);
-		p->inp_i++;
+		if (p->u_input[p->inp_i])
+			p->inp_i++;
 		return (true);
 	}
 	return (fetch_env_var(p, buffer, current_argv));
