@@ -1,40 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_redirects.c                                  :+:      :+:    :+:   */
+/*   parse_out_redirects.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:44:42 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 16:58:34 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 17:25:55 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	parse_in_redirect(t_parsing *p)
-{
-	t_process		*current_process;
-	t_inoutfiles	*curr_iof;
-
-	return (false); // tbd
-	// current_process = &(p->task->processes[p->task->p_amount]);
-	// curr_iof = &(current_process->iofiles[current_process->io_amount]);
-	// p->inp_i++;
-	// if (p->u_input[p->inp_i] == '<')
-	// {
-	// 	p->inp_i++;
-	// 	curr_iof->type = HEREDOC;
-	// }
-	// else if (p->u_input[p->inp_i])
-	// 	curr_iof->type = IN;
-	// skip_whitespace(p);
-	// if (!ft_isdelimiter(p->u_input[p->inp_i]))
-	// 	return (parse_in_name(p, curr_iof));
-	// return (false);
-}
-
-static bool	parse_out_singlequotes(t_parsing *p, char *buffer, size_t *buff_i)
+bool	parse_out_singlequotes(t_parsing *p, char *buffer, size_t *buff_i)
 {
 	p->inp_i++;
 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != 39)
@@ -45,13 +23,13 @@ static bool	parse_out_singlequotes(t_parsing *p, char *buffer, size_t *buff_i)
 	return (true);
 }
 
-static bool	parse_out_doublequotes(t_parsing *p, char *buffer, size_t *buff_i)
+bool	parse_out_doublequotes(t_parsing *p, char *buffer, size_t *buff_i)
 {
 	p->inp_i++;
 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != '"')
 	{
 		if (p->u_input[p->inp_i] == '$')
-			fill_env_in_buffer(p, buffer, buff_i);  // test !
+			fill_env_in_buffer(p, buffer, buff_i);
 		else
 			buffer[(*buff_i)++] = p->u_input[p->inp_i++];
 	}

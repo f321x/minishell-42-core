@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 16:54:53 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/08 17:33:33 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ typedef enum {
 }	e_ftypes;
 
 typedef struct s_inoutfiles {
-	char 		*name;
+	char 		*name;  // heap, free!
 	e_ftypes	type;
 }	t_inoutfiles;
 
 typedef struct s_process {
-	char 				**argv;
+	char 				**argv;  // heap, free!
 	t_inoutfiles		iofiles[IOFILES_AMOUNT];
 	long				io_amount;
 	t_function_pointer	builtin;
@@ -64,7 +64,6 @@ typedef struct s_pipe {
 }	t_pipe;
 
 typedef struct s_parsing {
-	// char	buffer[PROC_FIELD_BUFFER];
 	char	*u_input;
 	size_t	inp_i;
 	size_t	buffer_i;
@@ -106,8 +105,13 @@ bool	parse_single_quote(t_parsing *p);
 bool	parse_double_quote(t_parsing *p);
 void 	fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i);
 
-// parse_redirects.c
+// parse_out_redirects.c
 bool	parse_out_redirect(t_parsing *p);
+bool	parse_in_redirect(t_parsing *p);
+bool	parse_out_singlequotes(t_parsing *p, char *buffer, size_t *buff_i);
+bool	parse_out_doublequotes(t_parsing *p, char *buffer, size_t *buff_i);
+
+// parse_in_redirect.c
 bool	parse_in_redirect(t_parsing *p);
 
 // array_utils.c
