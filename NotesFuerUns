@@ -1,11 +1,10 @@
 Felix:
-- Variablenexpansion mit $? funktioniert nicht
+
 - Wenn es keine Argumente gibt, also auch keinen Programmnamen, rechne ich damit, dass argv[0] NULL ist!
+--> argv ist dann NULL, sonst müsste ich ja extra speicher für NULL reservieren?
+
 - export a="ls -l" und dann $a zerfaellt nicht in 2 Argumente, sondern ist ein Wort
-
-
-
-
+--> müsste jetzt funktionieren, aber export a=$HOME noch nicht da a= und $HOME extra in argv gespeichert werden
 
 Mara
 vergleiche cat | ls (ls wird vor cat ausgefuehrt, bash: genauso) , 
