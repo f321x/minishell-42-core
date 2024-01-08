@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:07:12 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/07 21:52:43 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:45:27 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 void sigint_handler(int signum)
 {
-    ft_printf("\nCtrl+C was pressed. We need a new prompt.\n");
-	exit(0);
+	ft_printf("\n");
+	rl_on_new_line();
+    rl_replace_line("", 0);
+    rl_redisplay();
+	//exit(0);
 }
 
 void	register_signal_handlers(void)

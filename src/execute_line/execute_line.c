@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 15:35:18 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 16:03:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -452,10 +452,10 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
+		assert(process.argv != NULL);
 		if (is_exit(process.argv[0]))
 		{
 			_exit_(process.argv, pipe_struct, fd_array, pid_array);
-			ft_printf("here");
 		}
 		if (is_builtin(&process) == 0)
 		{

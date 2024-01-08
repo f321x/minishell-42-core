@@ -1,0 +1,12 @@
+Felix:
+- Variablenexpansion mit $? funktioniert nicht
+- Wenn es keine Argumente gibt, also auch keinen Programmnamen, rechne ich damit, dass argv[0] NULL ist!
+- export a="ls -l" und dann $a zerfaellt nicht in 2 Argumente, sondern ist ein Wort
+
+
+
+
+
+Mara
+- cat | ls funktioniert nicht richtig
+- exit funktioniert nur nach mehreren Malen eintippen?
