@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 11:53:39 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/08 12:11:57 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -540,7 +540,7 @@ int	execute_line(t_pipe *pipe_struct)
 // {
 // 	system("leaks a.out");
 // }
-// 
+//
 // int main()
 // {
 // 	atexit(leakcheck);
@@ -589,4 +589,4 @@ int	execute_line(t_pipe *pipe_struct)
 // 	pipe_struct.processes[2].io_amount = 0;
 
 // 	execute_line(&pipe_struct);
-}
+// }
