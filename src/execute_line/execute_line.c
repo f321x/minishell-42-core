@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/09 21:09:04 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/10 00:32:45 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,6 +283,49 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, \
 	return (1);
 }
 
+bool	expand_path_var(char *paths, char new_paths[1000])
+{
+	int		i;
+
+	i = 0;
+	while (*paths != '\0')
+	{
+		if (*paths == ':' && (*(paths + 1) == ':' || *(paths + 1) == '\0'))
+		{
+			new_paths[i] = ':';
+			new_paths[i + 1] = '.';
+			i += 1;
+		}
+		else
+			new_paths[i] = *paths;
+		i++;
+		if (i >= 998)
+			return (false);
+		paths++;
+	}
+	new_paths[i] = ':';
+	new_paths[i + 1] = '\0';
+	return (true);
+}
+
+int	concatenate_path_with_name(char *start, char *name, \
+	char full_path[PATH_MAX])
+{
+	int		full_path_index;
+	char	*end;
+
+	full_path_index = 0;
+	end = ft_strchr(start, ':');
+	ft_memcpy(full_path, start, end - start);
+	full_path_index += end - start;
+	full_path[full_path_index] = '/';
+	full_path_index++;
+	ft_memcpy(full_path + full_path_index, name, ft_strlen(name));
+	full_path_index += ft_strlen(name);
+	full_path[full_path_index] = '\0';
+	return (full_path_index - ft_strlen(name));
+}
+
 bool	check_path(t_process *process, char path[PATH_MAX])
 {
 	if (access(path, F_OK) == 0)
@@ -299,45 +342,25 @@ bool	find_full_path(t_process *process)
 	char	*paths;
 	char	*name;
 	char	full_path[PATH_MAX];
-	int		full_path_index;
+	char	new_paths[1000];
 	char	*start;
-	char	*end;
-	int		endflag = false;
 
-	name = process->argv[0];
-	if (name[0] == '/')
-		return (true);
 	paths = getenv("PATH");
 	if (paths == NULL || ft_strlen(paths) == 0)
 		return (true);
-	start = paths;
-	end = paths;
-	while (*end != '\0' && !endflag)
+	name = process->argv[0];
+	if (name[0] == '/' || ft_strlen(name) >= 2 && name[0] == '.' && \
+		name[1] == '/' || ft_strlen(name) >= 3 && name[0] == '.' && \
+		name[1] == '.' && name[2] == '/')
+		return (true);
+	if (! expand_path_var(paths, new_paths))
+		return (false);
+	start = new_paths;
+	while (*start != '\0')
 	{
-		if (*start == ':' && *(end + 1) == '\0')
-			endflag = true;
-		full_path_index = 0;
-		end = ft_strchr(start, ':');
-		if (end == NULL)
-			end = ft_strchr(start, '\0');
-		if (start == end || *start != '/') 
-		{
-			full_path[0] = '.';
-			full_path[1] = '/';
-			full_path_index += 2;
-		}
-		ft_memcpy(full_path + full_path_index, start, end - start);
-		full_path_index += end - start;
-		full_path[full_path_index] = '/';
-		full_path_index++;
-		ft_memcpy(full_path + full_path_index, name, ft_strlen(name));
-		full_path_index += ft_strlen(name);
-		full_path[full_path_index] = '\0';
+		start += concatenate_path_with_name(start, name, full_path);
 		if (check_path(process, full_path))
 			return (true);
-		start = end;
-		if (*start == ':' && *(start + 1) != '\0')
-			start++;
 	}
 	return (false);
 }
@@ -375,19 +398,13 @@ bool	is_builtin(t_process *process)
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, \
 	size_t i)
 {
-	char		**argv;
 	int			pid;
 	extern char	**environ;
 
-	argv = process->argv;
 	if (i != 0)
-	{
 		dup2(fd_array[i - 1][0], 0);
-	}
 	if (i != p_amount - 1)
-	{
 		dup2(fd_array[i][1], 1);
-	}
 	if (! handle_inoutfiles(process, fd_array[p_amount - 1]))
 		return (0);
 	pid = fork();
@@ -396,21 +413,14 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, \
 		signal(SIGQUIT, SIG_DFL);
 		close_all_fds(fd_array, p_amount);
 		if (!find_full_path(process))
-		{
-			perror("Minishell: launch_process");
-			exit(1);
-		}
-		if (execve(process->argv[0], argv, environ) == -1)
-			perror("Minishell: launch_process");
-		exit(1);
+			error_wrapper_exit("Minishell: launch_process");
+		if (execve(process->argv[0], process->argv, environ) == -1)
+			error_wrapper_exit("Minishell: launch_process");
 	}
-	else
-	{
-		close_last_fds(fd_array, i);
-		dup2(fd_array[p_amount - 1][0], 0);
-		dup2(fd_array[p_amount - 1][1], 1);
-		return (pid);
-	}
+	close_last_fds(fd_array, i);
+	dup2(fd_array[p_amount - 1][0], 0);
+	dup2(fd_array[p_amount - 1][1], 1);
+	return (pid);
 }
 
 int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)

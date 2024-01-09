@@ -1,4 +1,48 @@
-
-
-
+bool	find_full_path(t_process *process)
+{
+	char	*paths;
+	char	*name;
+	char	full_path[PATH_MAX];
+	int		full_path_index;                                             
+	char	*start;
+	char	*end;                 
+	int		endflag = false;
+                  
+	name = process->argv[0];
+	if (name[0] == '/' || name[0] == '.')
+		return (true);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+	paths = getenv("PATH");
+	if (paths == NULL || ft_strlen(paths) == 0)
+		return (true);
+	start = paths;
+	end = paths;
+	while (*end != '\0' && !endflag)
+	{
+		if (*start == ':' && *(end + 1) == '\0')
+			endflag = true;
+		full_path_index = 0;
+		end = ft_strchr(start, ':');
+		if (end == NULL)
+			end = ft_strchr(start, '\0');
+		if (start == end || *start != '/') 
+		{
+			full_path[0] = '.';
+			full_path[1] = '/';
+			full_path_index += 2;
+		}
+		ft_memcpy(full_path + full_path_index, start, end - start);
+		full_path_index += end - start;
+		full_path[full_path_index] = '/';
+		full_path_index++;
+		ft_memcpy(full_path + full_path_index, name, ft_strlen(name));
+		full_path_index += ft_strlen(name);
+		full_path[full_path_index] = '\0';
+		if (check_path(process, full_path))
+			return (true);
+		start = end;
+		if (*start == ':' && *(start + 1) != '\0')
+			start++;
+	}
+	return (false);
+}
 

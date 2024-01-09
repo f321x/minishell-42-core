@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 20:37:11 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:58:19 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
 bool	error_wrapper(void);
 bool	error_wrapper_bool(char *message);
 bool	error_wrapper_int(char *message);
+void	error_wrapper_exit(char *message);
 void	free_vector(char **vector);
 
 // signals.c

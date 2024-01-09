@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:55:26 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/09 20:36:36 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:58:05 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ bool	error_wrapper_int(char *message)
 {
 	perror(message);
 	return (0);
+}
+
+void	error_wrapper_exit(char *message)
+{
+	perror(message);
+	exit(1);
 }
 
 void	free_vector(char **vector)
