@@ -6,12 +6,13 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:03:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 15:27:03 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 16:13:56 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// increase process amount and init new process variables
 static void	create_new_process(t_parsing *p)
 {
 	p->task->p_amount++;
@@ -19,6 +20,11 @@ static void	create_new_process(t_parsing *p)
 	p->task->processes[p->task->p_amount].io_amount = 0;
 }
 
+// main parsing loop, traverses the user input line
+// char by char. skips whitespaces inbetween.
+// calls either parse_name to parse the name to exec (argv[0])
+// or parse delimiter if it is not [argv[0]] to parse the next
+// chars
 bool	parsing_main(char *input, t_pipe *task)
 {
 	t_parsing	p;
