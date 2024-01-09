@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 10:13:17 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 12:24:13 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **envp)
 		// parsing the input for execution
 		if (!parsing_main(entered_line, &task))
 		{
-			printf("parsing dead\n");
+			// printf("parsing dead\n");
 			free(entered_line);
 			continue ;
 		}
