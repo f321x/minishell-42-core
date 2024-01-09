@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 16:02:57 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 16:05:41 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,44 +53,33 @@ static void debug_printing(t_pipe *task)
 		printf("\n");
 }
 
+// register signal handlers
+// initializes exit codes
+// reads a line, if it contains content it will be added to history
+// read line will be parsed in struct and passed to exec part
+// afterwards the parsed data will be freed.
 int	main(int argc, char **argv, char **envp)
 {
 	t_pipe 	task;
 	char	*entered_line;
 
-	// register signal handlers
 	register_signal_handlers();
-
-	// initialize env var ? mit 0
 	initialize_exit_code();
-
 	while (1)
 	{
 		task.p_amount = 0;
-
-		// reading the input in a heap char array
 		entered_line = read_a_line(SHELL_PROMPT);
 		add_history(entered_line);
 		if (!entered_line)
 			continue ;
-
-		// parsing the input for execution
 		if (!parsing_main(entered_line, &task))
 		{
-			// printf("parsing dead\n");
 			free(entered_line);
 			continue ;
 		}
-
-		// debug_printing(&task);
-
-		// execution of parsed command
-		execute_line(&task);
-
-		// freeing for next use.
-		// free_all_argvs(&task);  also done by execute line now
 		free(entered_line);
-		// printf("\n");
+		// debug_printing(&task);
+		execute_line(&task);
 	}
 	free_old_env(NULL);
 	return (0);
