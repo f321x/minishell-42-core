@@ -1,6 +1,7 @@
 Felix:
 
 - cat < "a b" gefixt, aber du musst einen Syntaxerror
+- export PATH='/bin"
 
 Mara
 - Pathsuche nochmal checken
