@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/09 17:56:22 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 18:11:25 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -300,7 +300,7 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		dup2(fd_array[i][1], 1);
 	}
 	handle_inoutfiles(process, fd_array[p_amount - 1]);
-	if (process->argv[0] != NULL)
+	if (process->argv != NULL)
 	{
 		if (builtin(process->argv) == false)
 			return (0);
@@ -426,7 +426,6 @@ bool	find_full_path(t_process *process)
 		ft_memcpy(full_path + full_path_index, name, ft_strlen(name));
 		full_path_index += ft_strlen(name);
 		full_path[full_path_index] = '\0';
-		ft_printf("%s\n", full_path);
 		if (check_path(process, full_path))
 			return (true);
 		start = end;
@@ -463,7 +462,6 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 			perror("Minishell: launch_process");
 			exit(1);
 		}
-		printf("%s\n", process->argv[0]);
 		if (execve(process->argv[0], argv, environ) == -1)
 			perror("Minishell: launch_process");
 		exit(1);
@@ -492,9 +490,9 @@ bool	is_builtin(t_process *process)
 	char		*name;
 	int			i;
 
-	name = process->argv[0];
-	if (name == NULL)
+	if (process->argv == NULL)
 		return (true);
+	name = process->argv[0];
 	i = 0;
 	while (i < 6)
 	{
@@ -520,7 +518,7 @@ int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	{
 		process = pipe_struct->processes[i];
 		assert(process.argv != NULL);
-		if (is_exit(process.argv[0]))
+		if (process.argv && is_exit(process.argv[0]))
 		{
 			_exit_(process.argv, pipe_struct, fd_array, pid_array);
 		}
@@ -613,9 +611,9 @@ int	execute_line(t_pipe *pipe_struct)
 // 	t_inoutfiles	two;
 // 	t_inoutfiles	three;
 
-// 	pipe_struct.p_amount = 3;
+// 	pipe_struct.p_amount = 1;
 
-// 	argv1[0] = ft_strdup("cat");
+// 	argv1[0] = ft_strdup("echo");
 // 	argv1[1] = NULL;
 // 	argv1[2] = NULL;
 // 	argv1[3] = NULL;
@@ -630,8 +628,8 @@ int	execute_line(t_pipe *pipe_struct)
 // 	argv3[2] = NULL;
 // 	argv3[3] = NULL;
 
-// 	one.name = ft_strdup("here");
-// 	one.type = HEREDOC;
+// 	one.name = ft_strdup("file.txt");
+// 	one.type = IN;
 // 	two.name = "f2";
 // 	two.type = OUT;
 // 	three.name = "here2";
