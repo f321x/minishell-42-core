@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 15:27:13 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 15:53:36 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 
 		// reading the input in a heap char array
 		entered_line = read_a_line(SHELL_PROMPT);
-
 		add_history(entered_line);
 		if (!entered_line)
 			continue ;
