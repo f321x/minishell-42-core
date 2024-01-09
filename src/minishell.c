@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 17:35:43 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 10:13:17 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,15 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 
-		debug_printing(&task);
+		// debug_printing(&task);
+
 		// execution of parsed command
 		execute_line(&task);
 
 		// freeing for next use.
 		// free_all_argvs(&task);  also done by execute line now
 		free(entered_line);
-		printf("\n");
+		// printf("\n");
 	}
 	free_old_env(NULL);
 	return (0);
