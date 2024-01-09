@@ -6,12 +6,16 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:40:15 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 17:24:49 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 16:18:27 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// traverses trough the given userinput till it reaches a
+// delimiter character and stores the chars in a buffer variable,
+// then the buffer will be appended as new argv string to the current (new)
+// process (pipe struct) if it is longer than 0
 bool	parse_name(t_parsing *p)
 {
 	char 		buffer[PROC_FIELD_BUFFER];
@@ -37,6 +41,12 @@ bool	parse_name(t_parsing *p)
 	return (true);
 }
 
+// checks the character for certain delimiter characters
+// if a delimiter is matched it will call the correct function
+// to parse the type (for example env variables with $)
+// else add_to_argv is called.
+// in case the first char is a delimiter (new_proc true),
+// it will set new_proc false.
 bool	parse_delimiter(t_parsing *p)
 {
 	char	current_c;
