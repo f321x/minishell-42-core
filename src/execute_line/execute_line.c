@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 18:53:32 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 13:55:35 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,7 +241,7 @@ bool	set_exit_value(int exit_value)
 
 	argv[0] = "export";
 	argv[2] = NULL;
-	number_as_string = ft_itoa(exit_value);
+	number_as_string = ft_itoa(WEXITSTATUS(exit_value));
 	environment_var = ft_strjoin("?=", number_as_string);
 	free(number_as_string);
 	if (environment_var == NULL)
@@ -391,7 +391,8 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	{
 		dup2(fd_array[i][1], 1);
 	}
-	handle_inoutfiles(process, fd_array[p_amount - 1]);
+	if (! handle_inoutfiles(process, fd_array[p_amount - 1]))
+		return (0);
 	pid = fork();
 	if (pid == 0)
 	{

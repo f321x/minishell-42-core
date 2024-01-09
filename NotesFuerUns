@@ -10,11 +10,8 @@ minishell$ echo $HOME
 dknkj
 
 Mara
-vergleiche cat | ls (ls wird vor cat ausgefuehrt, bash: genauso) ,
 - Pathsuche nochmal checken
-- echo $? bei status != 0 gibt 256 statt 1
-- CTRL+D
-- Try ctrl-D after running a blocking command like cat without arguments or grep “something“.
+- echo $? bei status != 0 gibt 256 statt 1 FIXED
 - minishell$ cat < $a
 	# Minishell: handle_infile: No such file or directory
 	# ^C
