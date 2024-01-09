@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/09 13:55:35 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:56:22 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 	ssize_t	bytes_read;
 	ssize_t	bytes_written;
 	ssize_t	i;
-	char	buffer[1];
+	char	full_path[1];
 
 	fd = open("tmp", O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	i = 0;
@@ -100,34 +100,34 @@ int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 	{
 		if (i == 0)
 			bytes_written = write(true_stdout, ">", 1);
-		bytes_read = read(true_stdin, buffer, 1);
+		bytes_read = read(true_stdin, full_path, 1);
 		if (i != -1)
 		{
-			if (buffer[0] == keyword[i])
+			if (full_path[0] == keyword[i])
 				i++;
 			else
 			{
-				if (buffer[0] == '\n')
+				if (full_path[0] == '\n')
 					if (i == (ssize_t) ft_strlen(keyword))
 						end = true;
 					else
 					{
 						bytes_written = write(fd, keyword, i);
 						i = 0;
-						bytes_written = write(fd, buffer, 1);
+						bytes_written = write(fd, full_path, 1);
 					}
 				else
 				{
 					bytes_written = write(fd, keyword, i);
 					i = -1;
-					bytes_written = write(fd, buffer, 1);
+					bytes_written = write(fd, full_path, 1);
 				}
 			}
 		}
 		else
 		{
-			bytes_written = write(fd, buffer, 1);
-			if (buffer[0] == '\n')
+			bytes_written = write(fd, full_path, 1);
+			if (full_path[0] == '\n')
 				i = 0;
 		}
 	}
@@ -310,70 +310,130 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, size
 	return (1);
 }
 
-char	*join_path_and_program_name(char *path, char *name)
+// char	*join_path_and_program_name(char *path, char *name)
+// {
+// 	char	*full_path;
+// 	char	*path_plus_slash;
+
+// 	path_plus_slash = malloc(ft_strlen(path) + 2);
+// 	if (path_plus_slash == NULL)
+// 		return (NULL);
+// 	ft_strlcpy(path_plus_slash, path, ft_strlen(path) + 1);
+// 	path_plus_slash[ft_strlen(path) + 1] = '\0';
+// 	path_plus_slash[ft_strlen(path)] = '/';
+// 	full_path = ft_strjoin(path_plus_slash, name);
+// 	free(path_plus_slash);
+// 	return (full_path);
+// }
+
+// bool	find_full_path_in_path_var(t_process *process, char *paths)
+// {
+// 	char	*full_path;
+// 	char	**split;
+// 	int		i;
+
+// 	split = ft_split(paths, ':');
+// 	if (split == NULL)
+// 		return (error_wrapper());
+// 	i = 0;
+// 	while (split[i] != NULL)
+// 	{
+// 		full_path = join_path_and_program_name(split[i], process->argv[0]);
+// 		if (access(full_path, F_OK) == 0)
+// 		{
+// 			free(process->argv[0]);
+// 			process->argv[0] = full_path;
+// 			break;
+// 		}
+// 		free(full_path);
+// 		i++;
+// 	}
+// 	free_vector(split);
+// 	return (true);
+// }
+
+// bool	find_full_path(t_process *process)
+// {
+// 	char	cwd[PATH_MAX];
+// 	char	*old_path_var_with_colon;
+// 	char	*new_path_var;
+// 	char	*paths;
+// 	char	*name;
+
+// 	name = process->argv[0];
+// 	if (name[0] == '/')
+// 		return (true);
+// 	paths = getenv("PATH");
+// 	getcwd(cwd, PATH_MAX);
+// 	old_path_var_with_colon = ft_strjoin(paths, ":");
+// 	if (old_path_var_with_colon == NULL)
+// 		return (false);
+// 	new_path_var = ft_strjoin(old_path_var_with_colon, cwd);
+// 	free(old_path_var_with_colon);
+// 	if (!find_full_path_in_path_var(process, new_path_var))
+// 		return (error_wrapper());
+// 	free(new_path_var);
+// 	return (true);
+// }
+
+bool	check_path(t_process *process, char path[PATH_MAX])
 {
-	char	*full_path;
-	char	*path_plus_slash;
-
-	path_plus_slash = malloc(ft_strlen(path) + 2);
-	if (path_plus_slash == NULL)
-		return (NULL);
-	ft_strlcpy(path_plus_slash, path, ft_strlen(path) + 1);
-	path_plus_slash[ft_strlen(path) + 1] = '\0';
-	path_plus_slash[ft_strlen(path)] = '/';
-	full_path = ft_strjoin(path_plus_slash, name);
-	free(path_plus_slash);
-	return (full_path);
-}
-
-bool	find_full_path_in_path_var(t_process *process, char *paths)
-{
-	char	*full_path;
-	char	**split;
-	int		i;
-
-	split = ft_split(paths, ':');
-	if (split == NULL)
-		return (error_wrapper());
-	i = 0;
-	while (split[i] != NULL)
+	if (access(path, F_OK) == 0)
 	{
-		full_path = join_path_and_program_name(split[i], process->argv[0]);
-		if (access(full_path, F_OK) == 0)
-		{
-			free(process->argv[0]);
-			process->argv[0] = full_path;
-			break;
-		}
-		free(full_path);
-		i++;
+		free(process->argv[0]);
+		process->argv[0] = ft_strdup(path);
+		return (true);
 	}
-	free_vector(split);
-	return (true);
+	return (false);
 }
 
 bool	find_full_path(t_process *process)
 {
-	char	cwd[PATH_MAX];
-	char	*old_path_var_with_colon;
-	char	*new_path_var;
 	char	*paths;
 	char	*name;
+	char	full_path[PATH_MAX];
+	int		full_path_index;
+	char	*start;
+	char	*end;
+	int		endflag = false;
 
 	name = process->argv[0];
 	if (name[0] == '/')
 		return (true);
 	paths = getenv("PATH");
-	getcwd(cwd, PATH_MAX);
-	old_path_var_with_colon = ft_strjoin(paths, ":");
-	if (old_path_var_with_colon == NULL)
-		return (false);
-	new_path_var = ft_strjoin(old_path_var_with_colon, cwd);
-	free(old_path_var_with_colon);
-	if (!find_full_path_in_path_var(process, new_path_var))
-		return (error_wrapper());
-	free(new_path_var);
-	return (true);
+	if (paths == NULL || ft_strlen(paths) == 0)
+		return (true);
+	start = paths;
+	end = paths;
+	while (*end != '\0' && !endflag)
+	{
+		if (*start == ':' && *(end + 1) == '\0')
+			endflag = true;
+		full_path_index = 0;
+		end = ft_strchr(start, ':');
+		if (end == NULL)
+			end = ft_strchr(start, '\0');
+		if (start == end || *start != '/') 
+		{
+			full_path[0] = '.';
+			full_path[1] = '/';
+			full_path_index += 2;
+		}
+		ft_memcpy(full_path + full_path_index, start, end - start);
+		full_path_index += end - start;
+		full_path[full_path_index] = '/';
+		full_path_index++;
+		ft_memcpy(full_path + full_path_index, name, ft_strlen(name));
+		full_path_index += ft_strlen(name);
+		full_path[full_path_index] = '\0';
+		ft_printf("%s\n", full_path);
+		if (check_path(process, full_path))
+			return (true);
+		start = end;
+		if (*start == ':' && *(start + 1) != '\0')
+			start++;
+	}
+	return (false);
 }
 
 int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size_t i)
@@ -399,7 +459,11 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, size
 		signal(SIGQUIT, SIG_DFL);
 		close_all_fds(fd_array, p_amount);
 		if (!find_full_path(process))
-			return (0);
+		{
+			perror("Minishell: launch_process");
+			exit(1);
+		}
+		printf("%s\n", process->argv[0]);
 		if (execve(process->argv[0], argv, environ) == -1)
 			perror("Minishell: launch_process");
 		exit(1);
