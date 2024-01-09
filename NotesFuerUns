@@ -2,12 +2,20 @@ Felix:
 
 - Wenn es keine Argumente gibt, also auch keinen Programmnamen, rechne ich damit, dass argv[0] NULL ist!
 --> argv ist dann NULL, sonst müsste ich ja extra speicher für NULL reservieren?
-
+- CTRL+D
 - nur spaces ' ' als input -> crash
-
-- echo $? bei status != 0 gibt 256 statt 1
+-
+- minishell$ export HOME=sdjkfndksj
+minishell$ echo $HOME
+dknkj
 
 Mara
 vergleiche cat | ls (ls wird vor cat ausgefuehrt, bash: genauso) ,
-	dummy_endlessloop | ls (ls wird vor dummy ausgefuehrt, bash: genauso),
-	cat << here | ls (heredoc wird mit ls output vermischt, bash: heredoc wird vor ls abgefragt) mit Bash!
+- Pathsuche nochmal checken
+- echo $? bei status != 0 gibt 256 statt 1
+- CTRL+D
+- Try ctrl-D after running a blocking command like cat without arguments or grep “something“.
+- minishell$ cat < $a
+	# Minishell: handle_infile: No such file or directory
+	# ^C
+	# minishell$ minishell$ cat > $a
