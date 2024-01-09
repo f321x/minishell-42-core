@@ -6,20 +6,11 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 15:53:36 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 16:02:57 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void init_task(t_pipe *task)
-{
-	task->p_amount = 0;
-	// task->input_file = NULL;
-	// task->here_file = NULL;
-	// task->output_file = NULL;
-	// task->output_file_append = NULL;
-}
 
 void	initialize_exit_code(void)
 {
@@ -75,7 +66,6 @@ int	main(int argc, char **argv, char **envp)
 
 	while (1)
 	{
-		init_task(&task);
 		task.p_amount = 0;
 
 		// reading the input in a heap char array
