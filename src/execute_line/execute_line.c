@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/09 20:52:21 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 21:09:04 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,12 +260,10 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, \
 	size_t i)
 {
 	t_function_pointer	builtin;
-	int					temp_out;
 
 	builtin = process->builtin;
 	if (! close_last_fds(fd_array, i))
 		return (0);
-	temp_out = dup(1);
 	if (p_amount > 1 && i != p_amount - 1)
 	{
 		if (dup2(fd_array[i][1], 1) == -1)
@@ -278,7 +276,9 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, \
 		if (builtin(process->argv) == false)
 			return (0);
 	}
-	if (dup2(temp_out, 1) == -1 || close(temp_out) == -1)
+	if (dup2(fd_array[p_amount - 1][1], 1) == -1)
+		return (error_wrapper_int("Minishell: launch_builtin"));
+	if (dup2(fd_array[p_amount - 1][0], 0) == -1)
 		return (error_wrapper_int("Minishell: launch_builtin"));
 	return (1);
 }
