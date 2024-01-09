@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 17:33:33 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 20:37:11 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,8 @@ int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
 
 // helper_functions.c
 bool	error_wrapper(void);
+bool	error_wrapper_bool(char *message);
+bool	error_wrapper_int(char *message);
 void	free_vector(char **vector);
 
 // signals.c
