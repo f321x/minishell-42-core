@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 14:40:15 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 16:18:27 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:53:47 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // process (pipe struct) if it is longer than 0
 bool	parse_name(t_parsing *p)
 {
-	char 		buffer[PROC_FIELD_BUFFER];
+	char		buffer[PROC_FIELD_BUFFER];
 	size_t		index;
 	t_process	*curr_proc;
 
@@ -54,11 +54,11 @@ bool	parse_delimiter(t_parsing *p)
 	current_c = p->u_input[p->inp_i];
 	if (!current_c)
 		return (true);
-	if (p->new_proc)  // in case first char in line is a delimiter
+	if (p->new_proc)
 		p->new_proc = false;
-	else if (current_c == '>')  // ouptput
+	else if (current_c == '>')
 		return (parse_out_redirect(p));
-	else if (current_c == '<')  // input
+	else if (current_c == '<')
 		return (parse_in_redirect(p));
 	else if (current_c == '|')
 		return (handle_pipe(p));

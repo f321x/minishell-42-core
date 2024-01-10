@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 19:04:40 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:37:17 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,36 @@ void	initialize_exit_code(void)
 	export(argv);
 }
 
-static void debug_printing(t_pipe *task)
-{
-	// printing parsed argvs
-		for (size_t i = 0; i < task->p_amount; i++)
-		{
-			int in = 0;
-			printf("argv:");
-			while (task->processes[i].argv && task->processes[i].argv[in])
-			{
-				printf(" %s", task->processes[i].argv[in]);
-				in++;
-			}
-			printf("\n");
+// static void debug_printing(t_pipe *task)
+// {
+// 	// printing parsed argvs
+// 		for (size_t i = 0; i < task->p_amount; i++)
+// 		{
+// 			int in = 0;
+// 			printf("argv:");
+// 			while (task->processes[i].argv && task->processes[i].argv[in])
+// 			{
+// 				printf(" %s", task->processes[i].argv[in]);
+// 				in++;
+// 			}
+// 			printf("\n");
 
-			int io = 0;
-			printf("\niofiles:\n");
-			while (io < task->processes[i].io_amount)
-			{
-				printf("NAME: %s\n", task->processes[i].iofiles[io].name);
-				switch (task->processes[i].iofiles[io].type) {
-					case IN: printf("TYPE: INFILE\n"); break;
-					case OUT: printf("TYPE: OUTFILE\n"); break;
-					case APPEND: printf("TYPE: APPEND\n"); break;
-					case HEREDOC: printf("TYPE: HEREDOC\n"); break;
-					default: printf("TYPE: UNDEFINED!!!\n");}
-				io++;
-			}
-		}
-		printf("\n");
-}
+// 			int io = 0;
+// 			printf("\niofiles:\n");
+// 			while (io < task->processes[i].io_amount)
+// 			{
+// 				printf("NAME: %s\n", task->processes[i].iofiles[io].name);
+// 				switch (task->processes[i].iofiles[io].type) {
+// 					case IN: printf("TYPE: INFILE\n"); break;
+// 					case OUT: printf("TYPE: OUTFILE\n"); break;
+// 					case APPEND: printf("TYPE: APPEND\n"); break;
+// 					case HEREDOC: printf("TYPE: HEREDOC\n"); break;
+// 					default: printf("TYPE: UNDEFINED!!!\n");}
+// 				io++;
+// 			}
+// 		}
+// 		printf("\n");
+// }
 
 // register signal handlers
 // initializes exit codes
@@ -78,7 +78,6 @@ int	main(int argc, char **argv, char **envp)
 			continue ;
 		}
 		free(entered_line);
-		debug_printing(&task);
 		execute_line(&task);
 	}
 	free_old_env(NULL);

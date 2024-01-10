@@ -3,6 +3,7 @@
 		"minishell.h": "c",
 		"stdio.h": "c",
 		"string": "c",
-		"iosfwd": "c"
+		"iosfwd": "c",
+		"__locale": "c"
 	}
 }

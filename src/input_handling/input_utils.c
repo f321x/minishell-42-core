@@ -6,32 +6,37 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 11:51:09 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:53:32 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	check_if_ctrld(char *entered_line)
+{
+	if (entered_line == 0)
+	{
+		free(entered_line);
+		exit(EXIT_SUCCESS);
+	}
+}
 
 // Reads a line of input from the user.
 // prompt: The prompt to display to the user.
 // exits if the user presses CTRL+D (EOF / 0)
 // if entered line is empty it will be freed and the the loop waits for input
 // returns the entered line if it is not empty
-char *read_a_line(char *prompt)
+char	*read_a_line(char *prompt)
 {
 	char	*entered_line;
 
 	while (1)
 	{
-		entered_line = readline(prompt);  // 0 or null terminator? ctrl+d
-		if (entered_line == 0)
-		{
-			free(entered_line);
-			exit(EXIT_SUCCESS);
-		}
-		if (!entered_line)  // some kind of error
+		entered_line = readline(prompt);
+		check_if_ctrld(entered_line);
+		if (!entered_line)
 			continue ;
-		if (!(*entered_line))  // empty line, will not be used
+		if (!(*entered_line))
 		{
 			free(entered_line);
 			continue ;
