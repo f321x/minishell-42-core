@@ -2,5 +2,6 @@
 
 int main()
 {
-	printf("test2\n");
+	while(1) {}
+	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 14:55:26 by student          #+#    #+#             */
-/*   Updated: 2024/01/09 21:58:05 by student         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:50:39 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_vector(char **vector)
 	int	i;
 
 	i = 0;
-	while (vector[i] != NULL)
+	while (vector && vector[i] != NULL)
 	{
 		free(vector[i]);
 		i++;
