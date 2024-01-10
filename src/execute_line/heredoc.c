@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:01:08 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 13:01:48 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/10 21:14:01 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	write_keyword(int fd, char *keyword, int i)
 		return (true);
 }
 
-bool	test_keyword(char *keyword, int i, char *buffer, int fd)
+bool	test_keyword(char *keyword, size_t i, char *buffer, int fd)
 {
 	int	is_keyword;
 
@@ -38,9 +38,9 @@ bool	test_keyword(char *keyword, int i, char *buffer, int fd)
 
 int	read_line(int fd, char *keyword, int true_stdin)
 {
-	char	buffer[1];
-	int		i;
-	int		equal_to_keyword;
+	char		buffer[1];
+	size_t		i;
+	int			equal_to_keyword;
 
 	i = 0;
 	equal_to_keyword = true;

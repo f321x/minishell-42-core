@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:04:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 13:05:14 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/10 21:12:09 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ bool	find_full_path(t_process *process)
 	if (paths == NULL || ft_strlen(paths) == 0)
 		return (true);
 	name = process->argv[0];
-	if (name[0] == '/' || ft_strlen(name) >= 2 && name[0] == '.' && \
-		name[1] == '/' || ft_strlen(name) >= 3 && name[0] == '.' && \
-		name[1] == '.' && name[2] == '/')
+	if (name[0] == '/' || (ft_strlen(name) >= 2 && name[0] == '.' && \
+		name[1] == '/') || (ft_strlen(name) >= 3 && name[0] == '.' && \
+		name[1] == '.' && name[2] == '/'))
 		return (true);
 	if (! expand_path_var(paths, new_paths))
 		return (false);

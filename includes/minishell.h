@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 13:54:51 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 20:59:11 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		execute_line(t_pipe *pipe_struct);
 int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
 
 // heredoc.c
-int	get_here_file(char *keyword, int true_stdin, int true_stdout);
+int		get_here_file(char *keyword, int true_stdin, int true_stdout);
 
 // handle_iofiles.c
 bool	handle_inoutfiles(t_process *process, int true_inout_fds[2]);

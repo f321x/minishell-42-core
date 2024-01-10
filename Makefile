@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+         #
+#    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/10 14:03:01 by ***REMOVED***            ###   ########.fr        #
+#    Updated: 2024/01/10 21:08:45 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= minishell
 
 CC 		:= cc
-# CFLAGS 	:= -Wall -Wextra -Werror
+CFLAGS 	:= -Wall -Wextra #-Werror
 DFLAGS 	:= -g3 -fsanitize=address
 DNAME 	:= minishell_debug
 HEADERS = -I./includes -I ./libs/libft/includes

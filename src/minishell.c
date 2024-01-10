@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 12:37:17 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 21:08:10 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	initialize_exit_code(void)
 // reads a line, if it contains content it will be added to history
 // read line will be parsed in struct and passed to exec part
 // afterwards the parsed data will be freed.
-int	main(int argc, char **argv, char **envp)
+int	main()
 {
 	t_pipe	task;
 	char	*entered_line;
