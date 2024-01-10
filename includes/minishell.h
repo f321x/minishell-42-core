@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 13:35:33 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 13:54:51 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,33 @@ void	fill_buffer(char *buffer, size_t buffer_s,
 			char *string, size_t *str_index);
 bool	parse_env_var(t_parsing *p);
 
-// execute line
+// execute_line.c
 int		execute_line(t_pipe *pipe_struct);
 int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
+
+// heredoc.c
+int	get_here_file(char *keyword, int true_stdin, int true_stdout);
+
+// handle_iofiles.c
+bool	handle_inoutfiles(t_process *process, int true_inout_fds[2]);
+
+// find_full_path.c
+bool	find_full_path(t_process *process);
+
+//execute_line_utils.c
+int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
+bool	create_pid_array(pid_t **pid_array, size_t p_amount);
+bool	create_fd_array(int (*(*fd_array))[2], size_t n);
+bool	create_pipes(int (*fd_array)[2], size_t n);
+
+// exit_and_wait.c
+bool	set_exit_value(int exit_value);
+bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct);
+bool	is_exit(char *name);
+
+// file-descriptors.c
+void	close_all_fds(int (*fd_array)[2], size_t p_amount);
+bool	close_last_fds(int (*fd_array)[2], size_t i);
 
 // helper_functions.c
 bool	error_wrapper(void);
