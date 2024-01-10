@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 12:03:32 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 13:13:11 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,33 @@ void	fill_buffer(char *buffer, size_t buffer_s,
 bool	parse_env_var(t_parsing *p);
 bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
 
-// execute line
+// execute_line.c
 int		execute_line(t_pipe *pipe_struct);
 int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
+
+// heredoc.c
+int	get_here_file(char *keyword, int true_stdin, int true_stdout);
+
+// handle_iofiles.c
+bool	handle_inoutfiles(t_process *process, int true_inout_fds[2]);
+
+// find_full_path.c
+bool	find_full_path(t_process *process);
+
+//execute_line_utils.c
+int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
+bool	create_pid_array(pid_t **pid_array, size_t p_amount);
+bool	create_fd_array(int (*(*fd_array))[2], size_t n);
+bool	create_pipes(int (*fd_array)[2], size_t n);
+
+// exit_and_wait.c
+bool	set_exit_value(int exit_value);
+bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct);
+bool	is_exit(char *name);
+
+// file-descriptors.c
+void	close_all_fds(int (*fd_array)[2], size_t p_amount);
+bool	close_last_fds(int (*fd_array)[2], size_t i);
 
 // helper_functions.c
 bool	error_wrapper(void);
