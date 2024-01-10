@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 11:50:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 13:42:10 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:55:22 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	parse_single_quote(t_parsing *p)
 	return (true);
 }
 
-void fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i)
+void	fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	char		env_buffer[PROC_FIELD_BUFFER];
 	char		*env_var;
@@ -48,7 +48,7 @@ void fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i)
 		return ;
 	}
 	fill_buffer(env_buffer, PROC_FIELD_BUFFER,
-							p->u_input, &(p->inp_i));
+		p->u_input, &(p->inp_i));
 	env_var = getenv(env_buffer);
 	if (env_var != NULL)
 	{

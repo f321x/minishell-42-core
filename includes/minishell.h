@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 12:03:32 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 13:35:33 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,28 @@
 #include "../libs/libft/includes/libft.h"
 
 #define SHELL_PROMPT "minishell$ "
-#define	CWD_BUFFER_SIZE 10000
-#define	PROC_FIELD_BUFFER 1000
+#define CWD_BUFFER_SIZE 10000
+#define PROC_FIELD_BUFFER 1000
 #define MAX_PROC_AMOUNT 1000
-#define	IOFILES_AMOUNT	100
+#define IOFILES_AMOUNT	100
 
-typedef bool (*t_function_pointer)(char **argv);
+typedef bool	(*t_function_pointer)(char **argv);
 
-typedef enum {
+typedef enum e_ftypes {
 	UNDEFINED,
 	IN,
 	OUT,
 	APPEND,
 	HEREDOC
-}	e_ftypes;
+}	t_ftypes;
 
 typedef struct s_inoutfiles {
-	char 		*name;  // heap, free!
-	e_ftypes	type;
+	char		*name;
+	t_ftypes	type;
 }	t_inoutfiles;
 
 typedef struct s_process {
-	char 				**argv;  // heap, free!
+	char				**argv;
 	t_inoutfiles		iofiles[IOFILES_AMOUNT];
 	long				io_amount;
 	t_function_pointer	builtin;
@@ -84,7 +84,12 @@ size_t	get_env_length(void);
 bool	export(char **argv);
 bool	unset(char **argv);
 bool	env(char **argv);
-bool	_exit_(char **argv, t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
+bool	_exit_(char **argv, t_pipe *pipe_struct,
+			int (*fd_array)[2], pid_t *pid_array);
+bool	copy_old_env(char **old_env, char **new_env, size_t env_size);
+bool	set_new_environ(char *new_pair, char **new_environ,
+			char **old_environ, size_t size);
+bool	set_false_argv_for_unset(char *key);
 
 // parsing_main.c
 bool	parsing_main(char *input, t_pipe *task);
@@ -103,7 +108,7 @@ bool	parse_delimiter(t_parsing *p);
 // quote_parsing.c
 bool	parse_single_quote(t_parsing *p);
 bool	parse_double_quote(t_parsing *p);
-void 	fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i);
+void	fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i);
 
 // parse_out_redirects.c
 bool	parse_out_redirect(t_parsing *p);
@@ -115,16 +120,19 @@ bool	parse_out_doublequotes(t_parsing *p, char *buffer, size_t *buff_i);
 bool	parse_in_redirect(t_parsing *p);
 
 // array_utils.c
-char 	**append_string(char **orig, char *str);
+char	**append_string(char **orig, char *str);
 
 // string_utils.c
 bool	ft_isdelimiter(char c);
 
 // parsing_env_var.c
-void	fill_buffer(char *buffer, size_t buffer_s,
-					char *string, size_t *str_index);
-bool	parse_env_var(t_parsing *p);
 bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
+bool	fetch_env_var(t_parsing *p, char *buffer, char ***current_argv);
+
+// env_var_utils.c
+void	fill_buffer(char *buffer, size_t buffer_s,
+			char *string, size_t *str_index);
+bool	parse_env_var(t_parsing *p);
 
 // execute line
 int		execute_line(t_pipe *pipe_struct);
