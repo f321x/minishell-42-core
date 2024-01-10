@@ -1,48 +1,51 @@
-bool	find_full_path(t_process *process)
+bool	read_line(int fd, char *keyword, int true_stdin)
 {
-	char	*paths;
-	char	*name;
-	char	full_path[PATH_MAX];
-	int		full_path_index;                                             
-	char	*start;
-	char	*end;                 
-	int		endflag = false;
-                  
-	name = process->argv[0];
-	if (name[0] == '/' || name[0] == '.')
-		return (true);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
-	paths = getenv("PATH");
-	if (paths == NULL || ft_strlen(paths) == 0)
-		return (true);
-	start = paths;
-	end = paths;
-	while (*end != '\0' && !endflag)
+	bool	equal_to_keyword;
+	char	buffer[1];
+	int		i;
+
+	buffer[0] = '\0';
+	i = 0;
+	equal_to_keyword = true;
+	while (buffer[0] != '\n')
 	{
-		if (*start == ':' && *(end + 1) == '\0')
-			endflag = true;
-		full_path_index = 0;
-		end = ft_strchr(start, ':');
-		if (end == NULL)
-			end = ft_strchr(start, '\0');
-		if (start == end || *start != '/') 
+		if (read(fd, buffer, 1) == -1)
+			return (-1);
+		if (! equal_to_keyword(keyword, i))
 		{
-			full_path[0] = '.';
-			full_path[1] = '/';
-			full_path_index += 2;
+			write_keyword(fd, keyword, i);
+			equal_to_keyword = false;
 		}
-		ft_memcpy(full_path + full_path_index, start, end - start);
-		full_path_index += end - start;
-		full_path[full_path_index] = '/';
-		full_path_index++;
-		ft_memcpy(full_path + full_path_index, name, ft_strlen(name));
-		full_path_index += ft_strlen(name);
-		full_path[full_path_index] = '\0';
-		if (check_path(process, full_path))
-			return (true);
-		start = end;
-		if (*start == ':' && *(start + 1) != '\0')
-			start++;
+		else
+		{
+			i++;
+			continue;
+		}
+		if (write(fd, buffer, 1) == -1);
+			return (-1);
+		if (buffer[0] == '\n')
+			break;
+		i++;
 	}
-	return (false);
+	return ((int) equal_to_keyword);
 }
 
+int	get_here_file(char *keyword, int true_stdin, int true_stdout)
+{
+	int		fd;
+	int		end;
+
+	fd = open("tmp", O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	end = 0;
+	while (end == 0)
+	{
+		if (write(true_stdout, ">", 1) == -1)
+			return (-1);
+		end = read_line(fd, keyword, true_stdin);
+	}
+	close(fd);
+	if (end == -1)
+		return (-1);
+	fd = open("tmp", O_RDONLY, 0600);
+	return (fd);
+}
