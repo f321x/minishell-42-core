@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 13:52:02 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 14:04:39 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ bool	export_one_pair(char *env_pair)
 	free_old_env(old_env_buffer);
 	return (true);
 }
-
-
 
 bool	export(char **argv)
 {
