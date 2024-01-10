@@ -2,7 +2,6 @@ Felix:
 
 - cat < "a b" gefixt, aber du musst einen Syntaxerror
 - export PATH='/bin"
-- ein Programmname von 1000 Chars crasht die Shell
 
 Mara
 

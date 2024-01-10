@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 18:44:47 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:31:48 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ static void	parse_dq_assignment(t_parsing *p, char *assignment_buffer,
 	}
 }
 
-// parse assignment without quotes, will
+// parse assignment without quotes
 static void	parse_assignment(t_parsing *p, char *assignment_buffer,
 								size_t *ass_buff_i)
 {
@@ -149,7 +149,7 @@ static void	parse_assignment(t_parsing *p, char *assignment_buffer,
 }
 
 // parsing for key=value, key='value', key="value", key="$value" and key=$value
-void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
+bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
 	if (p->u_input[p->inp_i] == 39)
@@ -158,14 +158,22 @@ void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 		while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' '
 				&& p->u_input[p->inp_i] != 39)
 			buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
+		if (p->u_input[p->inp_i] != 39)
+			return (false);
 		p->inp_i++;
 	}
 	else if (p->u_input[p->inp_i] == '"')
 	{
 		p->inp_i++;
 		parse_dq_assignment(p, buffer, buffer_i);
+		if (p->u_input[p->inp_i] != '"')
+			return (false);
 		p->inp_i++;
 	}
 	else if (ft_isalnum(p->u_input[p->inp_i]) || p->u_input[p->inp_i] == '$')
+	{
 		parse_assignment(p, buffer, buffer_i);
+		return (p->u_input[p->inp_i - 1] != 39 && p->u_input[p->inp_i - 1] != '"');
+	}
+	return (true);
 }

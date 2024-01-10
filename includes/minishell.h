@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 21:58:19 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:03:32 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 #include "../libs/libft/includes/libft.h"
 
 #define SHELL_PROMPT "minishell$ "
-#define	CWD_BUFFER_SIZE 1000
+#define	CWD_BUFFER_SIZE 10000
 #define	PROC_FIELD_BUFFER 1000
 #define MAX_PROC_AMOUNT 1000
 #define	IOFILES_AMOUNT	100
@@ -124,7 +124,7 @@ bool	ft_isdelimiter(char c);
 void	fill_buffer(char *buffer, size_t buffer_s,
 					char *string, size_t *str_index);
 bool	parse_env_var(t_parsing *p);
-void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
+bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
 
 // execute line
 int		execute_line(t_pipe *pipe_struct);
