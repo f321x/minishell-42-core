@@ -2,6 +2,7 @@ Felix:
 
 - cat < "a b" gefixt, aber du musst einen Syntaxerror
 - export PATH='/bin"
+- echo < file.txt
 
 Mara
 - Pathsuche nochmal checken

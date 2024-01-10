@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 16:28:27 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/09 18:44:47 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ static void	parse_dq_assignment(t_parsing *p, char *assignment_buffer,
 	}
 }
 
+// parse assignment without quotes, will
 static void	parse_assignment(t_parsing *p, char *assignment_buffer,
 								size_t *ass_buff_i)
 {
@@ -147,10 +148,11 @@ static void	parse_assignment(t_parsing *p, char *assignment_buffer,
 	}
 }
 
+// parsing for key=value, key='value', key="value", key="$value" and key=$value
 void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
-	if (p->u_input[p->inp_i] == 39)  // value in single quotes -> parse as chars
+	if (p->u_input[p->inp_i] == 39)
 	{
 		p->inp_i++;
 		while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' '
@@ -158,12 +160,12 @@ void	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 			buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
 		p->inp_i++;
 	}
-	else if (p->u_input[p->inp_i] == '"')  // value in double quotes -> parse env vars
+	else if (p->u_input[p->inp_i] == '"')
 	{
 		p->inp_i++;
 		parse_dq_assignment(p, buffer, buffer_i);
 		p->inp_i++;
 	}
-	else if (ft_isalnum(p->u_input[p->inp_i]) || p->u_input[p->inp_i] == '$')  // value without quotes
+	else if (ft_isalnum(p->u_input[p->inp_i]) || p->u_input[p->inp_i] == '$')
 		parse_assignment(p, buffer, buffer_i);
 }
