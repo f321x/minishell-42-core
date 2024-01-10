@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:20 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/08 17:35:50 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:51:48 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ bool	_exit_(char **argv, t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_arr
 {
 	unsigned char	exit_value;
 	int	i;
+	extern char	**environ;
 
 	assert(argv != NULL && ft_strcmp(argv[0], "exit") == 0); // debug
 
@@ -44,6 +45,7 @@ bool	_exit_(char **argv, t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_arr
 	}
 	else
 		exit_value = 0;
+	free_vector(environ);
 	cleanup(pipe_struct, fd_array, pid_array);
 	ft_printf("exit\n");
 	exit(exit_value);

@@ -2,12 +2,7 @@ Felix:
 
 - cat < "a b" gefixt, aber du musst einen Syntaxerror
 - export PATH='/bin"
-- echo < file.txt
+- ein Programmname von 1000 Chars crasht die Shell
 
 Mara
-- Pathsuche nochmal checken
-- echo $? bei status != 0 gibt 256 statt 1 FIXED
-- minishell$ cat < $a
-	# Minishell: handle_infile: No such file or directory
-	# ^C
-	# minishell$ minishell$ cat > $a
+
