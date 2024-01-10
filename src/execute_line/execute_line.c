@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 00:32:45 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/10 12:58:29 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,54 +73,75 @@ bool	create_pipes(int (*fd_array)[2], size_t n)
 	return (true);
 }
 
+bool	write_keyword(int fd, char *keyword, int i)
+{
+	if (write(fd, keyword, i) == -1)
+		return (false);
+	else
+		return (true);
+}
+
+bool	test_keyword(char *keyword, int i, char *buffer, int fd)
+{
+	int	is_keyword;
+
+	is_keyword = (int) keyword[i] == buffer[0] || (buffer[0] == '\n' && \
+		i == ft_strlen(keyword));
+	if (! is_keyword)
+	{
+		if (! write_keyword(fd, keyword, i))
+			return (-1);
+		if (write(fd, buffer, 1) == -1)
+			return (-1);
+	}
+	return (is_keyword);
+}
+
+int	read_line(int fd, char *keyword, int true_stdin)
+{
+	char	buffer[1];
+	int		i;
+	int		equal_to_keyword;
+
+	i = 0;
+	equal_to_keyword = true;
+	buffer[0] = '\0';
+	while (buffer[0] != '\n')
+	{
+		if (read(true_stdin, buffer, 1) == -1)
+			return (-1);
+		if (equal_to_keyword == 1)
+			equal_to_keyword = test_keyword(keyword, i, buffer, fd);
+		else
+		{
+			if (write(fd, buffer, 1) == -1)
+				return (-1);
+			if (buffer[0] == '\n')
+				break ;
+		}
+		if (equal_to_keyword == -1)
+			return (-1);
+		i++;
+	}
+	return (equal_to_keyword);
+}
+
 int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 {
 	int		fd;
-	bool	end;
-	ssize_t	bytes_read;
-	ssize_t	bytes_written;
-	ssize_t	i;
-	char	full_path[1];
+	int		end;
 
 	fd = open("tmp", O_CREAT | O_WRONLY | O_TRUNC, 0600);
-	i = 0;
-	end = false;
-	while (!end)
+	end = 0;
+	while (end == 0)
 	{
-		if (i == 0)
-			bytes_written = write(true_stdout, ">", 1);
-		bytes_read = read(true_stdin, full_path, 1);
-		if (i != -1)
-		{
-			if (full_path[0] == keyword[i])
-				i++;
-			else
-			{
-				if (full_path[0] == '\n')
-					if (i == (ssize_t) ft_strlen(keyword))
-						end = true;
-					else
-					{
-						bytes_written = write(fd, keyword, i);
-						i = 0;
-						bytes_written = write(fd, full_path, 1);
-					}
-				else
-				{
-					bytes_written = write(fd, keyword, i);
-					i = -1;
-					bytes_written = write(fd, full_path, 1);
-				}
-			}
-		}
-		else
-		{
-			bytes_written = write(fd, full_path, 1);
-			if (full_path[0] == '\n')
-				i = 0;
-		}
+		if (write(true_stdout, ">", 1) == -1)
+			return (-1);
+		end = read_line(fd, keyword, true_stdin);
 	}
 	close(fd);
+	if (end == -1)
+		return (-1);
 	fd = open("tmp", O_RDONLY, 0600);
 	return (fd);
 }
@@ -218,7 +239,7 @@ bool	set_exit_value(int exit_value)
 
 	argv[0] = "export";
 	argv[2] = NULL;
-	number_as_string = ft_itoa(WEXITSTATUS(exit_value));
+	number_as_string = ft_itoa(exit_value);
 	environment_var = ft_strjoin("?=", number_as_string);
 	free(number_as_string);
 	if (environment_var == NULL)
@@ -482,10 +503,10 @@ bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct)
 		if (waitpid(pid_array[i], &status_pointer, 0) == -1)
 			return (false);
 		if (check_for_signaled_quit(status_pointer))
-			return (true);
+			return (false);
 		i++;
 	}
-	if (! set_exit_value(status_pointer))
+	if (! set_exit_value(WEXITSTATUS(status_pointer)))
 		return (false);
 	return (true);
 }
