@@ -6,13 +6,13 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:16:32 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 17:36:01 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:40:49 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool traverse_trough_iname(t_parsing *p, char *buffer, size_t *buffer_i)
+static bool	traverse_trough_iname(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	bool	success;
 
@@ -42,7 +42,7 @@ bool	parse_in_name(t_parsing *p, t_inoutfiles *curr_iof)
 	buffer_i = 0;
 	ft_memset(buffer, '\0', PROC_FIELD_BUFFER);
 	if (!(traverse_trough_iname(p, buffer, &buffer_i)
-		|| ft_strlen(buffer) < 1 || !success))
+			|| ft_strlen(buffer) < 1 || !success))
 		return (false);
 	curr_iof->name = ft_strdup(buffer);
 	p->task->processes[p->task->p_amount].io_amount++;

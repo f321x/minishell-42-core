@@ -6,12 +6,11 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 17:59:04 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/09 16:28:17 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:55:27 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 bool	ft_isdelimiter(char c)
 {

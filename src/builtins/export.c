@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/08 09:09:42 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/10 14:04:39 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,50 +21,6 @@ size_t	get_env_length(void)
 	while (environ && environ[env_size] != NULL)
 		env_size++;
 	return (env_size);
-}
-
-static bool	copy_old_env(char **old_env, char **new_env, size_t env_size)
-{
-	size_t	index;
-
-	index = 0;
-	while (index < env_size)
-	{
-		new_env[index] = ft_strdup(old_env[index]);
-		if (!new_env[index])
-		{
-			index--;
-			while (index > 0)
-			{
-				free(new_env[index]);
-				index--;
-			}
-			return (false);
-		}
-		index++;
-	}
-	return (true);
-}
-
-static bool	set_new_environ(char *new_pair, char **new_environ,
-								char **old_environ, size_t size)
-{
-	char	*new_env_var_heap;
-
-	new_env_var_heap = ft_strdup(new_pair);
-	if (!new_env_var_heap)
-	{
-		free(new_environ);
-		return (false);
-	}
-	if (!copy_old_env(old_environ, new_environ, size))
-	{
-		free(new_env_var_heap);
-		return (false);
-	}
-	new_environ[size] = new_env_var_heap;
-	new_environ[size + 1] = NULL;
-	return (true);
 }
 
 // first time is system memory and can't be freed, 2nd+ is self allocated.
@@ -96,7 +52,6 @@ bool	export_one_pair(char *env_pair)
 	char		**old_env_buffer;
 	char		**new_environ;
 	size_t		env_size;
-	//char		*new_env_var_heap;
 
 	env_size = get_env_length();
 	if (env_size < 1)
@@ -118,11 +73,7 @@ bool	export_one_pair(char *env_pair)
 bool	export(char **argv)
 {
 	int		i;
-	bool	error;
 	char	*key;
-	char	*false_argv_for_unset[3];
-
-	assert(argv != NULL && ft_strcmp(argv[0], "export") == 0); // debug
 
 	i = 1;
 	while (argv[i] != NULL)
@@ -130,7 +81,7 @@ bool	export(char **argv)
 		if (ft_strchr(argv[i], '=') == NULL)
 		{
 			i++;
-			continue;
+			continue ;
 		}
 		key = ft_strdup(argv[i]);
 		if (key == NULL)
@@ -138,17 +89,12 @@ bool	export(char **argv)
 		*(ft_strchr(key, '=')) = '\0';
 		if (getenv(key) != NULL)
 		{
-			false_argv_for_unset[0] = "unset";
-			false_argv_for_unset[1] = key;
-			false_argv_for_unset[2] = NULL;
-			if (!unset(false_argv_for_unset))
+			if (!(set_false_argv_for_unset(key)))
 				return (false);
 		}
 		free(key);
-		error = export_one_pair(argv[i]);
-		if (!error)
+		if (!export_one_pair(argv[i++]))
 			return (false);
-		i++;
 	}
 	return (true);
 }

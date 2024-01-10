@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:10:41 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 12:34:46 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 12:54:51 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	init_parsing_data(t_parsing *data, t_pipe *task, char *input)
 // parsing struct. Will increase the inp_i index in the parsing struct
 void	skip_whitespace(t_parsing *p)
 {
-	while (p && p->u_input &&
-			p->u_input[p->inp_i] == ' ')
+	while (p && p->u_input
+		&& p->u_input[p->inp_i] == ' ')
 	{
 		p->inp_i++;
 	}
@@ -39,15 +39,15 @@ void	skip_whitespace(t_parsing *p)
 // coming before. Called between each user input.
 bool	free_all_argvs(t_pipe *task)
 {
-	t_process 	*processes;
+	t_process	*processes;
 	long		index;
 
 	processes = task->processes;
 	while (task->p_amount > 0)
 	{
 		index = 0;
-		while (processes && processes->argv &&
-				processes->argv[index] != NULL)
+		while (processes && processes->argv
+			&& processes->argv[index] != NULL)
 		{
 			free(processes->argv[index]);
 			processes->argv[index] = NULL;
@@ -74,7 +74,7 @@ bool	add_to_argv(t_parsing *p)
 	buffer_i = 0;
 	buffer[buffer_i++] = p->u_input[(p->inp_i)++];
 	while (p->u_input && p->u_input[p->inp_i]
-			&& !ft_isdelimiter(p->u_input[p->inp_i]))
+		&& !ft_isdelimiter(p->u_input[p->inp_i]))
 	{
 		if (p->u_input[p->inp_i] == '=')
 		{

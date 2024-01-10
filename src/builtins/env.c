@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 19:46:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/01 18:02:48 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:36:54 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ bool	env(char **argv)
 	extern char	**environ;
 	char		**pointer;
 	int			error;
-
-	assert(argv != NULL && ft_strcmp(argv[0], "env") == 0); // debug
 
 	if (argv[1] != NULL)
 		return (error_wrapper());

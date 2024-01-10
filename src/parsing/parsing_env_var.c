@@ -6,13 +6,14 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 12:31:48 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/10 13:53:29 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	append_last_string(char *env_var, char ***current_argv, char *argv_buffer)
+static bool	append_last_string(char *env_var,
+								char ***current_argv, char *argv_buffer)
 {
 	if (env_var && !(*env_var))
 	{
@@ -23,7 +24,7 @@ static bool	append_last_string(char *env_var, char ***current_argv, char *argv_b
 	return (true);
 }
 
-static bool	fetch_env_var(t_parsing *p, char *buffer, char ***current_argv)
+bool	fetch_env_var(t_parsing *p, char *buffer, char ***current_argv)
 {
 	char	argv_buffer[PROC_FIELD_BUFFER];
 	char	*env_var;
@@ -48,43 +49,7 @@ static bool	fetch_env_var(t_parsing *p, char *buffer, char ***current_argv)
 		else
 			argv_buffer[argv_buff_i++] = *(env_var++);
 	}
-	if (!append_last_string(env_var, current_argv, argv_buffer))
-		return (false);
-	return (true);
-}
-
-void	fill_buffer(char *buffer, size_t buffer_s,
-					char *string, size_t *str_index)
-{
-	size_t	buffer_i;
-
-	buffer_i = 0;
-	ft_memset(buffer, '\0', buffer_s);
-	if (buffer_i < buffer_s && string && string[*str_index] == '?')
-		buffer[buffer_i++] = string[(*str_index)++];
-	while (buffer_i < buffer_s &&
-			string && ft_isalnum(string[*str_index]))
-	 	buffer[buffer_i++] = string[(*str_index)++];
-}
-
-bool	parse_env_var(t_parsing *p)
-{
-	char		buffer[PROC_FIELD_BUFFER];
-	char		***current_argv;
-
-	p->inp_i++;
-	current_argv = &(p->task->processes[p->task->p_amount].argv);
-	fill_buffer(buffer, PROC_FIELD_BUFFER, p->u_input, &(p->inp_i));
-	if (ft_strlen(buffer) == 0)
-	{
-		*current_argv = append_string(*current_argv, "$");
-		if (!(*current_argv))
-			return (false);
-		if (p->u_input[p->inp_i])
-			p->inp_i++;
-		return (true);
-	}
-	return (fetch_env_var(p, buffer, current_argv));
+	return (append_last_string(env_var, current_argv, argv_buffer));
 }
 
 static void	parse_dq_assignment(t_parsing *p, char *assignment_buffer,
@@ -104,7 +69,7 @@ static void	parse_dq_assignment(t_parsing *p, char *assignment_buffer,
 				continue ;
 			}
 			fill_buffer(env_key_buffer, PROC_FIELD_BUFFER,
-									p->u_input, &(p->inp_i));
+				p->u_input, &(p->inp_i));
 			env_var = getenv(env_key_buffer);
 			if (env_var != NULL)
 			{
@@ -134,7 +99,7 @@ static void	parse_assignment(t_parsing *p, char *assignment_buffer,
 				break ;
 			}
 			fill_buffer(env_key_buffer, PROC_FIELD_BUFFER,
-									p->u_input, &(p->inp_i));
+				p->u_input, &(p->inp_i));
 			env_var = getenv(env_key_buffer);
 			if (env_var != NULL)
 			{
@@ -156,7 +121,7 @@ bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 	{
 		p->inp_i++;
 		while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' '
-				&& p->u_input[p->inp_i] != 39)
+			&& p->u_input[p->inp_i] != 39)
 			buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
 		if (p->u_input[p->inp_i] != 39)
 			return (false);
@@ -166,14 +131,14 @@ bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 	{
 		p->inp_i++;
 		parse_dq_assignment(p, buffer, buffer_i);
-		if (p->u_input[p->inp_i] != '"')
+		if (p->u_input[p->inp_i++] != '"')
 			return (false);
-		p->inp_i++;
 	}
 	else if (ft_isalnum(p->u_input[p->inp_i]) || p->u_input[p->inp_i] == '$')
 	{
 		parse_assignment(p, buffer, buffer_i);
-		return (p->u_input[p->inp_i - 1] != 39 && p->u_input[p->inp_i - 1] != '"');
+		return (p->u_input[p->inp_i - 1] != 39
+			&& p->u_input[p->inp_i - 1] != '"');
 	}
 	return (true);
 }
