@@ -6,7 +6,7 @@
 #    By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/11 14:31:44 by ***REMOVED***            ###   ########.fr        #
+#    Updated: 2024/01/11 14:34:57 by ***REMOVED***            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRCS 	:= $(SRCDIR)/minishell.c $(SRCDIR)/helper_functions.c \
 $(SRCDIR)/input_handling/input_utils.c \
 $(SRCDIR)/parsing/parsing_main.c $(SRCDIR)/parsing/parsing_utils.c $(SRCDIR)/parsing/array_utils.c $(SRCDIR)/parsing/parsing_functions.c $(SRCDIR)/parsing/string_utils.c $(SRCDIR)/parsing/quote_parsing_new.c $(SRCDIR)/parsing/parsing_env_var.c $(SRCDIR)/parsing/parse_out_redirects.c $(SRCDIR)/parsing/parse_in_redirect.c $(SRCDIR)/parsing/env_var_utils.c \
 $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/exit.c $(SRCDIR)/builtins/export_utils.c \
-$(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/execute_line/file_descriptors.c $(SRCDIR)/execute_line/execute_line_utils.c $(SRCDIR)/execute_line/find_full_path.c $(SRCDIR)/execute_line/handle_iofiles.c $(SRCDIR)/execute_line/heredoc.c $(SRCDIR)/execute_line/exit_and_wait.c \
+$(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/execute_line/file_descriptors.c $(SRCDIR)/execute_line/execute_line_utils.c $(SRCDIR)/execute_line/find_full_path.c $(SRCDIR)/execute_line/handle_iofiles1.c $(SRCDIR)/execute_line/heredoc.c $(SRCDIR)/execute_line/exit_and_wait.c $(SRCDIR)/execute_line/handle_iofiles2.c \
 $(SRCDIR)/signals.c
 
 OBJS	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
@@ -61,10 +61,6 @@ testexecute:
 testbuiltins: $(SRCS_TEST_BUILTINS)
 	make -C libs/libft debug
 	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST_BUILTINS) -o $(TESTDIR)/testbuiltins
-
-testfindfullpath: $(SRCS_TEST_FINDFULLPATH)
-	make -C libs/libft debug
-	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST_FINDFULLPATH) -o $(TESTDIR)/testfindfullpath
 
 clean:
 	make -C libs/libft clean

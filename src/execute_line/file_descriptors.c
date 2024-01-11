@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:12:13 by student          #+#    #+#             */
-/*   Updated: 2024/01/10 13:13:15 by student         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:31:46 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,15 @@ bool	close_last_fds(int (*fd_array)[2], size_t i)
 			return (error_wrapper_bool("Minishell: close_last_fds"));
 	}
 	return (true);
+}
+
+void	restore_fds(int (*fd_array)[2], size_t p_amount)
+{
+		close_all_fds(fd_array, p_amount);
+		if (dup2(fd_array[p_amount - 1][0], 0) == -1 || \
+			dup2(fd_array[p_amount - 1][1], 1) == -1)
+			perror("Minishell: restore_fds");
+		if (close(fd_array[p_amount - 1][0]) == -1 || \
+			close(fd_array[p_amount - 1][1]) == -1)
+			perror("Minishell: restore_fds");
 }
