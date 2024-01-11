@@ -1,7 +1,9 @@
 Felix:
 
-- cat < "a b" gefixt, aber du musst einen Syntaxerror
+bash-3.2$ export test='test'hello$HOME
+bash-3.2$ echo $test
+testhello/Users/***REMOVED***
 
-- cat 'a'b sollte ab ausgeben ohne ' ' (space).
+- > inf1.txt
 
 Mara

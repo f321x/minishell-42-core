@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 10:29:36 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 14:11:16 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,10 @@ bool	parse_name(t_parsing *p);
 bool	parse_delimiter(t_parsing *p);
 
 // quote_parsing.c
-bool	parse_single_quote(t_parsing *p);
-bool	parse_double_quote(t_parsing *p);
+bool	parse_single_quote(t_parsing *p, char *buffer, size_t *buffer_i);
+bool	parse_double_quote(t_parsing *p, char *buffer, size_t *buffer_i);
 void	fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i);
+bool	parse_with_quotes(t_parsing *p);
 
 // parse_out_redirects.c
 bool	parse_out_redirect(t_parsing *p);

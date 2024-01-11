@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 10:29:20 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 12:11:56 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,7 @@ bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
 	if (p->u_input[p->inp_i] == 39)
 	{
 		p->inp_i++;
-		while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' '
-			&& p->u_input[p->inp_i] != 39)
+		while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != 39)
 			buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
 		if (p->u_input[p->inp_i] != 39)
 			return (false);
