@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:01 by student          #+#    #+#             */
-/*   Updated: 2024/01/11 13:10:14 by student         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:18:16 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	free_processes(t_pipe *pipe_struct)
 
 int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 {
-	size_t	i;
 	char	tmp_name[PATH_MAX];
 
 	restore_fds(fd_array, pipe_struct->p_amount);

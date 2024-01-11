@@ -6,7 +6,7 @@
 #    By: student <student@example.invalid>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/11 13:12:52 by student         ###   ########.fr        #
+#    Updated: 2024/01/11 14:24:18 by student         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,10 +61,6 @@ testexecute:
 testbuiltins: $(SRCS_TEST_BUILTINS)
 	make -C libs/libft debug
 	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST_BUILTINS) -o $(TESTDIR)/testbuiltins
-
-testfindfullpath: $(SRCS_TEST_FINDFULLPATH)
-	make -C libs/libft debug
-	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST_FINDFULLPATH) -o $(TESTDIR)/testfindfullpath
 
 clean:
 	make -C libs/libft clean

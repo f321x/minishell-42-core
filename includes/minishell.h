@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 12:59:35 by student         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:24:26 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,3 @@ void	free_vector(char **vector);
 void	register_signal_handlers(void);
 void	sigint_handler(int signum);
 void	sigquit_handler(int signum);
-
-// just for testing
-bool	find_full_path(t_process *process);
