@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/11 12:31:26 by marschul         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/11 10:29:36 by ***REMOVED***            ###   ########.fr       */
->>>>>>> 50de876a30be1f48844fd646bc323e2a4d91a48e
+/*   Updated: 2024/01/11 12:59:35 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +143,9 @@ int		get_here_file(char *keyword, int true_stdin, int true_stdout);
 
 // handle_iofiles.c
 bool	handle_inoutfiles(t_process *process, int true_inout_fds[2]);
+
+// handle_iofiles2.c
+bool	get_tmp_name(char tmp_name[PATH_MAX]);
 
 // find_full_path.c
 bool	find_full_path(t_process *process);

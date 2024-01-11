@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:01:08 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 21:14:01 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:38:14 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,11 @@ int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 {
 	int		fd;
 	int		end;
+	char	tmp_name[PATH_MAX];
 
-	fd = open("tmp", O_CREAT | O_WRONLY | O_TRUNC, 0600);
+	if (! get_tmp_name(tmp_name))
+		return (-1);
+	fd = open(tmp_name, O_CREAT | O_WRONLY | O_TRUNC, 0600);
 	end = 0;
 	while (end == 0)
 	{
@@ -81,6 +84,6 @@ int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 	close(fd);
 	if (end == -1)
 		return (-1);
-	fd = open("tmp", O_RDONLY, 0600);
+	fd = open(tmp_name, O_RDONLY, 0600);
 	return (fd);
 }
