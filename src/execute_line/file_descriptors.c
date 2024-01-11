@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_descriptors.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:12:13 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/11 12:31:46 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:54:57 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ bool	close_last_fds(int (*fd_array)[2], size_t i)
 
 void	restore_fds(int (*fd_array)[2], size_t p_amount)
 {
-		close_all_fds(fd_array, p_amount);
-		if (dup2(fd_array[p_amount - 1][0], 0) == -1 || \
-			dup2(fd_array[p_amount - 1][1], 1) == -1)
-			perror("Minishell: restore_fds");
-		if (close(fd_array[p_amount - 1][0]) == -1 || \
-			close(fd_array[p_amount - 1][1]) == -1)
-			perror("Minishell: restore_fds");
+	close_all_fds(fd_array, p_amount);
+	if (dup2(fd_array[p_amount - 1][0], 0) == -1 || \
+		dup2(fd_array[p_amount - 1][1], 1) == -1)
+		perror("Minishell: restore_fds");
+	if (close(fd_array[p_amount - 1][0]) == -1 || \
+		close(fd_array[p_amount - 1][1]) == -1)
+		perror("Minishell: restore_fds");
 }
