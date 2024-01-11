@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:09 by student          #+#    #+#             */
-/*   Updated: 2024/01/10 13:11:25 by student         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:54:53 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool	set_exit_value(int exit_value)
 	argv[1] = environment_var;
 	if (! export(argv))
 		return (false);
+	free(environment_var);
 	return (true);
 }
 
