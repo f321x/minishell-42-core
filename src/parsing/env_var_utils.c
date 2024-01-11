@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:46:10 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 12:46:21 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 10:29:55 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ bool	parse_env_var(t_parsing *p)
 			p->inp_i++;
 		return (true);
 	}
-	return (fetch_env_var(p, buffer, current_argv));
+	return (fetch_env_var(buffer, current_argv));
 }

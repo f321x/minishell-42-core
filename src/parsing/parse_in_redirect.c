@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:16:32 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 12:40:49 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 10:55:08 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,22 @@ bool	parse_in_name(t_parsing *p, t_inoutfiles *curr_iof)
 {
 	char	buffer[PROC_FIELD_BUFFER];
 	size_t	buffer_i;
-	bool	success;
 
 	buffer_i = 0;
 	ft_memset(buffer, '\0', PROC_FIELD_BUFFER);
 	if (!(traverse_trough_iname(p, buffer, &buffer_i)
-			|| ft_strlen(buffer) < 1 || !success))
+			|| ft_strlen(buffer) < 1))
 		return (false);
 	curr_iof->name = ft_strdup(buffer);
 	p->task->processes[p->task->p_amount].io_amount++;
 	if (!curr_iof->name)
 		return (false);
+	if (ft_strchr(curr_iof->name, ' '))
+	{
+		free(curr_iof->name);
+		p->task->processes[p->task->p_amount].io_amount--;
+		printf("Minishell: ambiguous redirect\n");  // add var name string
+	}
 	return (true);
 }
 

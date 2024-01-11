@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 13:53:29 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 10:29:20 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static bool	append_last_string(char *env_var,
 	return (true);
 }
 
-bool	fetch_env_var(t_parsing *p, char *buffer, char ***current_argv)
+bool	fetch_env_var(char *buffer, char ***current_argv)
 {
 	char	argv_buffer[PROC_FIELD_BUFFER];
 	char	*env_var;
