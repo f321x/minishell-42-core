@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 17:37:44 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 18:47:16 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	check_if_ctrld(char *entered_line)
 // returns the entered line if it is not empty
 char	*read_a_line(char *prompt)
 {
-	char	*entered_line;
+	char			*entered_line;
 
 	while (1)
 	{
