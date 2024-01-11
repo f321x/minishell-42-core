@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/11 12:31:26 by marschul         ###   ########.fr       */
+=======
+/*   Updated: 2024/01/11 10:29:36 by ***REMOVED***            ###   ########.fr       */
+>>>>>>> 50de876a30be1f48844fd646bc323e2a4d91a48e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +131,7 @@ bool	ft_isdelimiter(char c);
 
 // parsing_env_var.c
 bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
-bool	fetch_env_var(t_parsing *p, char *buffer, char ***current_argv);
+bool	fetch_env_var(char *buffer, char ***current_argv);
 
 // env_var_utils.c
 void	fill_buffer(char *buffer, size_t buffer_s,
