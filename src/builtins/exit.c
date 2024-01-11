@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:20 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 14:00:52 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 17:22:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ bool	_exit_(char **argv, t_pipe *pipe_struct,
 	}
 	else
 		exit_value = 0;
-	free_vector(environ);
 	cleanup(pipe_struct, fd_array, pid_array);
+	free_vector(environ);
 	ft_printf("exit\n");
 	exit(exit_value);
 }
