@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 18:23:48 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 21:04:32 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,17 @@
 
 void	initialize_exit_code(void)
 {
-	char	*argv[3];
+	char	*argv[4];
 
 	argv[0] = "export";
 	argv[1] = "?=0";
 	argv[2] = NULL;
 	export(argv);
+	argv[0] = "unset";
+	argv[1] = "XPC_SERVICE_NAME";
+	argv[2] = "VSCODE_INJECTION";
+	argv[3] = NULL;
+	unset(argv);
 }
 
 // static void debug_printing(t_pipe *task)
