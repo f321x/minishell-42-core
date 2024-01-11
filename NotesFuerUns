@@ -1,12 +1,9 @@
 Felix:
 
-bash-3.2$ export test='test'hello$HOME
-bash-3.2$ echo $test
-testhello/Users/***REMOVED***
-
-- > inf1.txt
+- > "inf1.txt"test
 
 Mara
+-ctrl+c im heredoc
 
 minishell$ exit
 argv: exit
