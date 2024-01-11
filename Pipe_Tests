@@ -7,31 +7,37 @@ a, b, c sind Argumente, f1, f2, f3 sind Files.
 
 
 
-a
-a < f1
-a > f1
-a >> f1
-a << here
-a < f1 > f2
-< f1 > f2 a
+a	DONE
+a < f1	DONE
+a > f1	DONE
+a >> f1	DONE
+a << here	DONE
+a < f1 > f2 >> f3 << here	DONE
 
 
 
-a < f1 < f2 < f3
-a << here1 << here2
-a > f1 > f2 > f3
-a >> f1 >> f2 >> f3
+< f1	DOES NOT WORK
+< f1 > f2 a		DONE
+< f1 a > f2		DONE
 
 
 
-> f1 a >> f2 b << here < f3
+a < f1 < f2 < f3		DONE
+a << here1 << here2		DONE
+a > f1 > f2 > f3		DONE
+a >> f1 >> f2 >> f3		DONE
 
 
 
-a | b
-a | b | c | d
-a < f1 | b > f2
-a < f1 > f2 | b
+> f1 a >> f2 b << here < f3		DONE
+
+
+
+a | b				DONE
+a | b | c | d		DONE
+< f1 a > f2			DONE
+a < f1 | b > f2		DONE
+a < f1 > f2 | b		DONE
 
 
 Teste alles auch mit Builtins und Programmen gemischt!
