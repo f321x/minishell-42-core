@@ -1,13 +1,7 @@
 Felix:
 
 - cat < "a b" gefixt, aber du musst einen Syntaxerror
-export test="a b"
-cat < "a b"
 
-bash-3.2$ cat < "a b"
-bash: a b: No such file or directory
-bash-3.2$ export a="a b"
-bash-3.2$ cat < $a
-bash: $a: ambiguous redirect
+- cat 'a'b sollte ab ausgeben ohne ' ' (space).
 
 Mara
