@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: student <student@example.invalid>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:01 by student          #+#    #+#             */
-/*   Updated: 2024/01/11 14:18:16 by student         ###   ########.fr       */
+/*   Updated: 2024/01/11 16:54:42 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_processes(t_pipe *pipe_struct)
 {
-	size_t i;
+	size_t	i;
 	long	j;
 
 	i = 0;
