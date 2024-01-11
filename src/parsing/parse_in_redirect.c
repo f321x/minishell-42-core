@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:16:32 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 10:55:08 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 11:50:09 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	parse_in_name(t_parsing *p, t_inoutfiles *curr_iof)
 	{
 		free(curr_iof->name);
 		p->task->processes[p->task->p_amount].io_amount--;
-		printf("Minishell: ambiguous redirect\n");  // add var name string
+		printf("Minishell: ambiguous redirect\n");
 	}
 	return (true);
 }
