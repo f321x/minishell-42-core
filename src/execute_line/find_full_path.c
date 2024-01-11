@@ -6,13 +6,13 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:04:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 21:12:09 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/11 13:42:51 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	expand_path_var(char *paths, char new_paths[1000])
+bool	expand_path_var(char *paths, char new_paths[PATH_MAX])
 {
 	int		i;
 
@@ -28,7 +28,7 @@ bool	expand_path_var(char *paths, char new_paths[1000])
 		else
 			new_paths[i] = *paths;
 		i++;
-		if (i >= 998)
+		if (i >= PATH_MAX - 2)
 			return (false);
 		paths++;
 	}
@@ -38,7 +38,7 @@ bool	expand_path_var(char *paths, char new_paths[1000])
 }
 
 int	concatenate_path_with_name(char *start, char *name, \
-	char full_path[PATH_MAX])
+	char full_path[12000])
 {
 	int		full_path_index;
 	char	*end;
@@ -70,7 +70,7 @@ bool	find_full_path(t_process *process)
 {
 	char	*paths;
 	char	*name;
-	char	full_path[PATH_MAX];
+	char	full_path[12000];
 	char	new_paths[1000];
 	char	*start;
 
