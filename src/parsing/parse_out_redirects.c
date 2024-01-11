@@ -6,38 +6,11 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 10:44:42 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 15:02:11 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/11 16:49:27 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	parse_out_singlequotes(t_parsing *p, char *buffer, size_t *buff_i)
-{
-	p->inp_i++;
-	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != 39)
-		buffer[(*buff_i)++] = p->u_input[p->inp_i++];
-	if (p->u_input[p->inp_i] != 39)
-		return (false);
-	p->inp_i++;
-	return (true);
-}
-
-bool	parse_out_doublequotes(t_parsing *p, char *buffer, size_t *buff_i)
-{
-	p->inp_i++;
-	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != '"')
-	{
-		if (p->u_input[p->inp_i] == '$')
-			fill_env_in_buffer(p, buffer, buff_i);
-		else
-			buffer[(*buff_i)++] = p->u_input[p->inp_i++];
-	}
-	if (p->u_input[p->inp_i] != '"')
-		return (false);
-	p->inp_i++;
-	return (true);
-}
 
 static bool	parse_out_name(t_parsing *p, t_inoutfiles *curr_iof)
 {
@@ -53,9 +26,9 @@ static bool	parse_out_name(t_parsing *p, t_inoutfiles *curr_iof)
 		if (p->u_input[p->inp_i] == '$')
 			fill_env_in_buffer(p, buffer, &buffer_i);
 		else if (p->u_input[p->inp_i] == 39)
-			success = parse_out_singlequotes(p, buffer, &buffer_i);
+			success = parse_single_quote(p, buffer, &buffer_i);
 		else if (p->u_input[p->inp_i] == '"')
-			success = parse_out_doublequotes(p, buffer, &buffer_i);
+			success = parse_double_quote(p, buffer, &buffer_i);
 		else
 			buffer[buffer_i++] = p->u_input[p->inp_i++];
 	}
