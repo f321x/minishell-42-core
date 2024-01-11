@@ -7,3 +7,36 @@ testhello/Users/***REMOVED***
 - > inf1.txt
 
 Mara
+
+minishell$ exit
+argv: exit
+
+iofiles:
+
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==22556==ERROR: AddressSanitizer: BUS on unknown address 0x602027800002 (pc 0x7fff6bfac45f bp 0x7ffee4167cd0 sp 0x7ffee4167cd0 T0)
+==22556==WARNING: failed to spawn external symbolizer (errno: 22)
+==22556==WARNING: failed to spawn external symbolizer (errno: 22)
+==22556==WARNING: failed to spawn external symbolizer (errno: 22)
+==22556==WARNING: failed to spawn external symbolizer (errno: 22)
+==22556==WARNING: failed to spawn external symbolizer (errno: 22)
+==22556==WARNING: Failed to use and restart external symbolizer!
+    #0 0x7fff6bfac45f in __findenv_locked+0x34 (/usr/lib/system/libsystem_c.dylib:x86_64+0x5a45f)
+    #1 0x7fff6bfac562 in getenv+0x35 (/usr/lib/system/libsystem_c.dylib:x86_64+0x5a562)
+    #2 0x10b920043 in get_tmp_name+0x63 (/Users/***REMOVED***/code/minishell-42-core/./minishell_debug:x86_64+0x100016043)
+    #3 0x10b91d417 in cleanup+0x197 (/Users/***REMOVED***/code/minishell-42-core/./minishell_debug:x86_64+0x100013417)
+    #4 0x10b91a798 in _exit_+0x4c8 (/Users/***REMOVED***/code/minishell-42-core/./minishell_debug:x86_64+0x100010798)
+    #5 0x10b91c0db in execute_commands+0x2eb (/Users/***REMOVED***/code/minishell-42-core/./minishell_debug:x86_64+0x1000120db)
+    #6 0x10b91c8c5 in execute_line+0x4d5 (/Users/***REMOVED***/code/minishell-42-core/./minishell_debug:x86_64+0x1000128c5)
+    #7 0x10b90eb86 in main+0x1a6 (/Users/***REMOVED***/code/minishell-42-core/./minishell_debug:x86_64+0x100004b86)
+    #8 0x7fff6bf02cc8 in start+0x0 (/usr/lib/system/libdyld.dylib:x86_64+0x1acc8)
+
+==22556==Register values:
+rax = 0x0000602027800002  rbx = 0x000000010b9214c0  rcx = 0x00007ffee42f552f  rdx = 0x0000613000000200
+rdi = 0x000000010b9214c0  rsi = 0x00007ffee4167cec  rbp = 0x00007ffee4167cd0  rsp = 0x00007ffee4167cd0
+ r8 = 0x0000000000000004   r9 = 0x0000000000000004  r10 = 0x0000613000000200  r11 = 0x00000fffffffffff
+r12 = 0x0000000000000000  r13 = 0x0000000000000000  r14 = 0x00007fff92a29630  r15 = 0x0000000000000000
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: BUS (/usr/lib/system/libsystem_c.dylib:x86_64+0x5a45f) in __findenv_locked+0x34
+[1]    22556 illegal hardware instruction  ./minishell_debug
