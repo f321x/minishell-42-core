@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/11 14:11:16 by ***REMOVED***            ###   ########.fr       */
+=======
+/*   Updated: 2024/01/11 14:24:26 by marschul         ###   ########.fr       */
+>>>>>>> 3c992362af996897375934a39d774f192a24fc5c
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +149,9 @@ int		get_here_file(char *keyword, int true_stdin, int true_stdout);
 // handle_iofiles.c
 bool	handle_inoutfiles(t_process *process, int true_inout_fds[2]);
 
+// handle_iofiles2.c
+bool	get_tmp_name(char tmp_name[PATH_MAX]);
+
 // find_full_path.c
 bool	find_full_path(t_process *process);
 
@@ -162,6 +169,7 @@ bool	is_exit(char *name);
 // file-descriptors.c
 void	close_all_fds(int (*fd_array)[2], size_t p_amount);
 bool	close_last_fds(int (*fd_array)[2], size_t i);
+void	restore_fds(int (*fd_array)[2], size_t p_amount);
 
 // helper_functions.c
 bool	error_wrapper(void);
@@ -174,6 +182,3 @@ void	free_vector(char **vector);
 void	register_signal_handlers(void);
 void	sigint_handler(int signum);
 void	sigquit_handler(int signum);
-
-// just for testing
-bool	find_full_path(t_process *process);

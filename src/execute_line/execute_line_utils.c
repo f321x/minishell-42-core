@@ -6,19 +6,17 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:01 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 13:08:27 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:18:16 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
+void	free_processes(t_pipe *pipe_struct)
 {
-	size_t	i;
+	size_t i;
 	long	j;
 
-	free(pid_array);
-	free(fd_array);
 	i = 0;
 	while (i < pipe_struct->p_amount)
 	{
@@ -31,8 +29,20 @@ int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 		}
 		i++;
 	}
-	if (access("tmp", F_OK) == 0)
-		if (unlink("tmp") == -1)
+}
+
+int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
+{
+	char	tmp_name[PATH_MAX];
+
+	restore_fds(fd_array, pipe_struct->p_amount);
+	free(pid_array);
+	free(fd_array);
+	free_processes(pipe_struct);
+	if (! get_tmp_name(tmp_name))
+		return (0);
+	if (access(tmp_name, F_OK) == 0)
+		if (unlink(tmp_name) == -1)
 			perror("Minishell: cleanup");
 	return (0);
 }
