@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/10 20:59:11 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:31:26 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,7 @@ bool	is_exit(char *name);
 // file-descriptors.c
 void	close_all_fds(int (*fd_array)[2], size_t p_amount);
 bool	close_last_fds(int (*fd_array)[2], size_t i);
+void	restore_fds(int (*fd_array)[2], size_t p_amount);
 
 // helper_functions.c
 bool	error_wrapper(void);
