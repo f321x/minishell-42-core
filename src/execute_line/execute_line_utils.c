@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:01 by student          #+#    #+#             */
-/*   Updated: 2024/01/10 13:08:27 by student         ###   ########.fr       */
+/*   Updated: 2024/01/11 12:24:18 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	size_t	i;
 	long	j;
 
+	restore_fds(fd_array, pipe_struct->p_amount);
 	free(pid_array);
 	free(fd_array);
 	i = 0;
