@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:09 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 13:11:25 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/11 18:54:53 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ bool	set_exit_value(int exit_value)
 	argv[1] = environment_var;
 	if (! export(argv))
 		return (false);
+	free(environment_var);
 	return (true);
 }
 
