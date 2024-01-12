@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 18:47:16 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 06:07:18 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ static void	check_if_ctrld(char *entered_line)
 	}
 }
 
+void disable_echo_and_read(char **entered_line) {
+    struct termios term;
+	size_t length;
+
+	fflush(stdout);
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~ECHO;
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	*entered_line = get_next_line(0);
+	length = ft_strlen(*entered_line);
+	if (*entered_line && (*entered_line)[length - 1] == '\n')
+		(*entered_line)[length - 1] = '\0';
+	if (! *entered_line)
+		exit(0);
+}
+
+
+
 // Reads a line of input from the user.
 // prompt: The prompt to display to the user.
 // exits if the user presses CTRL+D (EOF / 0)
@@ -33,7 +51,10 @@ char	*read_a_line(char *prompt)
 
 	while (1)
 	{
-		entered_line = readline(prompt);
+		if (! isatty(0))
+			disable_echo_and_read(&entered_line);
+		else
+			entered_line = readline(prompt);
 		check_if_ctrld(entered_line);
 		if (!entered_line)
 			continue ;
