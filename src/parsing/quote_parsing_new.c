@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 11:50:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 14:17:41 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 14:24:15 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,33 +78,10 @@ bool	parse_double_quote(t_parsing *p, char *buffer, size_t *buffer_i)
 bool	parse_remaining(t_parsing *p)
 {
 	char	buffer[PROC_FIELD_BUFFER];
-	// size_t	buffer_i;
-
 
 	if (!fill_buffer(buffer, PROC_FIELD_BUFFER, p))
 		return (false);
 	if (!add_buffer_to_argv(p, buffer))
 		return (false);
 	return (true);
-
-	// ft_memset(buffer, '\0', PROC_FIELD_BUFFER);
-	// buffer_i = 0;
-	// while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' ')
-	// {
-	// 	if (p->u_input[p->inp_i] == 39)
-	// 	{
-	// 		if (!parse_single_quote(p, buffer, &buffer_i))
-	// 			return (false);
-	// 	}
-	// 	else if (p->u_input[p->inp_i] == '"')
-	// 	{
-	// 		if (!parse_double_quote(p, buffer, &buffer_i))
-	// 			return (false);
-	// 	}
-	// 	else if (p->u_input[p->inp_i] == '$')
-	// 		fill_env_in_buffer(p, buffer, &buffer_i);
-	// 	else
-	// 		buffer[buffer_i++] = p->u_input[p->inp_i++];
-	// }
-
 }

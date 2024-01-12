@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 10:14:36 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 14:25:16 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,88 +51,3 @@ bool	fetch_env_var(char *buffer, char ***current_argv)
 	}
 	return (append_last_string(env_var, current_argv, argv_buffer));
 }
-
-// static void	parse_dq_assignment(t_parsing *p, char *assignment_buffer,
-// 								size_t *ass_buff_i)
-// {
-// 	char	env_key_buffer[PROC_FIELD_BUFFER];
-// 	char	*env_var;
-
-// 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != '"')
-// 	{
-// 		if (p->u_input[p->inp_i] == '$')
-// 		{
-// 			p->inp_i++;
-// 			if (p->u_input[p->inp_i] == ' ' || p->u_input[p->inp_i] == '"')
-// 			{
-// 				assignment_buffer[(*ass_buff_i)++] = '$';
-// 				continue ;
-// 			}
-// 			fill_buffer(env_key_buffer, PROC_FIELD_BUFFER,
-// 				p->u_input, &(p->inp_i));
-// 			env_var = getenv(env_key_buffer);
-// 			if (env_var != NULL)
-// 			{
-// 				ft_strlcat(assignment_buffer, env_var, PROC_FIELD_BUFFER);
-// 				*ass_buff_i += ft_strlen(env_var);
-// 			}
-// 		}
-// 		else
-// 			assignment_buffer[(*ass_buff_i)++] = p->u_input[p->inp_i++];
-// 	}
-// }
-
-// parse assignment without quotes
-// static void	parse_assignment(t_parsing *p, char *assignment_buffer,
-// 								size_t *ass_buff_i)
-// {
-// 	char	env_key_buffer[PROC_FIELD_BUFFER];
-// 	char	*env_var;
-
-// 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' ')
-// 	{
-// 		if (p->u_input[p->inp_i] == '$' && p->inp_i++)
-// 		{
-// 			if (p->u_input[p->inp_i] == ' ')
-// 			{
-// 				assignment_buffer[(*ass_buff_i)++] = '$';
-// 				break ;
-// 			}
-// 			fill_buffer(env_key_buffer, PROC_FIELD_BUFFER,
-// 				p->u_input, &(p->inp_i));
-// 			env_var = getenv(env_key_buffer);
-// 			if (env_var != NULL)
-// 			{
-// 				ft_strlcat(assignment_buffer, env_var, PROC_FIELD_BUFFER);
-// 				*ass_buff_i += ft_strlen(env_var);
-// 			}
-// 			break ;
-// 		}
-// 		else
-// 			assignment_buffer[(*ass_buff_i)++] = p->u_input[p->inp_i++];
-// 	}
-// }
-
-// parsing for key=value, key='value', key="value", key="$value" and key=$value
-// bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
-// {
-// 	buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
-// 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' ')
-// 	{
-// 		if (p->u_input[p->inp_i] == 39)
-// 		{
-// 			if (!parse_single_quote(p, buffer, buffer_i))
-// 				return (false);
-// 		}
-// 		else if (p->u_input[p->inp_i] == '"')
-// 		{
-// 			if (!parse_double_quote(p, buffer, buffer_i))
-// 				return (false);
-// 		}
-// 		else if (p->u_input[p->inp_i] == '$')
-// 			fill_env_in_buffer(p, buffer, buffer_i);
-// 		else
-// 			buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
-// 	}
-// 	return (true);
-// }
