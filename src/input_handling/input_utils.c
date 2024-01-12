@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 21:19:47 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/12 04:56:55 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ static void	check_if_ctrld(char *entered_line)
 	}
 }
 
+void disable_echo() {
+    struct termios term;
+
+	fflush(stdout);
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~ECHO;
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
+
 // Reads a line of input from the user.
 // prompt: The prompt to display to the user.
 // exits if the user presses CTRL+D (EOF / 0)
@@ -33,7 +42,16 @@ char	*read_a_line(char *prompt)
 
 	while (1)
 	{
-		entered_line = readline(prompt);
+		if (! isatty(0))
+		{
+			disable_echo();
+			entered_line = get_next_line(0);
+			size_t length = ft_strlen(entered_line);
+			if (entered_line && entered_line[length - 1] == '\n')
+				entered_line[length - 1] = '\0';
+		}
+		else
+			entered_line = readline(SHELL_PROMPT);
 		check_if_ctrld(entered_line);
 		if (!entered_line)
 			continue ;
