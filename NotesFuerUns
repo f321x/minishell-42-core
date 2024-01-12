@@ -1,6 +1,6 @@
 Felix:
 
-
+echo "$VAR"
 
 Mara:
 
