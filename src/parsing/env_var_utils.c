@@ -6,26 +6,36 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:46:10 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 10:29:55 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 14:22:09 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	fill_buffer(char *buffer, size_t buffer_s,
-					char *string, size_t *str_index)
+bool	fill_buffer(char *buffer, size_t buffer_s, t_parsing *p)
 {
 	size_t	buffer_i;
 
 	buffer_i = 0;
 	ft_memset(buffer, '\0', buffer_s);
-	if (buffer_i < buffer_s && string && string[*str_index] == '?')
-		buffer[buffer_i++] = string[(*str_index)++];
-	while (buffer_i < buffer_s
-		&& string && ft_isalnum(string[*str_index]))
+	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' ')
 	{
-		buffer[buffer_i++] = string[(*str_index)++];
+		if (p->u_input[p->inp_i] == 39)
+		{
+			if (!parse_single_quote(p, buffer, &buffer_i))
+				return (false);
+		}
+		else if (p->u_input[p->inp_i] == '"')
+		{
+			if (!parse_double_quote(p, buffer, &buffer_i))
+				return (false);
+		}
+		else if (p->u_input[p->inp_i] == '$')
+			fill_env_in_buffer(p, buffer, &buffer_i);
+		else
+			buffer[buffer_i++] = p->u_input[p->inp_i++];
 	}
+	return (true);
 }
 
 bool	parse_env_var(t_parsing *p)
@@ -35,7 +45,8 @@ bool	parse_env_var(t_parsing *p)
 
 	p->inp_i++;
 	current_argv = &(p->task->processes[p->task->p_amount].argv);
-	fill_buffer(buffer, PROC_FIELD_BUFFER, p->u_input, &(p->inp_i));
+	if (!fill_buffer(buffer, PROC_FIELD_BUFFER, p))
+		return (false);
 	if (ft_strlen(buffer) == 0)
 	{
 		*current_argv = append_string(*current_argv, "$");
