@@ -42,7 +42,7 @@ main() {
 }
 
 test_mandatory() {
-	FILES="cmds/mand/1_builtins.sh"
+	FILES="cmds/mand/9_go_wild.sh"
 	for file in $FILES
 	do
 		test_from_file $file

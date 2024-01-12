@@ -6,7 +6,7 @@
 #    By: student <student@example.invalid>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/12 06:10:26 by student         ###   ########.fr        #
+#    Updated: 2024/01/12 06:16:42 by student         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,12 @@ $(NAME): $(OBJS)
 debug: $(DOBJS)
 	make -C libs/libft debug
 	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(DOBJS) -o $(DNAME)
+
+test: $(DOBJS)
+	make -C libs/libft debug
+	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(DOBJS) -o $(DNAME)
+	cd github_tester; bash ./tester.sh m
+	
 
 testexecute:
 	make -C libs/libft
