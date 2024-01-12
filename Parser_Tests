@@ -36,3 +36,6 @@ Redirections ohne command werden trotzdem ausgefuehrt		GOOD
 12)
 export a="a b"
 > $a				ergibt "ambiguous redirect"		FAILEN WIR
+
+13)
+>>>>>>>>>>>>>>>>>>> ergibt Syntax error		FAILEN WIR
