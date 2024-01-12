@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 11:50:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 14:24:15 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 15:14:57 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,32 @@ bool	parse_single_quote(t_parsing *p, char *buffer, size_t *buffer_i)
 	return (true);
 }
 
+static void	fill_env_buffer(char *buffer, t_parsing *p)
+{
+	size_t	buffer_i;
+
+	buffer_i = 0;
+
+	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != 39
+			&& p->u_input[p->inp_i] != '"' && p->u_input[p->inp_i] != ' ')
+	{
+		buffer[buffer_i++] = p->u_input[p->inp_i++];
+	}
+}
+
 void	fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	char		env_buffer[PROC_FIELD_BUFFER];
 	char		*env_var;
 
 	p->inp_i++;
+	ft_memset(env_buffer, '\0', PROC_FIELD_BUFFER);
 	if (!ft_isalnum(p->u_input[p->inp_i]))
 	{
 		buffer[(*buffer_i)++] = '$';
 		return ;
 	}
-	fill_buffer(env_buffer, PROC_FIELD_BUFFER, p);
+	fill_env_buffer(env_buffer, p);
 	env_var = getenv(env_buffer);
 	if (env_var != NULL)
 	{

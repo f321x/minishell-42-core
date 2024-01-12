@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 12:46:10 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 14:46:22 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 15:15:22 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ bool	fill_buffer(char *buffer, size_t buffer_s, t_parsing *p)
 	ft_memset(buffer, '\0', buffer_s);
 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' ')
 	{
+		// if ((p->u_input[p->inp_i] == 39 || p->u_input[p->inp_i] == '"') && in)
+		// 	return (p->inp_i++);
 		if (p->u_input[p->inp_i] == 39)
 		{
 			if (!parse_single_quote(p, buffer, &buffer_i))
