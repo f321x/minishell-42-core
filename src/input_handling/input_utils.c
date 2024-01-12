@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 06:07:18 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:38:47 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,15 @@ static void	check_if_ctrld(char *entered_line)
 	}
 }
 
-void disable_echo_and_read(char **entered_line) {
-    struct termios term;
-	size_t length;
+void	disable_echo_and_read(char **entered_line)
+{
+	struct termios		term;
+	size_t				length;
 
 	fflush(stdout);
-    tcgetattr(STDIN_FILENO, &term);
-    term.c_lflag &= ~ECHO;
-    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	*entered_line = get_next_line(0);
 	length = ft_strlen(*entered_line);
 	if (*entered_line && (*entered_line)[length - 1] == '\n')
@@ -37,8 +38,6 @@ void disable_echo_and_read(char **entered_line) {
 	if (! *entered_line)
 		exit(0);
 }
-
-
 
 // Reads a line of input from the user.
 // prompt: The prompt to display to the user.

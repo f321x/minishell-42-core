@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:16:32 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 10:49:39 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 14:32:58 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,11 @@ bool	parse_in_redirect(t_parsing *p)
 	}
 	else if (p->u_input[p->inp_i])
 		curr_iof->type = IN;
+	if (!p->u_input[p->inp_i])
+	{
+		printf("Minishell: syntax error near unexpected token 'newline'\n");
+		return (false);
+	}
 	skip_whitespace(p);
 	return (parse_in_name(p, curr_iof));
 }
