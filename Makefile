@@ -6,7 +6,7 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/12 03:53:18 by marschul         ###   ########.fr        #
+#    Updated: 2024/01/12 06:10:26 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,10 +34,9 @@ $(SRCDIR)/gnl/get_next_line_bonus.c $(SRCDIR)/gnl/get_next_line_utils_bonus.c
 
 OBJS	:= $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 DOBJS   := $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.d.o,$(SRCS))
-$(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling $(OBJDIR)/parsing $(OBJDIR)/builtins $(OBJDIR)/execute_line)
+$(shell mkdir -p $(OBJDIR) $(OBJDIR)/input_handling $(OBJDIR)/parsing $(OBJDIR)/builtins $(OBJDIR)/execute_line $(OBJDIR)/gnl)
 
 SRCS_TEST_BUILTINS = $(patsubst $(SRCDIR)/minishell.c, $(TESTDIR)/test_builtins.c , $(SRCS))
-SRCS_TEST_FINDFULLPATH = $(patsubst $(SRCDIR)/minishell.c, $(TESTDIR)/test_findfullpath.c , $(SRCS))
 
 all: $(NAME)
 
