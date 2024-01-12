@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 06:07:18 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/12 07:42:04 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void disable_echo_and_read(char **entered_line) {
     struct termios term;
 	size_t length;
 
-	fflush(stdout);
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~ECHO;
     tcsetattr(STDIN_FILENO, TCSANOW, &term);
@@ -51,9 +50,9 @@ char	*read_a_line(char *prompt)
 
 	while (1)
 	{
-		if (! isatty(0))
-			disable_echo_and_read(&entered_line);
-		else
+		// if (! isatty(0))
+		// 	disable_echo_and_read(&entered_line);
+		// else
 			entered_line = readline(prompt);
 		check_if_ctrld(entered_line);
 		if (!entered_line)

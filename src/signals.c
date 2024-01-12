@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:07:12 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/10 21:11:14 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/12 07:49:29 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 void	sigint_handler(int signum)
 {
 	signum++;
-	ft_printf("\n");
+	printf("\b\b\033[K");
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+
 }
 
 void	register_signal_handlers(void)
