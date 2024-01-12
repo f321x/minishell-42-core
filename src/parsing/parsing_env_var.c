@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:01:57 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 14:39:55 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/12 10:14:36 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,25 +114,25 @@ bool	fetch_env_var(char *buffer, char ***current_argv)
 // }
 
 // parsing for key=value, key='value', key="value", key="$value" and key=$value
-bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
-{
-	buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
-	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' ')
-	{
-		if (p->u_input[p->inp_i] == 39)
-		{
-			if (!parse_single_quote(p, buffer, buffer_i))
-				return (false);
-		}
-		else if (p->u_input[p->inp_i] == '"')
-		{
-			if (!parse_double_quote(p, buffer, buffer_i))
-				return (false);
-		}
-		else if (p->u_input[p->inp_i] == '$')
-			fill_env_in_buffer(p, buffer, buffer_i);
-		else
-			buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
-	}
-	return (true);
-}
+// bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i)
+// {
+// 	buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
+// 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != ' ')
+// 	{
+// 		if (p->u_input[p->inp_i] == 39)
+// 		{
+// 			if (!parse_single_quote(p, buffer, buffer_i))
+// 				return (false);
+// 		}
+// 		else if (p->u_input[p->inp_i] == '"')
+// 		{
+// 			if (!parse_double_quote(p, buffer, buffer_i))
+// 				return (false);
+// 		}
+// 		else if (p->u_input[p->inp_i] == '$')
+// 			fill_env_in_buffer(p, buffer, buffer_i);
+// 		else
+// 			buffer[(*buffer_i)++] = p->u_input[p->inp_i++];
+// 	}
+// 	return (true);
+// }
