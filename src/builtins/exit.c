@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:20 by student          #+#    #+#             */
-/*   Updated: 2024/01/11 17:22:51 by student         ###   ########.fr       */
+/*   Updated: 2024/01/13 18:09:25 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ bool	_exit_(char **argv, t_pipe *pipe_struct,
 		exit_value = 0;
 	cleanup(pipe_struct, fd_array, pid_array);
 	free_vector(environ);
+	rl_clear_history();
 	ft_printf("exit\n");
 	exit(exit_value);
 }
