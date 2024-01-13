@@ -6,7 +6,7 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:39:08 by student          #+#    #+#             */
-/*   Updated: 2024/01/11 17:24:17 by student         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:32:00 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ bool	get_tmp_name(char tmp_name[PATH_MAX])
 {
 	char	*name;
 	int		length;
+	char	*number;
 
 	length = 0;
 	if (ft_memcpy(tmp_name, "/tmp/", 5) == NULL)
@@ -27,6 +28,7 @@ bool	get_tmp_name(char tmp_name[PATH_MAX])
 	if (ft_memcpy(tmp_name + length, name, ft_strlen(name)) == NULL)
 		return (error_wrapper_bool("Minishell: get_tmp_name"));
 	length += ft_strlen(name);
+	number = ft_itoa()
 	if (ft_memcpy(tmp_name + length, "/minishell_tmp", 14) == NULL)
 		return (error_wrapper_bool("Minishell: get_tmp_name"));
 	length += 14;
