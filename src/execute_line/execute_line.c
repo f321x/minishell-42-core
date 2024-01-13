@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/11 21:16:22 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/13 14:28:29 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, \
 	if (! handle_inoutfiles(process, fd_array[p_amount - 1]))
 		return (0);
 	if (process->argv != NULL)
-	{
 		if (builtin(process->argv) == false)
 			return (0);
-	}
 	if (dup2(fd_array[p_amount - 1][1], 1) == -1)
 		return (error_wrapper_int("Minishell: launch_builtin"));
 	if (dup2(fd_array[p_amount - 1][0], 0) == -1)
