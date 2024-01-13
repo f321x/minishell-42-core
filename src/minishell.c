@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/13 13:24:31 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/13 19:02:29 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,6 @@ void	initialize_exit_code(void)
 	argv[1] = "?=0";
 	argv[2] = NULL;
 	export(argv);
-	argv[0] = "unset";
-	argv[1] = "XPC_SERVICE_NAME";
-	argv[2] = "VSCODE_INJECTION";
-	argv[3] = NULL;
-	unset(argv);
 }
 
 // static void debug_printing(t_pipe *task)

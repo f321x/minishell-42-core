@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:09 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/11 18:54:53 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/13 18:37:03 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct)
 	size_t	i;
 	int		status_pointer;
 
+	status_pointer = 0;
 	i = 0;
 	while (i < pipe_struct->p_amount)
 	{

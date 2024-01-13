@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/13 13:57:46 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/13 19:00:30 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	check_if_ctrld(char *entered_line)
 	if (entered_line == 0)
 	{
 		free(entered_line);
+		rl_clear_history();
 		free_old_env(NULL);
 		exit(EXIT_SUCCESS);
 	}
@@ -45,10 +46,13 @@ void	disable_echo_and_read(char **entered_line)
 // returns the entered line if it is not empty
 char	*read_a_line(char *prompt)
 {
-	char			*entered_line;
+	char		*entered_line;
+	char		**old_env;
+	extern char	**environ;
 
 	while (1)
 	{
+		old_env = environ;
 		// if (! isatty(0))
 		// 	disable_echo_and_read(&entered_line);
 		// else

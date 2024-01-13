@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 15:43:49 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 18:44:40 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/13 19:01:26 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,10 @@ void	free_old_env(char **old_env)
 	static bool		called_before = false;
 
 	index = 0;
-	if (!old_env)
+	if (old_env == NULL)
 		old_env = environ;
 	if (called_before)
-	{
-		while (old_env && old_env[index])
-		{
-			free(old_env[index]);
-			index++;
-		}
-		free(old_env);
-	}
+		free_vector(old_env);
 	called_before = true;
 }
 
