@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 07:41:52 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/13 13:24:31 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	initialize_exit_code(void)
 // 				in++;
 // 			}
 // 			printf("\n");
-
+//
 // 			int io = 0;
 // 			printf("\niofiles:\n");
 // 			while (io < task->processes[i].io_amount)
@@ -84,8 +84,8 @@ int	main(void)
 			free(entered_line);
 			continue ;
 		}
-		free(entered_line);
 		// debug_printing(&task);
+		free(entered_line);
 		execute_line(&task);
 	}
 	return (0);

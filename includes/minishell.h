@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 03:52:20 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:17:44 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef enum e_ftypes {
 typedef struct s_inoutfiles {
 	char		*name;
 	t_ftypes	type;
+	bool		env_var;
 }	t_inoutfiles;
 
 typedef struct s_process {
@@ -98,18 +99,19 @@ bool	parsing_main(char *input, t_pipe *task);
 void	init_parsing_data(t_parsing *data, t_pipe *task, char *input);
 void	skip_whitespace(t_parsing *p);
 bool	free_all_argvs(t_pipe *task);
-bool	add_to_argv(t_parsing *p);
+// bool	add_to_argv(t_parsing *p);
 bool	handle_pipe(t_parsing *p);
 
 // parsing_functions.c
 bool	parse_name(t_parsing *p);
 bool	parse_delimiter(t_parsing *p);
 
-// quote_parsing.c
+// quote_parsing_new.c
 bool	parse_single_quote(t_parsing *p, char *buffer, size_t *buffer_i);
 bool	parse_double_quote(t_parsing *p, char *buffer, size_t *buffer_i);
 void	fill_env_in_buffer(t_parsing *p, char *buffer, size_t *buffer_i);
-bool	parse_with_quotes(t_parsing *p);
+bool	parse_remaining(t_parsing *p);
+void	fill_env_buffer(char *buffer, t_parsing *p);
 
 // parse_out_redirects.c
 bool	parse_out_redirect(t_parsing *p);
@@ -125,12 +127,11 @@ char	**append_string(char **orig, char *str);
 bool	ft_isdelimiter(char c);
 
 // parsing_env_var.c
-bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
+// bool	parse_env_assignment(t_parsing *p, char *buffer, size_t *buffer_i);
 bool	fetch_env_var(char *buffer, char ***current_argv);
 
 // env_var_utils.c
-void	fill_buffer(char *buffer, size_t buffer_s,
-			char *string, size_t *str_index);
+bool	fill_buffer(char *buffer, size_t buffer_s, t_parsing *p);
 bool	parse_env_var(t_parsing *p);
 
 // execute_line.c

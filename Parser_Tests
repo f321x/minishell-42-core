@@ -13,7 +13,7 @@ $test					ergibt Ausfuehrung von ls -l	GOOD
 
 5)
 export test=at
-c$test					ergibt Ausfuehrung von cat		FAILEN WIR	
+c$test					ergibt Ausfuehrung von cat		GOOD
 
 6)
 '"'			ergibt '	GOOD
@@ -35,7 +35,11 @@ Redirections ohne command werden trotzdem ausgefuehrt		GOOD
 
 12)
 export a="a b"
+<<<<<<< HEAD
 > $a				ergibt "ambiguous redirect"		FAILEN WIR
 
 13)
 >>>>>>>>>>>>>>>>>>> ergibt Syntax error		FAILEN WIR
+
+> $a				ergibt "ambiguous redirect"		GOOD
+

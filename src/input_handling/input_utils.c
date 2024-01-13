@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   input_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/12 07:42:04 by marschul         ###   ########.fr       */
+=======
+/*   Updated: 2024/01/12 14:38:47 by ***REMOVED***            ###   ########.fr       */
+>>>>>>> 6370ba90c1baacdebfbd99ba576dcead04c11b89
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +26,10 @@ static void	check_if_ctrld(char *entered_line)
 	}
 }
 
-void disable_echo_and_read(char **entered_line) {
-    struct termios term;
-	size_t length;
+void	disable_echo_and_read(char **entered_line)
+{
+	struct termios		term;
+	size_t				length;
 
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~ECHO;
@@ -36,8 +41,6 @@ void disable_echo_and_read(char **entered_line) {
 	if (! *entered_line)
 		exit(0);
 }
-
-
 
 // Reads a line of input from the user.
 // prompt: The prompt to display to the user.

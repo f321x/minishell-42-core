@@ -1,8 +1,6 @@
 Felix:
 
-nach sigint verdoppelt sich der Prompt. Ich bin mir nicht sicher, wer den Bug eingefuehrt hat, 
-und wo er ueberhaupt herkommt, ich habe die Signale lange nicht mehr ueberprueft. Koenntest du deinen
-Teil nochmal ueberpreufen?
+echo "$VAR"
 
 Mara:
 
