@@ -43,3 +43,8 @@ export a="a b"
 
 > $a				ergibt "ambiguous redirect"		GOOD
 
+14)
+0  -> tbd
+
+15)
+//// in pfad -> tbd
