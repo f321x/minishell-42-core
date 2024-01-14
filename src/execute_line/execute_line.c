@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/14 20:30:21 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:20:32 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,10 @@ int	execute_line(t_pipe *pipe_struct)
 	if (! create_pipes(fd_array, p_amount - 1))
 		return (cleanup(pipe_struct, fd_array, pid_array));
 	if (! execute_commands(pipe_struct, fd_array, pid_array))
+	{
+		set_exit_value(1);
 		return (cleanup(pipe_struct, fd_array, pid_array));
+	}
 	if (! wait_for_all(pid_array, pipe_struct))
 		return (cleanup(pipe_struct, fd_array, pid_array));
 	cleanup(pipe_struct, fd_array, pid_array);

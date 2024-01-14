@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/14 13:55:57 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:13:00 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	disable_echo_and_read(char **entered_line)
 {
 	struct termios		term;
 	size_t				length;
+	char				*exit_string;
+	int					exit_value;
 
     tcgetattr(STDIN_FILENO, &term);
     term.c_lflag &= ~ECHO;
@@ -36,7 +38,14 @@ void	disable_echo_and_read(char **entered_line)
 	if (*entered_line && (*entered_line)[length - 1] == '\n')
 		(*entered_line)[length - 1] = '\0';
 	if (! *entered_line)
-		check_if_ctrld(*entered_line);
+	{
+		exit_string = getenv("?");
+		exit_value = ft_atoi(exit_string);
+		free(*entered_line);
+		rl_clear_history();
+		free_old_env(NULL);
+		exit(exit_value);
+	}
 }
 
 // Reads a line of input from the user.
