@@ -6,7 +6,7 @@
 #    By: student <student@example.invalid>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/13 14:42:34 by student         ###   ########.fr        #
+#    Updated: 2024/01/13 22:04:14 by student         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	:= minishell
 
 CC 		:= cc
 CFLAGS 	:= -Wall -Wextra #-Werror
-DFLAGS 	:= -g3 #-fsanitize=address
+DFLAGS 	:= -g3 -fsanitize=address
 DNAME 	:= minishell_debug
 HEADERS = -I./includes -I ./libs/libft/includes
 
