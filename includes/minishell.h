@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 15:17:44 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/14 15:48:11 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ void	free_vector(char **vector);
 // signals.c
 void	register_signal_handlers(void);
 void	sigint_handler(int signum);
-void	sigquit_handler(int signum);
 
 // gnl
 char	*get_next_line(int fd);
+

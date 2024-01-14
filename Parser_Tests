@@ -35,7 +35,7 @@ Redirections ohne command werden trotzdem ausgefuehrt		GOOD
 
 12)
 export a="a b"
-<<<<<<< HEAD
+
 > $a				ergibt "ambiguous redirect"		FAILEN WIR
 
 13)

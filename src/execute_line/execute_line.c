@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/13 14:28:29 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 15:49:46 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, \
 	if (pid == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		close_all_fds(fd_array, p_amount);
 		if (!find_full_path(process))
 			error_wrapper_exit("Minishell: launch_process");

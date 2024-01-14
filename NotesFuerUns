@@ -5,6 +5,3 @@ echo "$VAR"
 Mara:
 
 Subshell fuer Builtins
-cant handle multiple heredocs
-signale waehrend heredoc: werde ich nicht machen
-exit code in headless mode immer 0

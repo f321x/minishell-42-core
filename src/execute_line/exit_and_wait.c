@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:09 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/13 18:37:03 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 15:49:18 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct)
 			i++;
 			continue ;
 		}
-		if (waitpid(pid_array[i], &status_pointer, 0) == -1)
-			return (false);
-		if (check_for_signaled_quit(status_pointer))
-			return (false);
+		waitpid(pid_array[i], &status_pointer, 0);
+		if (! check_for_signaled_quit(status_pointer))
+		{
+			if (! set_exit_value(WEXITSTATUS(status_pointer)))
+				return (false);
+		}
 		i++;
 	}
-	if (! set_exit_value(WEXITSTATUS(status_pointer)))
-		return (false);
 	return (true);
 }

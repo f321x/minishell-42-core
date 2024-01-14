@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/13 19:00:30 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 13:55:57 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	disable_echo_and_read(char **entered_line)
 	if (*entered_line && (*entered_line)[length - 1] == '\n')
 		(*entered_line)[length - 1] = '\0';
 	if (! *entered_line)
-		exit(0);
+		check_if_ctrld(*entered_line);
 }
 
 // Reads a line of input from the user.
@@ -53,9 +53,9 @@ char	*read_a_line(char *prompt)
 	while (1)
 	{
 		old_env = environ;
-		// if (! isatty(0))
-		// 	disable_echo_and_read(&entered_line);
-		// else
+		if (! isatty(0))
+			disable_echo_and_read(&entered_line);
+		else
 			entered_line = readline(prompt);
 		check_if_ctrld(entered_line);
 		if (!entered_line)

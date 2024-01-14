@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:20 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/13 18:09:25 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 13:24:43 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	set_exit_var(unsigned char *exit_value, char **argv)
 	{
 		if (ft_isdigit(argv[1][i]) == 0)
 		{
-			ft_printf("Minishell: numeric argument required.\n");
+			write(2, "Minishell: numeric argument required.\n", 38);
 			*exit_value = 255;
 			break ;
 		}
@@ -41,7 +41,7 @@ bool	_exit_(char **argv, t_pipe *pipe_struct,
 		if (argv[1][0] == '\0' || (argv[1][0] != '-'
 			&& argv[1][0] != '+' && ft_isdigit(argv[1][0]) != 1))
 		{
-			ft_printf("Minishell: numeric argument required.\n");
+			write(2, "Minishell: numeric argument required.\n", 38);
 			exit_value = 255;
 		}
 		else
@@ -52,6 +52,7 @@ bool	_exit_(char **argv, t_pipe *pipe_struct,
 	cleanup(pipe_struct, fd_array, pid_array);
 	free_vector(environ);
 	rl_clear_history();
-	ft_printf("exit\n");
+	if (isatty(0))
+		ft_printf("exit\n");
 	exit(exit_value);
 }

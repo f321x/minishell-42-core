@@ -1,0 +1,25 @@
+bash: line 2: exit: : numeric argument required
+bash: line 2: exit: +++++: numeric argument required
+bash: line 2: exit: ++++++: numeric argument required
+bash: line 2: exit: ++1: numeric argument required
+bash: line 2: exit: ++12560: numeric argument required
+bash: line 2: exit: -----: numeric argument required
+bash: line 2: exit: ------: numeric argument required
+bash: line 2: exit: --1: numeric argument required
+bash: line 2: exit: --12560: numeric argument required
+bash: line 2: exit: too many arguments
+bash: line 2: exit: too many arguments
+bash: line 2: exit: A: numeric argument required
+bash: line 2: exit: A: numeric argument required
+bash: line 2: exit: A: numeric argument required
+bash: line 2: exit: +++: numeric argument required
+bash: line 2: exit: ++++3193912939: numeric argument required
+bash: line 2: exit: +++000: numeric argument required
+bash: line 2: exit: ++++000: numeric argument required
+bash: line 2: exit: ---000: numeric argument required
+bash: line 2: exit: ----000: numeric argument required
+bash: line 2: exit: something: numeric argument required
+bash: line 2: exit: x: numeric argument required
+bash: line 2: exit: echo: numeric argument required
+bash: line 2: exit: cd: numeric argument required
+bash: line 2: exit: exit: numeric argument required
