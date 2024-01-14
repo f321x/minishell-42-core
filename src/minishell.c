@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/14 15:47:59 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 15:54:10 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	main(void)
 		task.p_amount = 0;
 		entered_line = read_a_line(SHELL_PROMPT);
 		add_history(entered_line);
-		if (!entered_line && ! isatty(0))
-			exit(0);
 		if (!entered_line)
 			continue ;
 		if (!parsing_main(entered_line, &task))
