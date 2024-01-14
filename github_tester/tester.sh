@@ -43,7 +43,7 @@ main() {
 
 # hier namen angeben
 test_mandatory() {
-	FILES="cmds/mand/1_builtins.sh"
+	FILES="cmds/mand/1_redirs.sh"
 	for file in $FILES
 	do
 		test_from_file $file

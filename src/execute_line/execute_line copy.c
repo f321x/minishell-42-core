@@ -6,11 +6,36 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/14 20:30:21 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 15:49:46 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	launch_builtin(t_process *process, int (*fd_array)[2], size_t p_amount, \
+	size_t i)
+{
+	t_function_pointer	builtin;
+
+	builtin = process->builtin;
+	if (! close_last_fds(fd_array, i))
+		return (0);
+	if (p_amount > 1 && i != p_amount - 1)
+	{
+		if (dup2(fd_array[i][1], 1) == -1)
+			return (error_wrapper_int("Minishell: launch_builtin"));
+	}
+	if (! handle_inoutfiles(process, fd_array[p_amount - 1]))
+		return (0);
+	if (process->argv != NULL)
+		if (builtin(process->argv) == false)
+			return (0);
+	if (dup2(fd_array[p_amount - 1][1], 1) == -1)
+		return (error_wrapper_int("Minishell: launch_builtin"));
+	if (dup2(fd_array[p_amount - 1][0], 0) == -1)
+		return (error_wrapper_int("Minishell: launch_builtin"));
+	return (1);
+}
 
 bool	is_builtin(t_process *process)
 {
@@ -21,6 +46,8 @@ bool	is_builtin(t_process *process)
 	char						*name;
 	int							i;
 
+	if (process->argv == NULL)
+		return (true);
 	name = process->argv[0];
 	i = 0;
 	while (i < 6)
@@ -35,46 +62,16 @@ bool	is_builtin(t_process *process)
 	return (false);
 }
 
-bool	launch_builtin_in_parent(t_process *process)
-{
-	if (process->builtin(process->argv) == true)
-		return (true);
-	else
-		return (false);
-}
-
-pid_t	launch_process_in_parent(t_process *process)
-{
-	pid_t		pid;
-	extern char	**environ;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		if (!find_full_path(process))
-			error_wrapper_exit("Minishell: launch_process_in_parent");
-		if (execve(process->argv[0], process->argv, environ) == -1)
-			error_wrapper_exit("Minishell: launch_process_in_parent");	
-	}
-	return (pid);
-}
-
-int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array, \
+int	launch_process(t_process *process, int (*fd_array)[2], size_t p_amount, \
 	size_t i)
 {
 	int			pid;
 	extern char	**environ;
-	t_process	*process;
-	size_t		p_amount;
 
-	p_amount = pipe_struct->p_amount;
 	if (i != 0)
 		dup2(fd_array[i - 1][0], 0);
 	if (i != p_amount - 1)
 		dup2(fd_array[i][1], 1);
-	process = &pipe_struct->processes[i];
 	if (! handle_inoutfiles(process, fd_array[p_amount - 1]))
 		return (0);
 	pid = fork();
@@ -83,12 +80,6 @@ int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_a
 		signal(SIGQUIT, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 		close_all_fds(fd_array, p_amount);
-		if (process->argv == NULL)
-			exit(0);
-		if (is_exit(process->argv[0]))
-			exit((int) _exit_(process->argv, pipe_struct, fd_array, pid_array));
-		if (is_builtin(process))
-			exit((int) process->builtin(process->argv));
 		if (!find_full_path(process))
 			error_wrapper_exit("Minishell: launch_process");
 		if (execve(process->argv[0], process->argv, environ) == -1)
@@ -100,33 +91,7 @@ int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_a
 	return (pid);
 }
 
-bool	execute_single_command(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
-{
-	t_process	process;
-
-	process = pipe_struct->processes[0];
-	if (! handle_inoutfiles(&process, fd_array[pipe_struct->p_amount - 1]))
-		return (false);
-	if (process.argv == NULL)
-		return (true);
-	if (is_exit(process.argv[0]))
-		_exit_(process.argv, pipe_struct, fd_array, pid_array);
-	if (is_builtin(&process))
-	{
-		if (! launch_builtin_in_parent(&process))
-			return (false);
-		pid_array[0] = 1;
-	}
-	else
-	{
-		pid_array[0] = launch_process_in_parent(&process);
-		if (pid_array[0] == 0)
-			return (false);
-	}
-	return (true);
-}
-
-int	execute_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
+int	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 {
 	t_process	process;
 	size_t		i;
@@ -135,27 +100,21 @@ int	execute_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		pid_array[i] = launch_process_in_pipe(pipe_struct, fd_array, pid_array, i);
-		if (pid_array[i] == 0)
-			return (0);
+		if (process.argv && is_exit(process.argv[0]))
+			_exit_(process.argv, pipe_struct, fd_array, pid_array);
+		if (is_builtin(&process) == 0)
+		{
+			pid_array[i] = launch_process(&process, fd_array, \
+				pipe_struct->p_amount, i);
+			if (pid_array[i] == 0)
+				return (0);
+		}
+		else
+			pid_array[i] = launch_builtin(&process, fd_array, \
+				pipe_struct->p_amount, i);
 		i++;
 	}
 	return (1);
-}
-
-bool	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
-{
-	if (pipe_struct->p_amount <= 1)
-	{
-		if (! execute_single_command(pipe_struct, fd_array, pid_array))
-			return (false);
-	}
-	else
-	{
-		if (! execute_pipe(pipe_struct, fd_array, pid_array))
-			return (false);
-	}
-	return (true);
 }
 
 int	execute_line(t_pipe *pipe_struct)
@@ -173,7 +132,7 @@ int	execute_line(t_pipe *pipe_struct)
 		return (cleanup(pipe_struct, fd_array, pid_array));
 	if (! create_pipes(fd_array, p_amount - 1))
 		return (cleanup(pipe_struct, fd_array, pid_array));
-	if (! execute_commands(pipe_struct, fd_array, pid_array))
+	if (execute_commands(pipe_struct, fd_array, pid_array) == 0)
 		return (cleanup(pipe_struct, fd_array, pid_array));
 	if (! wait_for_all(pid_array, pipe_struct))
 		return (cleanup(pipe_struct, fd_array, pid_array));
