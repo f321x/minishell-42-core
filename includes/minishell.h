@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/14 15:48:11 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:32:01 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,9 +134,14 @@ bool	fetch_env_var(char *buffer, char ***current_argv);
 bool	fill_buffer(char *buffer, size_t buffer_s, t_parsing *p);
 bool	parse_env_var(t_parsing *p);
 
-// execute_line.c
+// execute_line1.c
 int		execute_line(t_pipe *pipe_struct);
 int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
+
+// execute_line2.c
+bool	is_builtin(t_process *process);
+bool	launch_builtin_in_parent(t_process *process);
+pid_t	launch_process_in_parent(t_process *process);
 
 // heredoc.c
 int		get_here_file(char *keyword, int true_stdin, int true_stdout);

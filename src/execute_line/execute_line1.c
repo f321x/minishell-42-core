@@ -1,68 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_line.c                                     :+:      :+:    :+:   */
+/*   execute_line1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/14 21:20:32 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:30:58 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	is_builtin(t_process *process)
-{
-	const char					*function_names[6] = {"cd", "echo", "env", \
-	"export", "pwd", "unset"};
-	const t_function_pointer	function_pointers[7] = {cd, echo, env, export, \
-		pwd, unset};
-	char						*name;
-	int							i;
-
-	name = process->argv[0];
-	i = 0;
-	while (i < 6)
-	{
-		if (ft_strncmp(name, function_names[i], 7) == 0)
-		{
-			process->builtin = function_pointers[i];
-			return (true);
-		}
-		i++;
-	}
-	return (false);
-}
-
-bool	launch_builtin_in_parent(t_process *process)
-{
-	if (process->builtin(process->argv) == true)
-		return (true);
-	else
-		return (false);
-}
-
-pid_t	launch_process_in_parent(t_process *process)
-{
-	pid_t		pid;
-	extern char	**environ;
-
-	pid = fork();
-	if (pid == 0)
-	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		if (!find_full_path(process))
-			error_wrapper_exit("Minishell: launch_process_in_parent");
-		if (execve(process->argv[0], process->argv, environ) == -1)
-			error_wrapper_exit("Minishell: launch_process_in_parent");	
-	}
-	return (pid);
-}
-
-int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array, \
-	size_t i)
+int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], \
+pid_t *pid_array, size_t i)
 {
 	int			pid;
 	extern char	**environ;
@@ -100,7 +51,8 @@ int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_a
 	return (pid);
 }
 
-bool	execute_single_command(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
+bool	execute_single_command(t_pipe *pipe_struct, int (*fd_array)[2], \
+	pid_t *pid_array)
 {
 	t_process	process;
 
@@ -135,7 +87,8 @@ int	execute_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	while (i < pipe_struct->p_amount)
 	{
 		process = pipe_struct->processes[i];
-		pid_array[i] = launch_process_in_pipe(pipe_struct, fd_array, pid_array, i);
+		pid_array[i] = launch_process_in_pipe(pipe_struct, fd_array, \
+			pid_array, i);
 		if (pid_array[i] == 0)
 			return (0);
 		i++;
@@ -143,7 +96,8 @@ int	execute_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	return (1);
 }
 
-bool	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
+bool	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], \
+	pid_t *pid_array)
 {
 	if (pipe_struct->p_amount <= 1)
 	{

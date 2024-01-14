@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/14 21:13:00 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/14 21:27:59 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	disable_echo_and_read(char **entered_line)
 	char				*exit_string;
 	int					exit_value;
 
-    tcgetattr(STDIN_FILENO, &term);
-    term.c_lflag &= ~ECHO;
-    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~ECHO;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 	*entered_line = get_next_line(0);
 	length = ft_strlen(*entered_line);
 	if (*entered_line && (*entered_line)[length - 1] == '\n')
