@@ -6,12 +6,16 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 12:39:08 by student          #+#    #+#             */
-/*   Updated: 2024/01/14 21:26:36 by student         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:34:58 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/* 
+tmp file is being opened in the tmp directory and user subdirectory 
+within it. /tmp/***REMOVED***/minishell_tmp
+ */
 bool	get_tmp_name(char tmp_name[PATH_MAX])
 {
 	char	*name;

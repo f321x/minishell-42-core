@@ -6,12 +6,19 @@
 /*   By: student <student@example.invalid>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 21:30:25 by student          #+#    #+#             */
-/*   Updated: 2024/01/15 12:36:29 by student         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:16:21 by student         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/* 
+This is the child process in the pipe:
+We set signal handlers back to default.
+We close all file descriptors that we don't need, since otherwise the process
+does not terminate.
+We differ between exit builtin, builtin or process.
+ */
 void	execute_child_process(t_pipe *pipe_struct, int (*fd_array)[2], \
 pid_t *pid_array, size_t i)
 {
@@ -34,6 +41,10 @@ pid_t *pid_array, size_t i)
 		error_wrapper_exit("Minishell: launch_process");
 }
 
+/* 
+This does not only decide if it is a builtin, but sets also the function
+pointer to the rigth function.
+ */
 bool	is_builtin(t_process *process)
 {
 	const char					*function_names[6] = {"cd", "echo", "env", \
