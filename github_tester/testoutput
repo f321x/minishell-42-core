@@ -1,0 +1,1551 @@
+[0;33m# ############################################################################ #[m
+[0;33m#   MANDATORY TESTS                                                            #[m
+[0;33m# ############################################################################ #[m
+[0;33m# **************************************************************************** #[m
+[0;33m#   BUILTINS                                                                   #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [mecho
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:6[m  
+[0;35m2:  [mecho ''
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:8[m  
+[0;35m3:  [mecho ""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:10[m  
+[0;35m4:  [mecho '' ""
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:12[m  
+[0;35m5:  [mecho echo
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:14[m  
+[0;35m6:  [mecho test1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:16[m  
+[0;35m7:  [mecho 'test1'
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:18[m  
+[0;35m8:  [mecho "echo hallo"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:20[m  
+[0;35m9:  [mecho echo"1"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:22[m  
+[0;35m10: [mecho "test1 test2"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:24[m  
+[0;35m11: [mecho "test1  test2" test3
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:26[m  
+[0;35m12: [mecho " test1 test2 " 'test3 '
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:28[m  
+[0;35m13: [mecho test1		test2
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:30[m  
+[0;35m14: [mecho -n test1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:32[m  
+[0;35m15: [mecho -n "test1 test2"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:34[m  
+[0;35m16: [mecho -n "test1 test2" test3
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:36[m  
+[0;35m17: [mecho -n " test1 test2 " 'test3 '
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:38[m  
+[0;35m18: [mecho -n test1		test2
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:40[m  
+[0;35m19: [mecho test1 -n
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:42[m  
+[0;35m20: [mecho "test1 -n"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:44[m  
+[0;35m21: [mecho -n -n test1
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:46[m  
+[0;35m22: [mecho -n -n -n -n -n test1
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:48[m  
+[0;35m23: [mecho "-n test1 -n test2"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:50[m  
+[0;35m24: [mecho "test1 -n test2"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:52[m  
+[0;35m25: [mecho ~42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:54[m  
+[0;35m26: [meCho
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:56[m  
+[0;35m27: [meChO
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:58[m  
+[0;35m28: [meCHO
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:60[m  
+[0;35m29: [mECHO
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:62[m  
+[0;35m30: [mpwd
+cd
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:65[m  
+[0;35m31: [mpwd
+cd ..
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:69[m  
+[0;35m32: [mpwd
+cd .
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:73[m  
+[0;35m33: [mpwd
+cd "."
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:77[m  
+[0;35m34: [mpwd
+cd /Users
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:81[m  
+[0;35m35: [mpwd
+cd //////
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:85[m  
+[0;35m36: [mpwd
+cd ./././
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:89[m  
+[0;35m37: [mpwd
+cd /
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:93[m  
+[0;35m38: [mpwd
+cd '/////'
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:97[m  
+[0;35m39: [mpwd
+cd "$PWD/file_tests"
+pwd
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:101[m  
+[0;35m40: [mpwd
+cd "doesntexist"
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:105[m  
+[0;35m41: [mpwd
+cd "doesntexist"
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:109[m  
+[0;35m42: [mpwd
+cd ../../..
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:113[m  
+[0;35m43: [mpwd
+cd "wtf"
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:117[m  
+[0;35m44: [mpwd
+cd ..
+cd ..
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:121[m  
+[0;35m45: [mpwd
+cd ?
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:126[m  
+[0;35m46: [mpwd
+cd +
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:130[m  
+[0;35m47: [mpwd
+cd _
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:134[m  
+[0;35m48: [mpwd
+cd echo
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:138[m  
+[0;35m49: [mpwd
+cd echo echo
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:142[m  
+[0;35m50: [mpwd
+cd '/'
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:146[m  
+[0;35m51: [mpwd
+cd $PWD/file_tests
+pwd
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:150[m  
+[0;35m52: [mpwd
+cd $OLDPWD/something
+pwd
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:154[m  
+[0;35m53: [mpwd
+cd "1$HOME"
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:158[m  
+[0;35m54: [menv | grep DOESNT_EXIST
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:163[m  
+[0;35m55: [menv | grep HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:165[m  
+[0;35m56: [menv | grep USER
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:167[m  
+[0;35m57: [menv | wc -l
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:169[m  
+[0;35m58: [mpwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:172[m  
+[0;35m59: [m"pwd"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:174[m  
+[0;35m60: [mpw"d"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:176[m  
+[0;35m61: [mpwd test42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:178[m  
+[0;35m62: [mpwd 42 42 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:180[m  
+[0;35m63: [mpwd pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:182[m  
+[0;35m64: [mpwd pwd pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:184[m  
+[0;35m65: [m/bin/echo $HALLO42
+env | grep HALLO42
+export HALLO42=42
+/bin/echo $HALLO42
+env | grep HALLO42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:187[m  
+[0;35m66: [m/bin/echo $HOME
+env | grep HOME
+export HOME=42
+/bin/echo $HOME
+env | grep HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:193[m  
+[0;35m67: [mexport =============123
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:199[m  
+[0;35m68: [mexport =
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:201[m  
+[0;35m69: [mexport =42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:203[m  
+[0;35m70: [mexport ''=''
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:205[m  
+[0;35m71: [mexport ""=""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:207[m  
+[0;35m72: [mexport export
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:209[m  
+[0;35m73: [mexport echo
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:211[m  
+[0;35m74: [mexport cd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:213[m  
+[0;35m75: [mexport test
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:215[m  
+[0;35m76: [mexport TEST
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:217[m  
+[0;35m77: [mexport TES_T=123
+/bin/echo $TES_T
+env | grep TES_T
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:219[m  
+[0;35m78: [mexport HELLO42=T=""
+/bin/echo $HELLO42
+env | grep HELLO42
+env | grep HELLO42=T=
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:223[m  
+[0;35m79: [mecho $?
+export ?=hallo
+echo $?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:228[m  
+[0;35m80: [m/bin/echo $test
+export test=42 | echo 99
+/bin/echo $test
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:232[m  
+[0;35m81: [m/bin/echo $mini_test
+env | grep mini_test
+export mini_test=
+/bin/echo $mini_test
+env | grep mini_test
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:236[m  
+[0;35m82: [munset ""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:243[m  
+[0;35m83: [munset =
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:245[m  
+[0;35m84: [munset "="
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:247[m  
+[0;35m85: [munset ""=
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:249[m  
+[0;35m86: [munset =""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:251[m  
+[0;35m87: [munset ==
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:253[m  
+[0;35m88: [munset ?
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:255[m  
+[0;35m89: [munset "?"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:257[m  
+[0;35m90: [munset $
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:259[m  
+[0;35m91: [munset "$"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:261[m  
+[0;35m92: [munset $""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/1_builtins.sh:263[m  
+[0;35m93: [m/bin/echo $HOME
+unset $HOME
+/bin/echo $HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:265[m  
+[0;35m94: [m/bin/echo $HOME
+unset HOME
+/bin/echo $HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:269[m  
+[0;35m95: [m/bin/echo $HOME
+unset HOME
+unset HOME
+unset HOME
+/bin/echo $HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:273[m  
+[0;35m96: [m/bin/echo $HOME
+unset HOME
+unset HOME
+unset HOME
+unset HOME
+/bin/echo $HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:279[m  
+[0;35m97: [mexit
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:287[m  
+[0;35m98: [mexit ""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(255) ][m  [0;90mcmds/mand/1_builtins.sh:289[m  
+[0;35m99: [mexit 0
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:291[m  
+[0;35m100:[mexit 10
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:293[m  
+[0;35m101:[mexit 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:295[m  
+[0;35m102:[mexit 1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:297[m  
+[0;35m103:[mexit +++++
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:299[m  
+[0;35m104:[mexit ++++++
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:301[m  
+[0;35m105:[mexit +1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:303[m  
+[0;35m106:[mexit ++1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:305[m  
+[0;35m107:[mexit ++12560
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:307[m  
+[0;35m108:[mexit -----
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:309[m  
+[0;35m109:[mexit ------
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:311[m  
+[0;35m110:[mexit -1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:313[m  
+[0;35m111:[mexit --1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:315[m  
+[0;35m112:[mexit -12560
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:317[m  
+[0;35m113:[mexit --12560
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:319[m  
+[0;35m114:[mexit 255
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:321[m  
+[0;35m115:[mexit 1 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:323[m  
+[0;35m116:[mexit 1 2 3
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:325[m  
+[0;35m117:[mexit A
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:327[m  
+[0;35m118:[mexit A 2 3
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:329[m  
+[0;35m119:[mexit "A"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:331[m  
+[0;35m120:[mexit "+++"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:333[m  
+[0;35m121:[mexit ++++3193912939
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:335[m  
+[0;35m122:[mexit 01
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:337[m  
+[0;35m123:[mexit 001
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:339[m  
+[0;35m124:[mexit 0001
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:341[m  
+[0;35m125:[mexit +++000
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:343[m  
+[0;35m126:[mexit ++++000
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:345[m  
+[0;35m127:[mexit ---000
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:347[m  
+[0;35m128:[mexit ----000
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:349[m  
+[0;35m129:[mexit "something"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:351[m  
+[0;35m130:[mexit x
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:353[m  
+[0;35m131:[mexit echo
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:355[m  
+[0;35m132:[mexit cd ..
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:357[m  
+[0;35m133:[mexit exit
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_builtins.sh:359[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   PIPELINES                                                                  #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [m/bin/echo 1 | grep 1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:5[m  
+[0;35m2:  [m/bin/echo 1 | grep 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:7[m  
+[0;35m3:  [mifconfig | grep ":"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:9[m  
+[0;35m4:  [mifconfig | grep nothing
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:11[m  
+[0;35m5:  [mcd .. | echo "42"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(0) ][m  [0;90mcmds/mand/1_pipelines.sh:13[m  
+[0;35m6:  [mecho 42 | cat -e
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:15[m  
+[0;35m7:  [mecho 42 | echo no | echo smth | grep 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:17[m  
+[0;35m8:  [mecho 42 | echo no | echo smth | grep no
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:19[m  
+[0;35m9:  [mecho 42 | echo no | echo smth | grep smth
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:21[m  
+[0;35m10: [m/bin/echo 1 | kaka
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_pipelines.sh:23[m  
+[0;35m11: [mecho test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:25[m  
+[0;35m12: [m/bin/echo test | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:27[m  
+[0;35m13: [mls -la ../ | grep "."
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:29[m  
+[0;35m14: [munset TEST | cat -e
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:31[m  
+[0;35m15: [mcat tmp_lol.c | cat > tmp_lol.c
+rm -rf tmp_lol.c
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:33[m  
+[0;35m16: [m/bin/echo 1 > tmp_lol.c
+cat tmp_lol.c | cat > tmp_lol.c
+rm -rf tmp_lol.c
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_pipelines.sh:36[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   REDIRS                                                                     #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [m/bin/echo 42 > tmp_redir_out 42
+cat tmp_redir_out
+rm tmp_redir_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:6[m  
+[0;35m2:  [m/bin/echo "cat this text\n" > tmp_redir_out
+cat <tmp_redir_out
+rm tmp_redir_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:10[m  
+[0;35m3:  [mcat | cat | ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:14[m  
+[0;35m4:  [mcat < /dev/null
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:16[m  
+[0;35m5:  [m/bin/echo 42 > /dev/null
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:18[m  
+[0;35m6:  [m/bin/echo 42 >> /dev/null
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:20[m  
+[0;35m7:  [m/bin/echo 42 > /dev/null > /dev/null > /dev/null > /dev/null > tmp_redir_out
+cat tmp_redir_out
+rm tmp_redir_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:23[m  
+[0;35m8:  [m/bin/echo 42 > tmp_redir_out > tmp_redir_out1 > tmp_redir_out2 > tmp_redir_out3
+/bin/echo 0
+cat tmp_redir_out
+/bin/echo 1
+cat tmp_redir_out1
+/bin/echo 2
+cat tmp_redir_out2
+/bin/echo 3
+cat tmp_redir_out3
+rm tmp_redir_out tmp_redir_out1 tmp_redir_out2 tmp_redir_out3
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:27[m  
+[0;35m9:  [m/bin/echo 42 > /dev/null > tmp_redir_out
+/bin/echo 2 >> /dev/null >> tmp_redir_out
+cat tmp_redir_out
+rm tmp_redir_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:38[m  
+[0;35m10: [mtouch tmp_redir_out_file1
+chmod -r tmp_redir_out_file1
+/bin/echo 1 > tmp_redir_out tmp_redir_out_file1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:44[m  
+[0;35m11: [m/bin/grep 1 < inputfile
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:48[m  
+[0;35m12: [m/bin/grep 1 < NO_SUCH_FILE
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:50[m  
+[0;35m13: [m/bin/grep 1 < inputfile < inputfile
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:52[m  
+[0;35m14: [m/bin/grep 1 < NO_SUCH_FILE < inputfile
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:54[m  
+[0;35m15: [m> tmp_std_outfile && echo 1
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(0) ][m  [0;90mcmds/mand/1_redirs.sh:56[m  
+[0;35m16: [mrm -f tmp_std_outfile
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:58[m  
+[0;35m17: [m>tmp_std_outfile && ls | grep tmp_std_outfile
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(0) ][m  [0;90mcmds/mand/1_redirs.sh:60[m  
+[0;35m18: [mrm -f tmp_std_outfile
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:62[m  
+[0;35m19: [m"" >tmp_std_outfile && ls | grep tmp_std_outfile
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_redirs.sh:64[m  
+[0;35m20: [mrm -f tmp_std_outfile
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:66[m  
+[0;35m21: [m/bin/echo 1 >/dev/null | /usr/bin/grep 1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:68[m  
+[0;35m22: [m/bin/echo 1 >/dev/null | /bin/echo 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:70[m  
+[0;35m23: [m/bin/echo >/dev/null 1 | /usr/bin/grep 1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:72[m  
+[0;35m24: [m/bin/echo >/dev/null 1 | /bin/echo 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_redirs.sh:74[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   SCMD                                                                       #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [mls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_scmds.sh:5[m  
+[0;35m2:  [mcat cmds.sh
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_scmds.sh:7[m  
+[0;35m3:  [m/bin/echo test1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_scmds.sh:9[m  
+[0;35m4:  [m""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:11[m  
+[0;35m5:  [m"ls"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_scmds.sh:13[m  
+[0;35m6:  [m"cat cmds.sh"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:15[m  
+[0;35m7:  [m"/bin/echo" test1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_scmds.sh:17[m  
+[0;35m8:  [m""'/bin/'echo test1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_scmds.sh:19[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   BROKEN SCMD                                                                #[m
+[0;33m# **************************************************************************** #[m
+[0;35m9:  [m"."
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:26[m  
+[0;35m10: [m.ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:28[m  
+[0;35m11: [m./ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:30[m  
+[0;35m12: [m"./"ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:32[m  
+[0;35m13: [m"./""ls"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:34[m  
+[0;35m14: [m"./"''"ls"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:36[m  
+[0;35m15: [mlsa
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:38[m  
+[0;35m16: [m/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:40[m  
+[0;35m17: [m/ls/
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:42[m  
+[0;35m18: [m/bin/
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(126) ][m  [0;90mcmds/mand/1_scmds.sh:44[m  
+[0;35m19: [m/bin/cats
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:46[m  
+[0;35m20: [m./4242424242.sh
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_scmds.sh:48[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   VARIABLES                                                                  #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [m/bin/echo $?
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:6[m  
+[0;35m2:  [m/bin/echo $HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:8[m  
+[0;35m3:  [m/bin/echo $HOME$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:10[m  
+[0;35m4:  [m/bin/echo $"HOME"$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:12[m  
+[0;35m5:  [m/bin/echo $"HOM"E$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:14[m  
+[0;35m6:  [m/bin/echo $"'HOM'E"$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:16[m  
+[0;35m7:  [m/bin/echo $'HOM'E$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:18[m  
+[0;35m8:  [m/bin/echo $"HOME"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:20[m  
+[0;35m9:  [m/bin/echo $'HOME'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:22[m  
+[0;35m10: [m/bin/echo $
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:24[m  
+[0;35m11: [m/bin/echo "$"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:26[m  
+[0;35m12: [m/bin/echo '$='
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:28[m  
+[0;35m13: [m/bin/echo "$""$"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:30[m  
+[0;35m14: [m/bin/echo $"$"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:32[m  
+[0;35m15: [m/bin/echo $"42$"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:34[m  
+[0;35m16: [m/bin/echo "$"$
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:36[m  
+[0;35m17: [m/bin/echo $'$'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:38[m  
+[0;35m18: [m/bin/echo '$'$
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:40[m  
+[0;35m19: [m/bin/echo "$ "
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:42[m  
+[0;35m20: [m/bin/echo '$ '
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:44[m  
+[0;35m21: [m/bin/echo $TESTNOTFOUND
+/bin/echo $HOME$TESTNOTFOUND
+/bin/echo $TESTNOTFOUND$HOME
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:46[m  
+[0;35m22: [m/bin/echo ""$?""
+/bin/echo " "$?" "
+/bin/echo $?"42"
+/bin/echo ''$?''"42"
+/bin/echo 'HELLO'$?:''"42"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:50[m  
+[0;35m23: [m/bin/echo "$?"
+/bin/echo '$?'
+/bin/echo "'$?'"
+/bin/echo '"$?"'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:56[m  
+[0;35m24: [mmkdir "tmp_test_folder"
+/bin/echo $PWD
+cd "tmp_test_folder"
+/bin/echo $PWD
+cd ..
+/bin/echo $PWD
+rm -rf "tmp_test_folder"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:62[m  
+[0;35m25: [mmkdir "tmp_test folder"
+/bin/echo $PWD
+cd "tmp_test folder"
+/bin/echo $PWD
+cd ..
+/bin/echo $PWD
+rm -rf "tmp_test folder"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:70[m  
+[0;35m26: [mexport tmp_test="/bin/echo 42"
+$tmp_test
+$tmp_test 42
+export tmp_test="/bin/echo"
+$tmp_test 42 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:79[m  
+[0;35m27: [mexport tmp_test="/bin/echo 42"
+"tmp_test"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/1_variables.sh:85[m  
+[0;35m28: [mexport X="  A  B  "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:89[m  
+[0;35m29: [mexport X=" A  B  "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:92[m  
+[0;35m30: [mexport X="A  B  "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:95[m  
+[0;35m31: [mexport X="  A  B "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:98[m  
+[0;35m32: [mexport X="  A  B"
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:101[m  
+[0;35m33: [mexport X="  A B  "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:104[m  
+[0;35m34: [mexport X="  AB  "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:107[m  
+[0;35m35: [mexport X="  A  B  "
+/bin/echo $X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:110[m  
+[0;35m36: [mexport X="  A  B  "
+/bin/echo "1"$X
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:113[m  
+[0;35m37: [mexport X=""
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:116[m  
+[0;35m38: [mexport X=" "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:119[m  
+[0;35m39: [mexport X="   "
+/bin/echo "1"$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:122[m  
+[0;35m40: [mexport X="  A  B  "
+/bin/echo ?$X'2'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:125[m  
+[0;35m41: [mexport X="  A  B  "
+/bin/echo "1"$X?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:128[m  
+[0;35m42: [mexport X="  A  B  "
+/bin/echo "1"$X2?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:131[m  
+[0;35m43: [mexport test=" * "
+touch "$USER * ?eHallo"
+/bin/echo "$USER "*" ?e"*
+rm -f "$USER * ?eHallo"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/1_variables.sh:134[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   CORRECTION                                                                 #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [m/bin/echo
+/bin/echo 1
+/bin/cat 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:5[m  
+[0;35m2:  [m""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(127) ][m  [0;90mcmds/mand/2_correction.sh:9[m  
+[0;35m3:  [m"   "
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(127) ][m  [0;90mcmds/mand/2_correction.sh:11[m  
+[0;35m4:  [m"    "
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(127) ][m  [0;90mcmds/mand/2_correction.sh:13[m  
+[0;35m5:  [m"		"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/2_correction.sh:15[m  
+[0;35m6:  [m"			"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/2_correction.sh:17[m  
+[0;35m7:  [m/bin/echo hello 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:19[m  
+[0;35m8:  [m/bin/sleep 0
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:21[m  
+[0;35m9:  [m/bin/echo -n 1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:23[m  
+[0;35m10: [mecho
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:25[m  
+[0;35m11: [mecho hello world
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:27[m  
+[0;35m12: [mecho -n 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:29[m  
+[0;35m13: [mecho -n 42 -n
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:31[m  
+[0;35m14: [mecho 42 -n
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:33[m  
+[0;35m15: [mecho -n -n -n 42
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:35[m  
+[0;35m16: [mecho -n -n -n -n 42
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:37[m  
+[0;35m17: [mexit
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:39[m  
+[0;35m18: [mexit 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:41[m  
+[0;35m19: [mexit ""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(255) ][m  [0;90mcmds/mand/2_correction.sh:43[m  
+[0;35m20: [mexit 1 2 3
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:45[m  
+[0;35m21: [mexit 42 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(42)  bash(1) ][m  [0;90mcmds/mand/2_correction.sh:47[m  
+[0;35m22: [mexit A
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:49[m  
+[0;35m23: [mexit A 1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:51[m  
+[0;35m24: [mexit 1 A
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:53[m  
+[0;35m25: [m/bin/echo 42
+echo $?
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:55[m  
+[0;35m26: [m/bin/cat 42
+echo $?
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:58[m  
+[0;35m27: [m/bin/exe42 42
+echo $?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:61[m  
+[0;35m28: [m42 42
+echo $?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:64[m  
+[0;35m29: [m/bin/echo 42
+expr $? + $?
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:67[m  
+[0;35m30: [m/bin/cat 42
+expr $? + $?
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:70[m  
+[0;35m31: [mecho "Hello World"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:73[m  
+[0;35m32: [mecho "  " Hello World
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:75[m  
+[0;35m33: [mecho "  "Hello "World "
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:77[m  
+[0;35m34: [m"echo" 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:79[m  
+[0;35m35: [m"e"cho 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:81[m  
+[0;35m36: [mecho "cat lol.c | cat > lol.c"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:83[m  
+[0;35m37: [m/bin/echo @World"42"Hello
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:85[m  
+[0;35m38: [m/bin/echo "+""!""+"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:87[m  
+[0;35m39: [m/bin/echo " ç""!""ç "
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:89[m  
+[0;35m40: [mecho 'Hello World'
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:91[m  
+[0;35m41: [mecho '  ' Hello World
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:93[m  
+[0;35m42: [mecho '  'Hello 'World '
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:95[m  
+[0;35m43: [m'echo' 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:97[m  
+[0;35m44: [m'e'cho 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:99[m  
+[0;35m45: [mecho 'cat lol.c | cat > lol.c'
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:101[m  
+[0;35m46: [m/bin/echo @World'42'Hello
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:103[m  
+[0;35m47: [m/bin/echo '+''!''+'
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:105[m  
+[0;35m48: [m/bin/echo ' ç''!''ç '
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:107[m  
+[0;35m49: [mecho "" ''
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:109[m  
+[0;35m50: [mecho """"''""''""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:111[m  
+[0;35m51: [mecho " "" " ' ' " " ' ' " "
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:113[m  
+[0;35m52: [mecho 1 '|' echo 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:115[m  
+[0;35m53: [mecho 1 '&&' echo 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:117[m  
+[0;35m54: [mecho 1 '||' echo 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:119[m  
+[0;35m55: [mecho 1 '>' echo 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:121[m  
+[0;35m56: [mecho 1 '>>' file 2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:123[m  
+[0;35m57: [m'<<' lim echo 1 >>/dev/null
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/2_correction.sh:125[m  
+[0;35m58: [mecho "$USER"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:127[m  
+[0;35m59: [mecho "   $   "
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:129[m  
+[0;35m60: [mecho '$USER'
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:131[m  
+[0;35m61: [mecho '   $   '
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:133[m  
+[0;35m62: [mecho "$HO ME"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:135[m  
+[0;35m63: [mecho '$HO ME'
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:137[m  
+[0;35m64: [mecho $"HOME"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:139[m  
+[0;35m65: [mecho $'HOME'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:141[m  
+[0;35m66: [mecho ""$PWD""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:143[m  
+[0;35m67: [mecho ''$PWD''
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:145[m  
+[0;35m68: [mecho $USE"R"$HOME
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:147[m  
+[0;35m69: [m/bin/echo $"HOME"$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:149[m  
+[0;35m70: [m/bin/echo $"HOM"E$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:151[m  
+[0;35m71: [m/bin/echo $"'HOM'E"$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:153[m  
+[0;35m72: [m/bin/echo $'HOM'E$USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:155[m  
+[0;35m73: [m/bin/echo $"HOME"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:157[m  
+[0;35m74: [m/bin/echo $'HOME'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:159[m  
+[0;35m75: [m/bin/echo $
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:161[m  
+[0;35m76: [m/bin/echo "$"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:163[m  
+[0;35m77: [m/bin/echo '$='
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:165[m  
+[0;35m78: [m/bin/echo "$""$"
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:167[m  
+[0;35m79: [m/bin/echo $"$"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:169[m  
+[0;35m80: [m/bin/echo $"42$"
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:171[m  
+[0;35m81: [m/bin/echo "$"$
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:173[m  
+[0;35m82: [m/bin/echo $'$'
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:175[m  
+[0;35m83: [m/bin/echo '$'$
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:177[m  
+[0;35m84: [menv | grep HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:179[m  
+[0;35m85: [menv | grep $USER
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:181[m  
+[0;35m86: [mexport USER=
+env | grep USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:183[m  
+[0;35m87: [mexport USER="@?/"
+env | grep USER
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:186[m  
+[0;35m88: [mexport NEW="4 2"
+env | grep NEW
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:189[m  
+[0;35m89: [mexport NEW="4=2"
+env | grep NEW
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:192[m  
+[0;35m90: [mexport NEW=4=2
+env | grep 4=2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:195[m  
+[0;35m91: [mexport =
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/2_correction.sh:198[m  
+[0;35m92: [mexport ''=''
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/2_correction.sh:200[m  
+[0;35m93: [mexport ""=""
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/2_correction.sh:202[m  
+[0;35m94: [mexport export
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:204[m  
+[0;35m95: [mexport =============123
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(1) ][m  [0;90mcmds/mand/2_correction.sh:206[m  
+[0;35m96: [mexport echo
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:208[m  
+[0;35m97: [munset
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:210[m  
+[0;35m98: [munset env
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:212[m  
+[0;35m99: [munset PATH
+echo $PATH
+unset PATH
+echo $PATH
+unset HOME
+echo $HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:214[m  
+[0;35m100:[mexport NEW=42
+env | grep NEW
+unset NEW
+env | grep NEW
+unset NEW
+unset NEW
+unset NEW
+unset NEW
+unset NEW
+env | grep NEW
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:221[m  
+[0;35m101:[mcd .
+/bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:232[m  
+[0;35m102:[mcd ..
+/bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:235[m  
+[0;35m103:[mcd /notsuchdir
+/bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:238[m  
+[0;35m104:[mcd /////
+/bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:241[m  
+[0;35m105:[mcd "cmds/"
+/bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:244[m  
+[0;35m106:[mcd cmds/
+/bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:247[m  
+[0;35m107:[mcd ./cmds/
+/bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:250[m  
+[0;35m108:[mmkdir bla_test
+chmod -wrx bla_test
+cd bla_test
+chmod +wrx bla_test
+rm -r bla_test
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:253[m  
+[0;35m109:[mpwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:259[m  
+[0;35m110:[mcd $HOME
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:261[m  
+[0;35m111:[mpwd pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:264[m  
+[0;35m112:[mpwd hello
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:266[m  
+[0;35m113:[munset PATH
+pwd
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:268[m  
+[0;35m114:[munset PATH
+ls
+cd /bin
+ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:271[m  
+[0;35m115:[munset PATH
+ls
+cd /bin/../bin/
+ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:276[m  
+[0;35m116:[munset PATH
+ls
+cd /bin/../bin/../bin/../bin/../bin/../bin/../bin/../bin/
+../bin/../bin/ls
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:281[m  
+[0;35m117:[mls
+sleep 0
+whereis git
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:286[m  
+[0;35m118:[munset PATH
+ls
+sleep 0
+whereis git
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/2_correction.sh:290[m  
+[0;35m119:[mmkdir tmp_path_test1 tmp_path_test2
+printf '#include <unistd.h>\nint main(){write(1, \"1\\n\", 2);}' > tmp_path_test1/test1.c
+gcc tmp_path_test1/test1.c -o tmp_path_test1/a.out
+printf '#include <unistd.h>\nint main(){write(1, \"2\\n\", 2);}' > tmp_path_test2/test2.c
+gcc tmp_path_test2/test2.c -o tmp_path_test2/a.out
+export PATH=tmp_path_test1:tmp_path_test2
+a.out
+export PATH=tmp_path_test2:tmp_path_test1
+a.out
+/bin/rm -rf tmp_path_test1 tmp_path_test2
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_correction.sh:295[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   PATH FAILS                                                                 #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [munset PATH
+echo $PATH
+cat
+ls
+echo 1
+/bin/echo 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_path_check.sh:5[m  
+[0;35m2:  [munset PATH
+/bin/echo 42
+unset PATH
+unset PATH
+unset PATH
+echo $PATH
+cat
+ls
+echo 1
+/bin/echo 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_path_check.sh:12[m  
+[0;35m3:  [mexport PATH=""
+echo $PATH
+cat
+ls
+echo 1
+/bin/echo 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_path_check.sh:23[m  
+[0;35m4:  [mexport PATH=
+echo $PATH
+cat
+ls
+echo 1
+/bin/echo 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_path_check.sh:30[m  
+[0;35m5:  [mexport PATH=1
+echo $PATH
+cat
+ls
+echo 1
+/bin/echo 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_path_check.sh:37[m  
+[0;35m6:  [mtouch tmp_x_file1
+tmp_x_file1
+echo $?
+./tmp_x_file1
+echo $?
+export PATH=$HOME
+echo $PATH
+tmp_x_file1
+echo $?
+./tmp_x_file1
+echo $?
+unset PATH
+tmp_x_file1
+echo $?
+./tmp_x_file1
+echo $?
+/bin/echo 42
+/bin/rm -f tmp_x_file1
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/2_path_check.sh:44[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   SYNTAX ERRORS                                                              #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [m>
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:5[m  
+[0;35m2:  [m<
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:7[m  
+[0;35m3:  [m<<
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:9[m  
+[0;35m4:  [m>>>>>
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:11[m  
+[0;35m5:  [m> > > > >
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:13[m  
+[0;35m6:  [m>> >> >> >>
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:15[m  
+[0;35m7:  [m< < < < < <
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:19[m  
+[0;35m8:  [m/bin/cat ><
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:21[m  
+[0;35m9:  [m/bin/cat <Makefile >
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:23[m  
+[0;35m10: [mcat 42 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/8_syntax_errors.sh:25[m  
+[0;35m11: [mecho >
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:27[m  
+[0;35m12: [mecho > <
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:29[m  
+[0;35m13: [m.
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/8_syntax_errors.sh:31[m  
+[0;35m14: [m..
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/8_syntax_errors.sh:33[m  
+[0;35m15: [mEechoE
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/8_syntax_errors.sh:35[m  
+[0;35m16: [m.echo.
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/8_syntax_errors.sh:37[m  
+[0;35m17: [m>echo>
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:39[m  
+[0;35m18: [m<echo<
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:41[m  
+[0;35m19: [m>>echo>>
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:43[m  
+[0;35m20: [m|echo|
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:45[m  
+[0;35m21: [mtrying to destroy your minishell
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/8_syntax_errors.sh:47[m  
+[0;35m22: [m|
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:49[m  
+[0;35m23: [m| test
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:51[m  
+[0;35m24: [m| | |
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:53[m  
+[0;35m25: [m| | | | test
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(0)  bash(2) ][m  [0;90mcmds/mand/8_syntax_errors.sh:55[m  
+[0;33m# **************************************************************************** #[m
+[0;33m#   WILD                                                                       #[m
+[0;33m# **************************************************************************** #[m
+[0;35m1:  [m/bin/echo '\1$42' > tmp_redir_out
+ls -la | grep tmp_redir_out | awk '{print $1 $2}'
+cat -e tmp_redir_out
+rm tmp_redir_out
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:5[m  
+[0;35m2:  [msleep 0 | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat | cat
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:10[m  
+[0;35m3:  [m>tmp_out | echo 1
+cat tmp_out
+rm -f tmp_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:12[m  
+[0;35m4:  [mecho 1 | >tmp_out
+cat tmp_out
+rm -f tmp_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:16[m  
+[0;35m5:  [mgrep 1 < filedoesnotexist | echo 1 | grep 1 | head -1 | cat
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(0) ][m  [0;90mcmds/mand/9_go_wild.sh:20[m  
+[0;35m6:  [mgrep 1 < filedoesnotexist | echo 1 | grep 1 > tmp_out | head -1 | cat
+cat tmp_out
+rm -f tmp_out
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:22[m  
+[0;35m7:  [m/bin/echo 'echo 42' | cat <tmp_file
+/bin/echo file > tmp_file
+/bin/echo 'echo 42' | cat <tmp_file
+rm -f tmp_file
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:26[m  
+[0;35m8:  [mcat /dev/urandom | head -1 > tmp_out
+bash -c "[ -s tmp_out ] && echo nice"
+/bin/echo $?
+rm -f tmp_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:31[m  
+[0;35m9:  [mcat /dev/urandom | head -1 | wc -l
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:36[m  
+[0;35m10: [mcat /dev/null | head -1
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:38[m  
+[0;35m11: [mcat nofile | echo 42 | grep 42
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:40[m  
+[0;35m12: [mecho 1 > tmp_out
+echo 42 | grep 42 < tmp_out
+echo 42 | grep 1 < tmp_out
+rm -f tmp_out
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:42[m  
+[0;35m13: [m/usr/bin/env -i bash -c "env" | wc -l
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:47[m  
+[0;35m14: [mexport test=" arg1 arg2 "
+echo 'echo $1' > tmp_test_sh
+bash tmp_test_sh $test
+echo 'echo $2' > tmp_test_sh
+bash tmp_test_sh $test
+rm -f tmp_test_sh
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:49[m  
+[0;35m15: [mexport pipe_var=1 | echo $pipe_var
+echo $pipe_var
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:56[m  
+[0;35m16: [mecho $PATH
+echo $HOME
+unset PATH HOME
+echo $PATH
+echo $HOME
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:59[m  
+[0;35m17: [mcat /dev/urandom | lsof -c cat | wc -l
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:65[m  
+[0;35m18: [mecho "env | /usr/bin/wc -l" | /usr/bin/env -i $MINISHELL_PATH"/"$EXECUTABLE
+echo $?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:67[m  
+[0;35m19: [mecho "ls" | /usr/bin/env -i $MINISHELL_PATH"/"$EXECUTABLE
+echo $?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:70[m  
+[0;35m20: [mecho "unset PATH" | /usr/bin/env -i $MINISHELL_PATH"/"$EXECUTABLE
+echo $?
+
+[0;34mSTD_OUT:[m [0;31mKO[m  [0;36mSTD_ERR:[m [0;31mKO[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:73[m  
+[0;35m21: [mecho Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit.
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;32mOK[m  [0;90mcmds/mand/9_go_wild.sh:76[m  
+[0;35m22: [mLorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi imperdiet orci nec quam lobortis scelerisque. Morbi scelerisque leo molestie justo semper condimentum. Proin hendrerit ut nulla in mattis. Curabitur velit turpis, congue ut aliquam id, condimentum at dolor. Quisque ultricies neque in tellus pretium, vitae porta ipsum vestibulum. Vivamus cursus volutpat diam, at interdum erat fringilla ac. In nisl quam, ultrices vitae cursus ut, aliquam sed lacus. Suspendisse ac turpis fermentum, pulvinar risus quis, molestie elit. Mauris faucibus eget est vitae efficitur. Mauris feugiat enim in posuere auctor. Morbi lorem lorem, pellentesque et viverra vitae, ullamcorper a mauris. Cras blandit pulvinar accumsan. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aenean id hendrerit elit.
+
+[0;34mSTD_OUT:[m [0;32mOK[m  [0;36mSTD_ERR:[m [0;32mOK[m  [0;36mEXIT_CODE:[m [0;31mKO [ minishell(1)  bash(127) ][m  [0;90mcmds/mand/9_go_wild.sh:78[m  
+[0;33m# ============================================================================ #
+#   RESULT                                                                     #
+# ============================================================================ #[m
+[0;35m408:[m[0;34mSTD_OUT:[m [0;31m86[m  [0;36mSTD_ERR:[m [0;31m58[m  [0;36mEXIT_CODE:[m [0;31m76[m  
