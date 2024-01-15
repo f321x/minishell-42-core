@@ -6,7 +6,7 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/15 12:48:14 by marschul         ###   ########.fr        #
+#    Updated: 2024/01/15 13:13:47 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,13 +57,8 @@ debug: $(DOBJS)
 test: $(DOBJS)
 	make -C libs/libft debug
 	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(DOBJS) -o $(DNAME)
-	cd github_tester; bash ./tester.sh m
+	cd github_tester; bash ./tester.sh m > testoutput
 	
-
-testexecute:
-	make -C libs/libft
-	gcc -Wall -Wextra  -g -Llibs/libft -lft $(HEADERS) $(SRCDIR)/execute_line/execute_line.c $(SRCDIR)/builtins/echo.c $(SRCDIR)/builtins/cd.c $(SRCDIR)/builtins/env.c $(SRCDIR)/builtins/unset.c $(SRCDIR)/builtins/export.c $(SRCDIR)/builtins/pwd.c $(SRCDIR)/builtins/exit.c $(SRCDIR)/helper_functions.c
-
 testbuiltins: $(SRCS_TEST_BUILTINS)
 	make -C libs/libft debug
 	$(CC) $(CFLAGS) $(DFLAGS) $(LIB_DEBUG) $(HEADERS) $(SRCS_TEST_BUILTINS) -o $(TESTDIR)/testbuiltins
