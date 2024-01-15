@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/15 13:03:14 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:42:27 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ static void	check_if_ctrld(char *entered_line)
 	}
 }
 
+/* 
+If we are running in headless mode we disable the echo.
+We read with get_next_line.
+If there is nothing more to read, we exit with the exit code of the last 
+command.
+ */
 void	disable_echo_and_read(char **entered_line)
 {
 	struct termios		term;
@@ -48,6 +54,11 @@ void	disable_echo_and_read(char **entered_line)
 	}
 }
 
+/* 
+We decide if we are reading from a true terminal.
+Also we fix the environment leak that occurs sometimes after readline
+by saving the pointer before readline and comparing it afterwards.
+ */
 void	read_in(char **entered_line, char *prompt)
 {
 	char		**old_env;

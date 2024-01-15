@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:09:09 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/14 15:49:18 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:22:43 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ bool	check_for_signaled_quit(int status_pointer)
 	return (false);
 }
 
+/* 
+We wait for every single child process, one after the other.
+If it is an inbuilt, the pid_array is 0 or 1 for success.
+Otherwise we check if the termination was due to a signal.
+We set the exit value of every command, after it terminates.
+ */
 bool	wait_for_all(pid_t *pid_array, t_pipe *pipe_struct)
 {
 	size_t	i;

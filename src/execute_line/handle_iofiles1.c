@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_iofiles.c                                   :+:      :+:    :+:   */
+/*   handle_iofiles1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:03:09 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/11 12:15:35 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:36:05 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ bool	handle_infile(t_inoutfiles *file)
 	return (true);
 }
 
+/* 
+We only need one tmp file surprisingly, and it will be opened in /tmp/username
+ */
 bool	handle_herefile(t_inoutfiles *file, int true_stdin, int true_stdout)
 {
 	int		fd;
@@ -68,6 +71,9 @@ bool	handle_appendfile(t_inoutfiles *file)
 	return (true);
 }
 
+/* 
+loops over every indirection and opens files.
+ */
 bool	handle_inoutfiles(t_process *process, int true_inout_fds[2])
 {
 	int				i;

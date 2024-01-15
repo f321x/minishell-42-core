@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:07:01 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/13 18:09:05 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:20:18 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	free_processes(t_pipe *pipe_struct)
 	}
 }
 
+/* 
+Here we clean up everything: The pipe struct, everythin malloced in it,
+the pid and fd arrays, and the tmp file for the heredoc if it exists.
+ */
 int	cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 {
 	char	tmp_name[PATH_MAX];
@@ -56,6 +60,11 @@ bool	create_pid_array(pid_t **pid_array, size_t p_amount)
 		return (true);
 }
 
+/* 
+We have one pair of file descriptors for every pipe and the last for
+the original stdin and stdout, since we need them from time to time for
+restoration.
+ */
 bool	create_fd_array(int (*(*fd_array))[2], size_t n)
 {
 	int	(*res)[2];
@@ -69,6 +78,9 @@ bool	create_fd_array(int (*(*fd_array))[2], size_t n)
 	return (true);
 }
 
+/* 
+The file descriptors for the pipes are here being created.
+ */
 bool	create_pipes(int (*fd_array)[2], size_t n)
 {
 	size_t	i;

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:01:08 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/11 12:38:14 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:39:37 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,12 @@ int	read_line(int fd, char *keyword, int true_stdin)
 	return (equal_to_keyword);
 }
 
+/* 
+We read and write to true stdin/stdout!
+The code is kinda complex, but I read only 1 byte and only write it, if is
+clear that the input is not the keyword, since that won't be written at the
+end.
+ */
 int	get_here_file(char *keyword, int true_stdin, int true_stdout)
 {
 	int		fd;

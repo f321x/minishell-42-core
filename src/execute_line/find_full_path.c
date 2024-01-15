@@ -6,12 +6,15 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 13:04:38 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/11 13:42:51 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:33:07 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/* 
+Looks, if we have to add current directory, and give it back in new_paths
+ */
 bool	expand_path_var(char *paths, char new_paths[PATH_MAX])
 {
 	int		i;
@@ -66,6 +69,12 @@ bool	check_path(t_process *process, char path[PATH_MAX])
 	return (false);
 }
 
+/* 
+If there is a PATH var, we try the prefixes and check for existence.
+If there is :: or a : at the end, that means that we have to add the current
+directory to the PATH. That happens in expand_path_var.
+If there is no PATH, we find the name in the current dir!!!
+ */
 bool	find_full_path(t_process *process)
 {
 	char	*paths;
