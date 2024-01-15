@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:07:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/14 21:32:01 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:36:02 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,8 @@ int		cleanup(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array);
 bool	is_builtin(t_process *process);
 bool	launch_builtin_in_parent(t_process *process);
 pid_t	launch_process_in_parent(t_process *process);
+void	execute_child_process(t_pipe *pipe_struct, int (*fd_array)[2], \
+pid_t *pid_array, size_t i);
 
 // heredoc.c
 int		get_here_file(char *keyword, int true_stdin, int true_stdout);
@@ -184,4 +186,3 @@ void	sigint_handler(int signum);
 
 // gnl
 char	*get_next_line(int fd);
-

@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/14 21:30:58 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:34:54 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], \
 pid_t *pid_array, size_t i)
 {
 	int			pid;
-	extern char	**environ;
 	t_process	*process;
 	size_t		p_amount;
 
@@ -31,19 +30,7 @@ pid_t *pid_array, size_t i)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal(SIGQUIT, SIG_DFL);
-		signal(SIGINT, SIG_DFL);
-		close_all_fds(fd_array, p_amount);
-		if (process->argv == NULL)
-			exit(0);
-		if (is_exit(process->argv[0]))
-			exit((int) _exit_(process->argv, pipe_struct, fd_array, pid_array));
-		if (is_builtin(process))
-			exit((int) process->builtin(process->argv));
-		if (!find_full_path(process))
-			error_wrapper_exit("Minishell: launch_process");
-		if (execve(process->argv[0], process->argv, environ) == -1)
-			error_wrapper_exit("Minishell: launch_process");
+		execute_child_process(pipe_struct, fd_array, pid_array, i);
 	}
 	close_last_fds(fd_array, i);
 	dup2(fd_array[p_amount - 1][0], 0);

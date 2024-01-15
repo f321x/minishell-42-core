@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:38:47 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/14 21:27:59 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:03:14 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	check_if_ctrld(char *entered_line)
 {
-	if (entered_line == 0)
+	if (entered_line == NULL)
 	{
 		free(entered_line);
 		rl_clear_history();
@@ -48,6 +48,20 @@ void	disable_echo_and_read(char **entered_line)
 	}
 }
 
+void	read_in(char **entered_line, char *prompt)
+{
+	char		**old_env;
+	extern char	**environ;
+
+	old_env = environ;
+	if (! isatty(0))
+		disable_echo_and_read(entered_line);
+	else
+		*entered_line = readline(prompt);
+	if (environ != old_env)
+		free(old_env);
+}
+
 // Reads a line of input from the user.
 // prompt: The prompt to display to the user.
 // exits if the user presses CTRL+D (EOF / 0)
@@ -56,16 +70,11 @@ void	disable_echo_and_read(char **entered_line)
 char	*read_a_line(char *prompt)
 {
 	char		*entered_line;
-	char		**old_env;
-	extern char	**environ;
 
 	while (1)
 	{
-		old_env = environ;
-		if (! isatty(0))
-			disable_echo_and_read(&entered_line);
-		else
-			entered_line = readline(prompt);
+		entered_line = NULL;
+		read_in(&entered_line, prompt);
 		check_if_ctrld(entered_line);
 		if (!entered_line)
 			continue ;

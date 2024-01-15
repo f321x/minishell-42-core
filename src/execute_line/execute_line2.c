@@ -6,11 +6,33 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 21:30:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/14 21:30:50 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:36:29 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	execute_child_process(t_pipe *pipe_struct, int (*fd_array)[2], \
+pid_t *pid_array, size_t i)
+{
+	t_process	*process;
+	extern char	**environ;
+
+	process = &pipe_struct->processes[i];
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
+	close_all_fds(fd_array, pipe_struct->p_amount);
+	if (process->argv == NULL)
+		exit(0);
+	if (is_exit(process->argv[0]))
+		exit((int) _exit_(process->argv, pipe_struct, fd_array, pid_array));
+	if (is_builtin(process))
+		exit((int) process->builtin(process->argv));
+	if (!find_full_path(process))
+		error_wrapper_exit("Minishell: launch_process");
+	if (execve(process->argv[0], process->argv, environ) == -1)
+		error_wrapper_exit("Minishell: launch_process");
+}
 
 bool	is_builtin(t_process *process)
 {
