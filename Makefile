@@ -6,14 +6,14 @@
 #    By: marschul <marschul@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/18 08:57:25 by ***REMOVED***             #+#    #+#              #
-#    Updated: 2024/01/15 13:13:47 by marschul         ###   ########.fr        #
+#    Updated: 2024/01/16 11:29:33 by marschul         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= minishell
 
 CC 		:= cc
-CFLAGS 	:= -Wall -Wextra #-Werror
+CFLAGS 	:= -Wall -Wextra -Werror
 DFLAGS 	:= -g3 -fsanitize=address
 DNAME 	:= minishell_debug
 HEADERS = -I./includes -I ./libs/libft/includes

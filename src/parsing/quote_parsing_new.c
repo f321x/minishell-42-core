@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_parsing_new.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
+/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 11:50:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/12 15:17:27 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/16 12:05:08 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ void	fill_env_buffer(char *buffer, t_parsing *p)
 	size_t	buffer_i;
 
 	buffer_i = 0;
-
 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != 39
-			&& p->u_input[p->inp_i] != '"' && p->u_input[p->inp_i] != ' ')
+		&& p->u_input[p->inp_i] != '"' && p->u_input[p->inp_i] != ' ')
 	{
 		buffer[buffer_i++] = p->u_input[p->inp_i++];
 	}
