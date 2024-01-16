@@ -1,7 +1,5 @@
 Felix:
 
-echo "$VAR"
-
 Mara:
 
 Subshell fuer Builtins
