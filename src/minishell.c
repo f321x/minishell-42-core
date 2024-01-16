@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 09:28:44 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/14 15:54:10 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:34:23 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ int	main(void)
 			free(entered_line);
 			continue ;
 		}
-		// debug_printing(&task);
 		free(entered_line);
 		execute_line(&task);
 	}
