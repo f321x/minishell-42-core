@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/18 13:12:33 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/15 15:13:20 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:16:24 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* 
+/*
 The file descriptors are set for the pipe. Afterwards they will be restored
 for the parent process.
 We open the indirections.
 We fork.
-I put the code for the child process in another function for norminette 
+I put the code for the child process in another function for norminette
 reasons.
  */
 int	launch_process_in_pipe(t_pipe *pipe_struct, int (*fd_array)[2], \
@@ -46,7 +46,7 @@ pid_t *pid_array, size_t i)
 	return (pid);
 }
 
-/* 
+/*
 A single command must be treated differently, since the builtin will not
 run in a childprocess.
 Nevertheless we have to open the indirections.
@@ -80,7 +80,7 @@ bool	execute_single_command(t_pipe *pipe_struct, int (*fd_array)[2], \
 	return (true);
 }
 
-/* 
+/*
 We loop over the processes in the pipe.
  */
 int	execute_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
@@ -101,7 +101,7 @@ int	execute_pipe(t_pipe *pipe_struct, int (*fd_array)[2], pid_t *pid_array)
 	return (1);
 }
 
-/* 
+/*
 We must make a difference between single command and pipe.
  */
 bool	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], \
@@ -122,7 +122,7 @@ bool	execute_commands(t_pipe *pipe_struct, int (*fd_array)[2], \
 
 /*
 main fuction:
-We alloc the data structure, create the pipes, execute the one command or 
+We alloc the data structure, create the pipes, execute the one command or
 the pipe, then we wait for all processes to come home.
 In case of error we free all resources in cleanup.
  */

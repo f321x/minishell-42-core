@@ -6,7 +6,7 @@
 /*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 11:50:48 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/16 12:05:08 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/16 13:08:39 by marschul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ bool	add_buffer_to_argv(t_parsing *p, char *buffer)
 	return (true);
 }
 
+// skip_whitespace(p);
 bool	parse_single_quote(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	p->inp_i++;
-	skip_whitespace(p);
 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != 39)
 		buffer[(*buffer_i)++] = p->u_input[(p->inp_i)++];
 	if (p->u_input[p->inp_i] != 39)
@@ -50,10 +50,10 @@ void	fill_env_buffer(char *buffer, t_parsing *p)
 	}
 }
 
+// skip_whitespace(p);
 bool	parse_double_quote(t_parsing *p, char *buffer, size_t *buffer_i)
 {
 	p->inp_i++;
-	skip_whitespace(p);
 	while (p->u_input[p->inp_i] && p->u_input[p->inp_i] != '"')
 	{
 		if (p->u_input[p->inp_i] == '$')
