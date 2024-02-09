@@ -48,3 +48,9 @@ export a="a b"
 
 15)
 //// in pfad -> tbd
+
+
+awk "{count++} END {print count}";
+awk '"{count++} END {print count}"'
+awk "'{count++} END {print count}'"
+awk '{count++} END {print count}'

@@ -6,7 +6,7 @@
 /*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:03:45 by ***REMOVED***             #+#    #+#             */
-/*   Updated: 2024/01/11 16:41:35 by ***REMOVED***            ###   ########.fr       */
+/*   Updated: 2024/01/30 18:22:11 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ bool	parsing_main(char *input, t_pipe *task)
 	t_parsing	p;
 
 	init_parsing_data(&p, task, input);
+	// printf("Input: %s\n", input);
 	while (input && input[p.inp_i])
 	{
 		skip_whitespace(&p);

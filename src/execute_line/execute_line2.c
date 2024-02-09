@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   execute_line2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marschul <marschul@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ***REMOVED*** <***REMOVED***@student.***REMOVED***.de>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 21:30:25 by marschul          #+#    #+#             */
-/*   Updated: 2024/01/15 15:16:21 by marschul         ###   ########.fr       */
+/*   Updated: 2024/01/17 15:58:10 by ***REMOVED***            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/* 
+/*
 This is the child process in the pipe:
 We set signal handlers back to default.
 We close all file descriptors that we don't need, since otherwise the process
 does not terminate.
 We differ between exit builtin, builtin or process.
- */
+*/
 void	execute_child_process(t_pipe *pipe_struct, int (*fd_array)[2], \
 pid_t *pid_array, size_t i)
 {
@@ -41,7 +41,7 @@ pid_t *pid_array, size_t i)
 		error_wrapper_exit("Minishell: launch_process");
 }
 
-/* 
+/*
 This does not only decide if it is a builtin, but sets also the function
 pointer to the rigth function.
  */
